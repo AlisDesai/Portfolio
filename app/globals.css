@@ -13,6 +13,7 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-syne);
+  --font-jakarta: var(--font-jakarta);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -26,4 +27,16 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Infinite portfolio-showcase marquee (Services section): the track is
+   rendered as two identical halves, so translating exactly -50% loops back
+   to a pixel-identical frame with no visible seam or restart jump. */
+@keyframes marquee-scroll {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
 }

@@ -4,7 +4,13 @@
       "Bash(npx eslint *)",
       "Bash(npx tsc *)",
       "Bash(node -e ' *)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(npx prettier *)",
+      "Bash(node generate2.mjs 0.06 --write)",
+      "Bash(ls \"/c/Users/ALISDE~1/AppData/Local/Temp/claude/c--Portfolio/76da18d9-f861-496d-97c7-5048cf29d6f3/scratchpad/mapgen\" 2>&1 | head -50)",
+      "Read(//c/Users/ALISDE~1/AppData/Local/Temp/claude/c--Portfolio/76da18d9-f861-496d-97c7-5048cf29d6f3/scratchpad/mapgen/**)",
+      "Read(//c/Users/ALISDE~1/AppData/Local/Temp/claude/c--Portfolio/76da18d9-f861-496d-97c7-5048cf29d6f3/scratchpad/**)",
+      "Read(//c/Users/ALISDE~1/AppData/Local/Temp/claude/c--Portfolio/76da18d9-f861-496d-97c7-5048cf29d6f3/scratchpad/node_modules/.bin/**)"
     ]
   }
 }

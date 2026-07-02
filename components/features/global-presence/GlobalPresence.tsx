@@ -25,7 +25,7 @@ export function GlobalPresence() {
   return (
     <section
       ref={sectionRef}
-      className="relative flex min-h-[90vh] w-full flex-col items-center justify-center overflow-hidden bg-[#050505] px-6 py-24 md:min-h-screen md:py-32"
+      className="relative flex min-h-[90vh] w-full flex-col items-center justify-center overflow-hidden bg-[#050505] px-6 pt-10 pb-24 md:min-h-screen md:pt-14 md:pb-32"
     >
       <div className="pointer-events-none absolute inset-0 [background:radial-gradient(ellipse_at_center,rgba(129,140,248,0.08)_0%,transparent_60%)]" />
 

@@ -1,0 +1,18 @@
+export const FAMILIAR_PHRASES = [
+  "Web development company near me",
+  "Best App Development Companies",
+  "Best UI/UX designer",
+  "Contact us for IT solutions",
+  "Best IT Company",
+  "We have Experienced Web Developers",
+  "Digital marketing solutions",
+  "AI Development Company",
+  "Custom Software Development",
+  "Website Development Services",
+  "Mobile App Development Company",
+  "Cloud Solutions Provider",
+  "Machine Learning Experts",
+  "We are providing the work on time",
+  "Trusted Technology Partner",
+  "Enterprise Software Solutions",
+] as const;
