@@ -9,21 +9,30 @@ import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion"
 
 const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
 
+// Headline reveal begins only once the background collage is established.
+const HEADLINE_START = 1.3;
+const HEADLINE_STAGGER = 0.3;
+const HEADLINE_LINE_DURATION = 0.7;
+
 const headlineContainer: Variants = {
   hidden: {},
   visible: {
-    transition: { staggerChildren: 0.12, delayChildren: 0.2 },
+    transition: { staggerChildren: HEADLINE_STAGGER, delayChildren: HEADLINE_START },
   },
 };
 
 const headlineLine: Variants = {
-  hidden: { opacity: 0, y: 16 },
+  hidden: { opacity: 0, y: 16, filter: "blur(8px)" },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.7, ease: EASE_PREMIUM },
+    filter: "blur(0px)",
+    transition: { duration: HEADLINE_LINE_DURATION, ease: EASE_PREMIUM },
   },
 };
+
+// Last headline line finishes at HEADLINE_START + 2 * HEADLINE_STAGGER + HEADLINE_LINE_DURATION.
+const HEADLINE_DONE_MS = (HEADLINE_START + 2 * HEADLINE_STAGGER + HEADLINE_LINE_DURATION) * 1000;
 
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -91,8 +100,9 @@ export function Hero() {
     }
 
     // Wait for the headline's entrance animation to finish before measuring
-    // its final (settled) position.
-    const timeout = setTimeout(measure, 1300);
+    // its final (settled) position. This also gates when the service tags
+    // first mount, so they naturally appear only once the headline is done.
+    const timeout = setTimeout(measure, HEADLINE_DONE_MS + 100);
     window.addEventListener("resize", measure);
     return () => {
       clearTimeout(timeout);
