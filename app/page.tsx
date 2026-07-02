@@ -1,3 +1,4 @@
+import { GlobalPresence } from "@/components/features/global-presence/GlobalPresence";
 import { Hero } from "@/components/features/home/Hero";
 import { Navbar } from "@/components/layout/Navbar";
 
@@ -7,6 +8,7 @@ export default function Home() {
       <Navbar />
       <main className="flex flex-1 flex-col">
         <Hero />
+        <GlobalPresence />
       </main>
     </>
   );
