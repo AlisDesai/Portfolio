@@ -13,7 +13,6 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-syne);
-  --font-premium: var(--font-manrope);
 }
 
 @media (prefers-color-scheme: dark) {

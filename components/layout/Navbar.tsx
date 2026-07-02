@@ -26,11 +26,11 @@ export function Navbar() {
           paddingBottom: scrolled ? "8px" : "12px",
         }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        className="flex w-full max-w-3xl items-center justify-between gap-6 rounded-full border border-white/10 bg-white/5 shadow-[0_8px_32px_rgba(0,0,0,0.35)] backdrop-blur-xl"
+        className="flex w-full max-w-3xl items-center justify-between gap-6 rounded-full border border-black/5 bg-white/95 shadow-[0_8px_30px_rgba(0,0,0,0.12)] backdrop-blur-xl"
       >
         <Link
           href={ROUTES.HOME}
-          className="font-display text-sm font-bold tracking-tight text-white transition-transform duration-300 ease-out hover:scale-[1.02] sm:text-base"
+          className="font-display text-sm font-bold tracking-tight text-zinc-900 transition-transform duration-300 ease-out hover:scale-[1.02] sm:text-base"
         >
           {siteConfig.name}
         </Link>

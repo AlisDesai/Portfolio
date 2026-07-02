@@ -1,10 +1,5 @@
 export const SERVICE_TAGS = [
-  "Digital Transformation",
   "Next-Gen Development",
+  "Digital Transformation",
   "AI & ML Expertise",
-  "Cloud Engineering",
-  "Custom Software",
-  "SaaS Products",
-  "LLM Integration",
-  "DevOps",
 ] as const;
