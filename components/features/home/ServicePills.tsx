@@ -33,7 +33,7 @@ export function ServicePills({ reduceMotion, styles }: ServicePillsProps) {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.15 * index, ease: EASE_PREMIUM }}
             >
-              <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-white/80 backdrop-blur-md">
+              <span className="inline-flex items-center rounded-full border border-white/15 bg-white/20 px-5 py-2.5 text-sm font-bold tracking-wide whitespace-nowrap text-white backdrop-blur-md">
                 {label}
               </span>
             </motion.div>
