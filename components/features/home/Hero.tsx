@@ -21,11 +21,22 @@ const headlineContainer: Variants = {
   },
 };
 
-const headlineLine: Variants = {
-  hidden: { opacity: 0, y: 16, filter: "blur(8px)" },
+// Split across two nested elements (rather than one) so the transform and the
+// blur filter each get their own compositing layer — animating both on a
+// single node can make some browsers visibly clip the blurred glyph edges
+// mid-transition.
+const headlineLineMotion: Variants = {
+  hidden: { opacity: 0, y: 16 },
   visible: {
     opacity: 1,
     y: 0,
+    transition: { duration: HEADLINE_LINE_DURATION, ease: EASE_PREMIUM },
+  },
+};
+
+const headlineLineBlur: Variants = {
+  hidden: { filter: "blur(8px)" },
+  visible: {
     filter: "blur(0px)",
     transition: { duration: HEADLINE_LINE_DURATION, ease: EASE_PREMIUM },
   },
@@ -130,17 +141,23 @@ export function Hero() {
         className="relative z-20 mx-auto max-w-[1600px] px-6 text-center sm:px-10 lg:px-16"
       >
         <h1 className="font-display w-full text-[clamp(2.25rem,5.75vw,5.9rem)] leading-[1.2] font-extrabold tracking-tight text-white uppercase">
-          <motion.span variants={headlineLine} className="block">
-            Custom <span ref={techRef}>Tech</span>
+          <motion.span variants={headlineLineMotion} className="block">
+            <motion.span variants={headlineLineBlur} className="block">
+              Custom <span ref={techRef}>Tech</span>
+            </motion.span>
           </motion.span>
-          <motion.span variants={headlineLine} className="mt-12 block">
-            <span ref={solutionsRef} className="text-accent">
-              Solutions
-            </span>
-            , <span ref={builtRef}>Built</span>
+          <motion.span variants={headlineLineMotion} className="mt-12 block">
+            <motion.span variants={headlineLineBlur} className="block">
+              <span ref={solutionsRef} className="text-accent">
+                Solutions
+              </span>
+              , <span ref={builtRef}>Built</span>
+            </motion.span>
           </motion.span>
-          <motion.span variants={headlineLine} className="mt-12 block">
-            <span ref={toRef}>To</span> <span ref={perfectionRef}>Perfection</span>
+          <motion.span variants={headlineLineMotion} className="mt-12 block">
+            <motion.span variants={headlineLineBlur} className="block">
+              <span ref={toRef}>To</span> <span ref={perfectionRef}>Perfection</span>
+            </motion.span>
           </motion.span>
         </h1>
       </motion.div>
