@@ -25,13 +25,12 @@ const headlineLine: Variants = {
   },
 };
 
-const PILL_GAP = 20;
-
 export function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const techRef = useRef<HTMLSpanElement>(null);
   const solutionsRef = useRef<HTMLSpanElement>(null);
   const builtRef = useRef<HTMLSpanElement>(null);
+  const toRef = useRef<HTMLSpanElement>(null);
   const reduceMotion = usePrefersReducedMotion();
 
   const [pillStyles, setPillStyles] = useState<ServicePillStyle[] | null>(null);
@@ -48,26 +47,31 @@ export function Hero() {
       const tech = techRef.current;
       const solutions = solutionsRef.current;
       const built = builtRef.current;
-      if (!section || !tech || !solutions || !built) return;
+      const to = toRef.current;
+      if (!section || !tech || !solutions || !built || !to) return;
 
       const sectionRect = section.getBoundingClientRect();
-      const techRect = tech.getBoundingClientRect();
       const solutionsRect = solutions.getBoundingClientRect();
       const builtRect = built.getBoundingClientRect();
+      const toRect = to.getBoundingClientRect();
 
       // Order matches SERVICE_TAGS: Next-Gen Development, Digital Transformation, AI & ML Expertise.
+      // Anchored so the pill overlaps onto the corner of the given word (per design reference).
       setPillStyles([
         {
-          top: Math.max(8, solutionsRect.top - sectionRect.top + solutionsRect.height / 2 - 17),
-          right: Math.max(8, sectionRect.right - solutionsRect.left + PILL_GAP),
+          top: (solutionsRect.bottom + toRect.top) / 2 - sectionRect.top,
+          left: Math.min(solutionsRect.left, toRect.left) - sectionRect.left,
+          transform: "translate(-30%, -50%) rotate(-11deg)",
         },
         {
-          top: Math.max(8, techRect.top - sectionRect.top - 44),
-          left: Math.max(8, techRect.right - sectionRect.left - 60),
+          top: builtRect.top - sectionRect.top,
+          left: builtRect.right - sectionRect.left,
+          transform: "translate(-55%, -55%) rotate(11deg)",
         },
         {
-          top: Math.max(8, builtRect.top - sectionRect.top + builtRect.height * 0.6 - 17),
-          left: Math.max(8, builtRect.right - sectionRect.left + PILL_GAP),
+          top: builtRect.bottom - sectionRect.top,
+          left: builtRect.right - sectionRect.left,
+          transform: "translate(-60%, -30%) rotate(10deg)",
         },
       ]);
     }
@@ -112,7 +116,7 @@ export function Hero() {
             , <span ref={builtRef}>Built</span>
           </motion.span>
           <motion.span variants={headlineLine} className="block">
-            To Perfection
+            <span ref={toRef}>To</span> Perfection
           </motion.span>
         </h1>
       </motion.div>

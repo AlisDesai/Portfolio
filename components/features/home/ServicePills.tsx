@@ -7,6 +7,8 @@ export interface ServicePillStyle {
   top: number;
   left?: number;
   right?: number;
+  /** Static anchor transform (translate % + rotate) — kept separate from the entrance animation. */
+  transform?: string;
 }
 
 const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
@@ -21,22 +23,21 @@ export function ServicePills({ reduceMotion, styles }: ServicePillsProps) {
   if (!styles) return null;
 
   return (
-    <div className="pointer-events-none absolute inset-0 z-10 hidden md:block">
+    <div className="pointer-events-none absolute inset-0 z-30 hidden md:block">
       {SERVICE_TAGS.map((label, index) => {
-        const style = styles[index];
+        const { top, left, right, transform } = styles[index];
         return (
-          <motion.div
-            key={label}
-            className="absolute"
-            style={style}
-            initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.15 * index, ease: EASE_PREMIUM }}
-          >
-            <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-white/80 backdrop-blur-md">
-              {label}
-            </span>
-          </motion.div>
+          <div key={label} className="absolute" style={{ top, left, right, transform }}>
+            <motion.div
+              initial={{ opacity: 0, y: reduceMotion ? 0 : 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.15 * index, ease: EASE_PREMIUM }}
+            >
+              <span className="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-4 py-2 text-xs font-medium tracking-wide text-white/80 backdrop-blur-md">
+                {label}
+              </span>
+            </motion.div>
+          </div>
         );
       })}
     </div>
