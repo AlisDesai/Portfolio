@@ -1,3 +1,4 @@
+import { Contact } from "@/components/features/contact/Contact";
 import { FamiliarPhrases } from "@/components/features/familiar-phrases/FamiliarPhrases";
 import { GlobalPresence } from "@/components/features/global-presence/GlobalPresence";
 import { Hero } from "@/components/features/home/Hero";
@@ -15,6 +16,7 @@ export default function Home() {
         <Services />
         <FamiliarPhrases />
         <Testimonials />
+        <Contact />
       </main>
     </>
   );
