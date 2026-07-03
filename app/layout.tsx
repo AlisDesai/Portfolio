@@ -15,11 +15,12 @@ const geistMono = Geist_Mono({
 });
 
 // Premium pairing used by the marketing hero/navbar only — the rest of the
-// site keeps Geist as its default typography.
+// site keeps Geist as its default typography. Weight 400 (Syne's lightest
+// real weight) is additive, for the Services Hero's thin-italic accent line.
 const syne = Syne({
   variable: "--font-syne",
   subsets: ["latin"],
-  weight: ["600", "700", "800"],
+  weight: ["400", "600", "700", "800"],
 });
 
 // Stylish-but-professional heading font used for the Services accordion titles.
