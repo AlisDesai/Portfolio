@@ -66,11 +66,11 @@ function ConnectorLine({
         y1={marker.y}
         x2={marker.x}
         y2={y2}
-        stroke="#ffffff"
+        className="stroke-white"
         strokeOpacity={0.6}
         strokeWidth={1}
       />
-      <circle cx={marker.x} cy={y2} r={2.2} fill="#ffffff" />
+      <circle cx={marker.x} cy={y2} r={2.2} className="fill-white" />
     </motion.g>
   );
 }
@@ -102,11 +102,11 @@ function ElbowConnectorLine({
       <path
         d={`M${marker.x},${marker.y} V${cornerY} H${endX}`}
         fill="none"
-        stroke="#ffffff"
+        className="stroke-white"
         strokeOpacity={0.6}
         strokeWidth={1}
       />
-      <circle cx={endX} cy={cornerY} r={2.2} fill="#ffffff" />
+      <circle cx={endX} cy={cornerY} r={2.2} className="fill-white" />
     </motion.g>
   );
 }
@@ -273,7 +273,7 @@ export function GlobalPresenceMap({ isInView, reduceMotion, baseDelay }: GlobalP
           {!reduceMotion && (
             <motion.circle
               r={6}
-              fill="#93c5fd"
+              className="fill-blue-300"
               filter="url(#softGlow)"
               style={{ x: dotX, y: dotY }}
               initial={{ opacity: 0 }}

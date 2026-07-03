@@ -3,7 +3,10 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { TestimonialCard } from "@/components/features/testimonials/TestimonialCard";
-import { TESTIMONIALS, type Testimonial } from "@/components/features/testimonials/testimonials-data";
+import {
+  TESTIMONIALS,
+  type Testimonial,
+} from "@/components/features/testimonials/testimonials-data";
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";
 import { cn } from "@/lib/utils/cn";
 
