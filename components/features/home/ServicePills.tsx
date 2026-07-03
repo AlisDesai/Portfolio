@@ -31,7 +31,7 @@ export function ServicePills({ reduceMotion, styles }: ServicePillsProps) {
             <motion.div
               initial={{ opacity: 0, scale: reduceMotion ? 1 : 0.85 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5, delay: 0.15 + 0.12 * index, ease: EASE_PREMIUM }}
+              transition={{ duration: 0.35, delay: 0.05 + 0.08 * index, ease: EASE_PREMIUM }}
             >
               <span className="inline-flex items-center rounded-full border border-white/15 bg-white/20 px-5 py-2.5 text-sm font-bold tracking-wide whitespace-nowrap text-white backdrop-blur-md">
                 {label}

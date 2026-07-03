@@ -9,17 +9,23 @@ import { GLOBAL_STATS } from "@/lib/constants/stats";
 
 const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
 
-// Sequenced delays (seconds): badge -> heading -> description -> map -> stats.
+// Sequenced delays (seconds), each relative to its own element scrolling
+// into view — not one shared flag from the top of this (very tall) section,
+// which used to fire before the map/stats were ever actually on screen.
 const BADGE_DELAY = 0;
 const HEADING_DELAY = 0.15;
 const DESCRIPTION_DELAY = 0.3;
-const MAP_DELAY = 0.5;
-const STATS_START_DELAY = 2.5;
+const MAP_DELAY = 0.2;
+const STATS_START_DELAY = 0.1;
 const STATS_STAGGER = 0.15;
 
 export function GlobalPresence() {
   const sectionRef = useRef<HTMLElement>(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.3 });
+  const mapRef = useRef<HTMLDivElement>(null);
+  const statsRef = useRef<HTMLDivElement>(null);
+  const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
+  const mapIsInView = useInView(mapRef, { once: true, amount: 0.2 });
+  const statsIsInView = useInView(statsRef, { once: true, amount: 0.2 });
   const reduceMotion = usePrefersReducedMotion();
 
   return (
@@ -63,16 +69,23 @@ export function GlobalPresence() {
         </motion.p>
       </div>
 
-      <div className="relative z-10 mt-20 w-full md:mt-24">
-        <GlobalPresenceMap isInView={isInView} reduceMotion={reduceMotion} baseDelay={MAP_DELAY} />
+      <div ref={mapRef} className="relative z-10 mt-20 w-full md:mt-24">
+        <GlobalPresenceMap
+          isInView={mapIsInView}
+          reduceMotion={reduceMotion}
+          baseDelay={MAP_DELAY}
+        />
       </div>
 
-      <div className="relative z-10 mt-24 grid w-full max-w-7xl grid-cols-2 gap-12 md:mt-28 md:grid-cols-3 md:gap-20">
+      <div
+        ref={statsRef}
+        className="relative z-10 mt-24 grid w-full max-w-7xl grid-cols-2 gap-12 md:mt-28 md:grid-cols-3 md:gap-20"
+      >
         {GLOBAL_STATS.map((stat, index) => (
           <StatCounter
             key={stat.label}
             stat={stat}
-            isInView={isInView}
+            isInView={statsIsInView}
             delay={STATS_START_DELAY + index * STATS_STAGGER}
           />
         ))}

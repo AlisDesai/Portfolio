@@ -14,7 +14,9 @@ const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
 
 const HEADING_DELAY = 0;
 const SUBTITLE_DELAY = 0.1;
-const ROW_START_DELAY = 0.3;
+// Relative to the rows' own scroll trigger (see rowsIsInView below), not the
+// heading above them.
+const ROW_START_DELAY = 0.1;
 const ROW_STAGGER = 0.15;
 
 // Split into two rows, each scrolling in an opposite direction — a
@@ -68,7 +70,9 @@ function TestimonialMarqueeRow({ items, reverse, isInView, delay, reduceMotion }
 
 export function Testimonials() {
   const sectionRef = useRef<HTMLElement>(null);
+  const rowsRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
+  const rowsIsInView = useInView(rowsRef, { once: true, amount: 0.1 });
   const reduceMotion = usePrefersReducedMotion();
 
   return (
@@ -96,18 +100,18 @@ export function Testimonials() {
         </motion.p>
       </div>
 
-      <div className="relative z-10 flex flex-col gap-6 lg:gap-8">
+      <div ref={rowsRef} className="relative z-10 flex flex-col gap-6 lg:gap-8">
         <TestimonialMarqueeRow
           items={ROW_1}
           reverse={false}
-          isInView={isInView}
+          isInView={rowsIsInView}
           delay={ROW_START_DELAY}
           reduceMotion={reduceMotion}
         />
         <TestimonialMarqueeRow
           items={ROW_2}
           reverse
-          isInView={isInView}
+          isInView={rowsIsInView}
           delay={ROW_START_DELAY + ROW_STAGGER}
           reduceMotion={reduceMotion}
         />

@@ -28,7 +28,7 @@ export function StatCounter({ stat, isInView, delay }: StatCounterProps) {
     }
 
     const controls = animate(0, stat.value, {
-      duration: 2,
+      duration: 2.4,
       delay,
       ease: EASE_PREMIUM,
       onUpdate: (latest) => {

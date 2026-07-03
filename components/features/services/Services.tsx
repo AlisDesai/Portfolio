@@ -8,15 +8,19 @@ import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion"
 
 const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
 
-// Sequenced delays (seconds): label -> heading -> accordion rows.
+// Sequenced delays (seconds), each relative to its own element scrolling
+// into view — the accordion list gets its own trigger so its rows animate
+// when actually scrolled to, not whenever the header above them was seen.
 const LABEL_DELAY = 0;
 const HEADING_DELAY = 0.15;
-const LIST_START_DELAY = 0.35;
+const LIST_START_DELAY = 0.1;
 const LIST_STAGGER = 0.1;
 
 export function Services() {
   const sectionRef = useRef<HTMLElement>(null);
+  const listRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.15 });
+  const listIsInView = useInView(listRef, { once: true, amount: 0.1 });
   const reduceMotion = usePrefersReducedMotion();
   const [openId, setOpenId] = useState<string | null>(null);
 
@@ -49,14 +53,17 @@ export function Services() {
         </motion.p>
       </div>
 
-      <div className="relative z-10 mx-auto mt-16 flex w-full max-w-[1600px] flex-col gap-5 md:mt-20">
+      <div
+        ref={listRef}
+        className="relative z-10 mx-auto mt-16 flex w-full max-w-[1600px] flex-col gap-5 md:mt-20"
+      >
         {SERVICES.map((service, index) => (
           <ServiceAccordionItem
             key={service.id}
             service={service}
             isOpen={service.id === openId}
             onToggle={() => setOpenId((prev) => (prev === service.id ? null : service.id))}
-            isInView={isInView}
+            isInView={listIsInView}
             reduceMotion={reduceMotion}
             delay={LIST_START_DELAY + index * LIST_STAGGER}
           />
