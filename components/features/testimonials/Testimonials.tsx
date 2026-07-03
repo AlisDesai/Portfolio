@@ -1,69 +1,64 @@
 "use client";
 
-import { motion, useInView, useScroll, useTransform, type MotionValue } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { TestimonialCard } from "@/components/features/testimonials/TestimonialCard";
-import {
-  TESTIMONIALS,
-  type Testimonial,
-} from "@/components/features/testimonials/testimonials-data";
+import { TESTIMONIALS, type Testimonial } from "@/components/features/testimonials/testimonials-data";
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";
+import { cn } from "@/lib/utils/cn";
 
 const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
 
 const HEADING_DELAY = 0;
 const SUBTITLE_DELAY = 0.1;
-const CARDS_START_DELAY = 0.3;
-const CARD_STAGGER = 0.08;
-const COLUMN_STAGGER = 0.1;
+const ROW_START_DELAY = 0.3;
+const ROW_STAGGER = 0.15;
 
-// Fixed at 4 columns (matching the desktop "4 columns x 2 cards" layout) — on
-// sm/tablet these same 4 column groups simply reflow into a 2-column grid.
-const COLUMN_COUNT = 4;
-const COLUMNS: Testimonial[][] = Array.from({ length: COLUMN_COUNT }, (_, columnIndex) =>
-  TESTIMONIALS.filter((_, index) => index % COLUMN_COUNT === columnIndex)
-);
+// Split into two rows, each scrolling in an opposite direction — a
+// continuous client showcase rather than a one-by-one card reveal.
+const ROW_1 = TESTIMONIALS.slice(0, 4);
+const ROW_2 = TESTIMONIALS.slice(4);
 
-// Each column drifts vertically at a different rate as the section scrolls
-// through the viewport — the subtle "waterfall" motion that makes a masonry
-// grid feel alive instead of a static block.
-const COLUMN_PARALLAX_RANGE: Array<[number, number]> = [
-  [0, -50],
-  [0, 40],
-  [0, -35],
-  [0, 55],
-];
-
-interface ParallaxColumnProps {
+interface MarqueeRowProps {
   items: Testimonial[];
-  range: [number, number];
-  scrollYProgress: MotionValue<number>;
+  reverse: boolean;
   isInView: boolean;
-  baseDelay: number;
+  delay: number;
   reduceMotion: boolean;
 }
 
-function ParallaxColumn({
-  items,
-  range,
-  scrollYProgress,
-  isInView,
-  baseDelay,
-  reduceMotion,
-}: ParallaxColumnProps) {
-  const y = useTransform(scrollYProgress, [0, 1], reduceMotion ? [0, 0] : range);
+function TestimonialMarqueeRow({ items, reverse, isInView, delay, reduceMotion }: MarqueeRowProps) {
+  // Rendered twice: translating the track exactly -50% loops back to a
+  // pixel-identical frame, so the loop has no visible seam, jump, or gap.
+  const trackItems = [...items, ...items];
 
   return (
-    <motion.div style={{ y }} className="flex flex-col gap-6 lg:gap-8">
-      {items.map((testimonial, index) => (
-        <TestimonialCard
-          key={testimonial.name}
-          testimonial={testimonial}
-          isInView={isInView}
-          delay={baseDelay + index * CARD_STAGGER}
-          reduceMotion={reduceMotion}
-        />
-      ))}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={isInView ? { opacity: 1 } : {}}
+      transition={{ duration: 0.6, delay, ease: EASE_PREMIUM }}
+      className="group/marquee w-full overflow-hidden"
+    >
+      <div
+        className={cn(
+          "flex w-max items-start gap-6 lg:gap-8",
+          !reduceMotion &&
+            cn(
+              "animate-[marquee-scroll_30s_linear_infinite] group-hover/marquee:[animation-play-state:paused]",
+              reverse && "[animation-direction:reverse]"
+            )
+        )}
+      >
+        {trackItems.map((testimonial, index) => (
+          <div
+            key={`${testimonial.name}-${index}`}
+            aria-hidden={index >= items.length}
+            className="w-[320px] shrink-0 sm:w-90"
+          >
+            <TestimonialCard testimonial={testimonial} />
+          </div>
+        ))}
+      </div>
     </motion.div>
   );
 }
@@ -72,10 +67,6 @@ export function Testimonials() {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.1 });
   const reduceMotion = usePrefersReducedMotion();
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start end", "end start"],
-  });
 
   return (
     <section ref={sectionRef} className="relative w-full overflow-hidden bg-white py-24 md:py-32">
@@ -102,20 +93,21 @@ export function Testimonials() {
         </motion.p>
       </div>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1600px] px-6 sm:px-10 lg:px-16">
-        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-          {COLUMNS.map((items, columnIndex) => (
-            <ParallaxColumn
-              key={columnIndex}
-              items={items}
-              range={COLUMN_PARALLAX_RANGE[columnIndex]}
-              scrollYProgress={scrollYProgress}
-              isInView={isInView}
-              baseDelay={CARDS_START_DELAY + columnIndex * COLUMN_STAGGER}
-              reduceMotion={reduceMotion}
-            />
-          ))}
-        </div>
+      <div className="relative z-10 flex flex-col gap-6 lg:gap-8">
+        <TestimonialMarqueeRow
+          items={ROW_1}
+          reverse={false}
+          isInView={isInView}
+          delay={ROW_START_DELAY}
+          reduceMotion={reduceMotion}
+        />
+        <TestimonialMarqueeRow
+          items={ROW_2}
+          reverse
+          isInView={isInView}
+          delay={ROW_START_DELAY + ROW_STAGGER}
+          reduceMotion={reduceMotion}
+        />
       </div>
     </section>
   );
