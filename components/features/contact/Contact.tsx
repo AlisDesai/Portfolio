@@ -11,6 +11,7 @@ import {
 } from "@/components/features/contact/icons";
 import { siteConfig } from "@/config/metadata";
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";
+import { cn } from "@/lib/utils/cn";
 
 const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
 
@@ -45,7 +46,7 @@ export function Contact() {
     <section
       id="contact"
       ref={sectionRef}
-      className="relative w-full overflow-hidden bg-white py-28 md:py-36"
+      className="relative w-full overflow-hidden bg-white pt-28 md:pt-36"
     >
       <div className="relative z-10 mx-auto grid w-full max-w-[1400px] grid-cols-1 items-center gap-16 px-6 sm:px-10 lg:grid-cols-2 lg:gap-20 lg:px-16">
         {/* Left: heading + watermark + logo */}
@@ -99,24 +100,18 @@ export function Contact() {
 
         {/* Right: contact form + info grid + socials */}
         <div className="relative flex flex-col justify-center">
-          <form className="flex items-end gap-4">
-            <div className="relative w-full">
-              <input
-                type="email"
-                placeholder="Email"
-                aria-label="Email address"
-                className="peer w-full bg-transparent pb-3 text-lg text-black placeholder:text-black/30 placeholder:transition-opacity placeholder:duration-300 focus:outline-none sm:text-xl"
-              />
-              {/* Base line draws in left-to-right once on viewport entry. */}
-              <motion.span
-                initial={{ scaleX: 0 }}
-                animate={isInView ? { scaleX: 1 } : {}}
-                transition={{ duration: 0.8, delay: INPUT_DELAY, ease: EASE_PREMIUM }}
-                className="absolute inset-x-0 bottom-0 h-px origin-left bg-black/10"
-              />
-              {/* Focus overlay — independent of the entrance animation above. */}
-              <span className="absolute inset-x-0 bottom-0 h-px origin-left scale-x-0 bg-black transition-transform duration-500 ease-out peer-focus:scale-x-100" />
-            </div>
+          <motion.form
+            initial={{ opacity: 0, y: reduceMotion ? 0 : 16 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: INPUT_DELAY, ease: EASE_PREMIUM }}
+            className="flex w-full items-center gap-2 rounded-full border border-black/10 bg-white py-2 pr-2 pl-6 shadow-sm transition-colors duration-300 ease-out focus-within:border-black/40 focus-within:shadow-md"
+          >
+            <input
+              type="email"
+              placeholder="Email"
+              aria-label="Email address"
+              className="w-full min-w-0 bg-transparent py-2.5 text-lg text-black placeholder:text-black/30 placeholder:transition-opacity placeholder:duration-300 focus:outline-none sm:py-3 sm:text-xl"
+            />
 
             <motion.div
               initial={{ scale: 0 }}
@@ -126,12 +121,12 @@ export function Contact() {
               <button
                 type="submit"
                 aria-label="Send message"
-                className="group flex size-14 shrink-0 items-center justify-center rounded-full bg-black transition-transform duration-300 ease-out hover:scale-105"
+                className="group flex size-12 shrink-0 items-center justify-center rounded-full bg-black transition-all duration-300 ease-out hover:scale-105 hover:shadow-lg sm:size-14"
               >
                 <ArrowUpRightIcon className="size-5 text-white transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </button>
             </motion.div>
-          </form>
+          </motion.form>
 
           <div className="mt-20">
             <ContactInfoGrid
@@ -155,9 +150,18 @@ export function Contact() {
                 aria-label={social.name}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:bg-accent/10 hover:text-accent flex size-10 items-center justify-center rounded-full text-black transition-all duration-300 ease-out hover:-translate-y-0.75"
+                style={{ "--social-brand-color": social.brandColor } as React.CSSProperties}
+                className={cn(
+                  "group flex size-11 items-center justify-center rounded-full bg-black text-white shadow-sm transition-all duration-300 ease-out hover:-translate-y-0.75 hover:shadow-lg",
+                  social.name === "Instagram"
+                    ? "hover:bg-linear-to-tr hover:from-[#FFDC80] hover:via-[#E1306C] hover:to-[#833AB4]"
+                    : "hover:bg-(--social-brand-color)"
+                )}
               >
-                <SocialIcon platform={social.name} className="size-4" />
+                <SocialIcon
+                  platform={social.name}
+                  className="size-4.5 transition-transform duration-300 ease-out group-hover:scale-110"
+                />
               </a>
             ))}
           </motion.div>

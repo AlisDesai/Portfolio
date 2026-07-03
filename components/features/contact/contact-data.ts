@@ -43,11 +43,13 @@ export type SocialPlatform = "LinkedIn" | "Instagram" | "Facebook" | "WhatsApp";
 export interface SocialLink {
   name: SocialPlatform;
   href: string;
+  // Each platform's own brand color, shown on hover instead of the site accent.
+  brandColor: string;
 }
 
 export const SOCIAL_LINKS: SocialLink[] = [
-  { name: "LinkedIn", href: "https://linkedin.com" },
-  { name: "Instagram", href: "https://instagram.com" },
-  { name: "Facebook", href: "https://facebook.com" },
-  { name: "WhatsApp", href: "https://wa.me/15550124567" },
+  { name: "LinkedIn", href: "https://linkedin.com", brandColor: "#0A66C2" },
+  { name: "Instagram", href: "https://instagram.com", brandColor: "#E4405F" },
+  { name: "Facebook", href: "https://facebook.com", brandColor: "#1877F2" },
+  { name: "WhatsApp", href: "https://wa.me/15550124567", brandColor: "#25D366" },
 ];

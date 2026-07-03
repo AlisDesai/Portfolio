@@ -37,7 +37,7 @@ export function ContactInfoGrid({
               <li key={item.label}>
                 <a
                   href={item.href}
-                  className="hover:text-accent flex min-w-0 items-center gap-2.5 text-sm text-black transition-colors duration-300 ease-out"
+                  className="font-jakarta hover:text-accent flex min-w-0 items-center gap-2.5 text-base text-black transition-colors duration-300 ease-out sm:text-lg"
                 >
                   {item.icon && (
                     <span className="bg-accent/10 text-accent flex size-7 shrink-0 items-center justify-center rounded-full">
