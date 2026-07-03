@@ -74,7 +74,7 @@ export function ServiceAccordionItem({
         >
           <span
             className={cn(
-              "font-jakarta text-2xl font-bold tracking-tight transition-colors duration-300 sm:text-3xl md:text-4xl",
+              "font-sans text-2xl font-bold tracking-tight transition-colors duration-300 sm:text-3xl md:text-4xl",
               isOpen ? "text-black" : "text-zinc-800 group-hover:text-black"
             )}
           >

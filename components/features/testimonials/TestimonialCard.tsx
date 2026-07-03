@@ -6,11 +6,17 @@ interface TestimonialCardProps {
 
 export function TestimonialCard({ testimonial }: TestimonialCardProps) {
   return (
-    <div className="rounded-3xl bg-white p-8 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.06),0_12px_24px_-8px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_4px_16px_-4px_rgba(0,0,0,0.08),0_24px_48px_-16px_rgba(129,140,248,0.3)]">
-      <p className="text-base leading-relaxed font-medium text-zinc-600">
-        &ldquo;{testimonial.quote}&rdquo;
+    <div className="rounded-3xl border border-black/5 bg-white p-9 shadow-[0_2px_8px_-2px_rgba(0,0,0,0.06),0_12px_24px_-8px_rgba(0,0,0,0.04)] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_4px_16px_-4px_rgba(0,0,0,0.08),0_24px_48px_-16px_rgba(129,140,248,0.3)]">
+      <span
+        aria-hidden="true"
+        className="font-display text-accent/20 block text-6xl leading-none font-extrabold select-none"
+      >
+        &ldquo;
+      </span>
+      <p className="-mt-3 text-base leading-relaxed font-medium text-zinc-600">
+        {testimonial.quote}
       </p>
-      <p className="text-accent mt-5 text-sm font-semibold">- {testimonial.name}</p>
+      <p className="text-accent mt-6 text-sm font-semibold">- {testimonial.name}</p>
     </div>
   );
 }

@@ -46,7 +46,7 @@ export function Contact() {
     <section
       id="contact"
       ref={sectionRef}
-      className="relative w-full overflow-hidden bg-white pt-28 md:pt-36"
+      className="relative w-full overflow-hidden bg-white pt-10 md:pt-14"
     >
       <div className="relative z-10 mx-auto grid w-full max-w-[1400px] grid-cols-1 items-center gap-16 px-6 sm:px-10 lg:grid-cols-2 lg:gap-20 lg:px-16">
         {/* Left: heading + watermark + logo */}
@@ -56,9 +56,7 @@ export function Contact() {
           <motion.div
             aria-hidden="true"
             initial={{ opacity: 0 }}
-            animate={
-              isInView ? { opacity: 0.06, y: reduceMotion ? 0 : [0, -4, 0] } : { opacity: 0 }
-            }
+            animate={isInView ? { opacity: 1, y: reduceMotion ? 0 : [0, -4, 0] } : { opacity: 0 }}
             transition={{
               opacity: { duration: WATERMARK_FADE_DURATION, delay: WATERMARK_DELAY },
               y: {
@@ -68,7 +66,7 @@ export function Contact() {
                 delay: WATERMARK_DELAY + WATERMARK_FADE_DURATION,
               },
             }}
-            className="bg-accent pointer-events-none absolute -top-24 -left-24 h-[130%] w-3/4 rounded-t-full"
+            className="pointer-events-none absolute -top-24 -left-24 h-[130%] w-3/4 rounded-t-full bg-[radial-gradient(circle_at_30%_20%,rgba(129,140,248,0.16),rgba(129,140,248,0.02)_70%)]"
           />
 
           <motion.h2
@@ -89,10 +87,10 @@ export function Contact() {
             initial={{ opacity: 0, y: reduceMotion ? 0 : 16 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: LOGO_DELAY, ease: EASE_PREMIUM }}
-            className="relative mt-14 flex items-center gap-3"
+            className="relative mt-14 flex items-center gap-3 border-t border-black/10 pt-6"
           >
-            <AbstractLogoMark className="size-9 text-black sm:size-10" />
-            <span className="font-display text-2xl font-bold text-black sm:text-3xl">
+            <AbstractLogoMark className="size-10 text-black sm:size-11" />
+            <span className="font-display text-2xl font-bold tracking-tight text-black sm:text-3xl">
               {siteConfig.name}
             </span>
           </motion.div>
@@ -171,7 +169,7 @@ export function Contact() {
       {/* Full-bleed bottom bar — bleeds edge-to-edge, independent of the
           section's max-w-[1400px] content container. */}
       <div className="bg-accent relative z-10 mt-24 w-full py-4 md:mt-32">
-        <p className="text-center text-xs font-medium text-white sm:text-sm">
+        <p className="font-jakarta text-center text-xs font-medium text-white sm:text-sm">
           &copy;{new Date().getFullYear()} {siteConfig.name} | All rights reserved
         </p>
       </div>

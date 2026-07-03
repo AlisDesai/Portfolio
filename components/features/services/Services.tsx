@@ -30,23 +30,23 @@ export function Services() {
       <div className="bg-accent pointer-events-none absolute -right-24 -bottom-24 size-[28rem] rounded-full opacity-[0.06] blur-3xl" />
 
       <div className="relative z-10 mx-auto flex w-full max-w-[1600px] flex-col items-center gap-4 text-center">
-        <motion.span
-          initial={{ opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: LABEL_DELAY, ease: EASE_PREMIUM }}
-          className="text-accent text-sm font-medium tracking-[0.2em] uppercase"
-        >
-          What We Do
-        </motion.span>
-
         <motion.h2
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: HEADING_DELAY, ease: EASE_PREMIUM }}
+          transition={{ duration: 0.7, delay: LABEL_DELAY, ease: EASE_PREMIUM }}
           className="font-display text-accent text-4xl font-extrabold sm:text-6xl md:text-7xl"
         >
           Services We Provide
         </motion.h2>
+
+        <motion.p
+          initial={{ opacity: 0, y: 16 }}
+          animate={isInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.6, delay: HEADING_DELAY, ease: EASE_PREMIUM }}
+          className="text-lg font-medium text-black sm:text-xl"
+        >
+          What we <span className="text-accent">do</span>
+        </motion.p>
       </div>
 
       <div className="relative z-10 mx-auto mt-16 flex w-full max-w-[1600px] flex-col gap-5 md:mt-20">
