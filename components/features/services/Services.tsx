@@ -8,9 +8,6 @@ import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion"
 
 const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
 
-// Sequenced delays (seconds), each relative to its own element scrolling
-// into view — the accordion list gets its own trigger so its rows animate
-// when actually scrolled to, not whenever the header above them was seen.
 const LABEL_DELAY = 0;
 const HEADING_DELAY = 0.15;
 const LIST_START_DELAY = 0.1;
@@ -28,46 +25,60 @@ export function Services() {
     <section
       id="services"
       ref={sectionRef}
-      className="relative w-full overflow-hidden bg-white px-6 py-24 sm:px-10 md:py-32 lg:px-16"
+      className="relative w-full overflow-hidden bg-zinc-50 px-6 py-24 sm:px-10 md:py-32 lg:px-16"
     >
-      <div className="bg-accent pointer-events-none absolute -top-24 -left-24 size-[28rem] rounded-full opacity-[0.06] blur-3xl" />
-      <div className="bg-accent pointer-events-none absolute -right-24 -bottom-24 size-[28rem] rounded-full opacity-[0.06] blur-3xl" />
+      {/* Premium subtle grid pattern and ambient glow */}
+      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
+      <div className="bg-accent pointer-events-none absolute top-0 right-0 h-[800px] w-[800px] -translate-y-1/2 translate-x-1/3 rounded-full opacity-[0.03] blur-3xl" />
+      <div className="pointer-events-none absolute bottom-0 left-0 h-[600px] w-[600px] -translate-x-1/3 translate-y-1/3 rounded-full bg-blue-500/[0.03] blur-3xl" />
 
-      <div className="relative z-10 mx-auto flex w-full max-w-[1600px] flex-col items-center gap-4 text-center">
-        <motion.h2
-          initial={{ opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: LABEL_DELAY, ease: EASE_PREMIUM }}
-          className="font-display text-accent text-4xl font-extrabold sm:text-6xl md:text-7xl"
-        >
-          Services We Provide
-        </motion.h2>
+      <div className="relative z-10 mx-auto w-full max-w-[1400px]">
+        <div className="flex flex-col gap-16 lg:flex-row lg:items-start lg:gap-24">
+          
+          {/* Left Column - Sticky Heading */}
+          <div className="lg:sticky lg:top-32 lg:w-[40%] xl:w-1/3">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.7, delay: LABEL_DELAY, ease: EASE_PREMIUM }}
+              className="flex flex-col items-start gap-5"
+            >
+              <span className="border-accent/20 bg-accent/5 text-accent rounded-full border px-4 py-1.5 text-xs font-semibold tracking-[0.2em] uppercase shadow-sm">
+                Expertise
+              </span>
+              <h2 className="font-display text-4xl leading-[1.1] font-extrabold tracking-tight text-zinc-900 sm:text-5xl lg:text-6xl">
+                Services <br className="hidden lg:block" /> We Provide
+              </h2>
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={isInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.7, delay: HEADING_DELAY, ease: EASE_PREMIUM }}
+                className="mt-2 max-w-sm text-lg leading-relaxed text-zinc-500"
+              >
+                Comprehensive technical solutions tailored to elevate your business, enhance security, and streamline your operations.
+              </motion.p>
+            </motion.div>
+          </div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 16 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: HEADING_DELAY, ease: EASE_PREMIUM }}
-          className="text-lg font-medium text-black sm:text-xl"
-        >
-          What we <span className="text-accent">do</span>
-        </motion.p>
-      </div>
+          {/* Right Column - Accordion List */}
+          <div
+            ref={listRef}
+            className="flex flex-col gap-6 lg:w-[60%] xl:w-2/3"
+          >
+            {SERVICES.map((service, index) => (
+              <ServiceAccordionItem
+                key={service.id}
+                service={service}
+                isOpen={service.id === openId}
+                onToggle={() => setOpenId((prev) => (prev === service.id ? null : service.id))}
+                isInView={listIsInView}
+                reduceMotion={reduceMotion}
+                delay={LIST_START_DELAY + index * LIST_STAGGER}
+              />
+            ))}
+          </div>
 
-      <div
-        ref={listRef}
-        className="relative z-10 mx-auto mt-16 flex w-full max-w-[1600px] flex-col gap-5 md:mt-20"
-      >
-        {SERVICES.map((service, index) => (
-          <ServiceAccordionItem
-            key={service.id}
-            service={service}
-            isOpen={service.id === openId}
-            onToggle={() => setOpenId((prev) => (prev === service.id ? null : service.id))}
-            isInView={listIsInView}
-            reduceMotion={reduceMotion}
-            delay={LIST_START_DELAY + index * LIST_STAGGER}
-          />
-        ))}
+        </div>
       </div>
     </section>
   );

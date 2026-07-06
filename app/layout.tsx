@@ -36,6 +36,8 @@ export const metadata: Metadata = {
   description: siteConfig.description,
 };
 
+import { CustomCursor } from "@/components/shared/CustomCursor";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -47,6 +49,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} ${plusJakartaSans.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <CustomCursor />
         <Providers>{children}</Providers>
       </body>
     </html>
