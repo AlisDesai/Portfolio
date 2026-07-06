@@ -87,7 +87,7 @@ export function Hero() {
       const builtLX = builtRect.left + builtRect.width * 0.72; // "L" of Built
       const perfectionNX = perfectionRect.left + perfectionRect.width * 0.95; // "N" of Perfection
 
-      // Order matches SERVICE_TAGS: Next-Gen Development, Digital Transformation, AI & ML Expertise.
+      // Order matches SERVICE_TAGS: Backend Architecture, API Integration, Mobile App Mastery.
       setPillStyles([
         {
           // Between "SO" (Solutions) and "TO" — the seam between rows 2 and 3, left side.

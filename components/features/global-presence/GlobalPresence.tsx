@@ -64,8 +64,8 @@ export function GlobalPresence() {
           transition={{ duration: 0.7, delay: DESCRIPTION_DELAY, ease: EASE_PREMIUM }}
           className="mt-3 line-clamp-2 max-w-4xl text-base text-white/60 sm:text-lg"
         >
-          We partner with businesses across continents, delivering modern digital solutions that
-          scale from first launch to global growth.
+          I partner with clients worldwide, delivering robust backend and mobile solutions that
+          scale from first launch to production growth.
         </motion.p>
       </div>
 

@@ -1,5 +1,5 @@
 export const SERVICE_TAGS = [
-  "Next-Gen Development",
-  "Digital Transformation",
-  "AI & ML Expertise",
+  "Backend Architecture",
+  "API Integration",
+  "Mobile App Mastery",
 ] as const;

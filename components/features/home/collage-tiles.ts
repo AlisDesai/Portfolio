@@ -63,7 +63,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 3,
     template: "sidebar-dashboard",
     palette: "blue",
-    title: "SaaS Dashboard",
+    title: "Automotive Booking API",
   },
   {
     id: "t2",
@@ -74,7 +74,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 3,
     template: "table-admin",
     palette: "indigo",
-    title: "CRM Dashboard",
+    title: "Material Testing App",
   },
   {
     id: "t3",
@@ -85,7 +85,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 3,
     template: "analytics-chart",
     palette: "emerald",
-    title: "Banking Dashboard",
+    title: "Stripe Webhook Handler",
   },
   {
     id: "t4",
@@ -96,7 +96,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 3,
     template: "kpi-cards",
     palette: "teal",
-    title: "Finance Platform",
+    title: "Stateless Auth System",
   },
   {
     id: "t5",
@@ -107,7 +107,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 3,
     template: "profile-stats",
     palette: "sky",
-    title: "Healthcare Portal",
+    title: "Resend Email Workflows",
   },
   {
     id: "t6",
@@ -118,7 +118,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 2,
     template: "profile-stats",
     palette: "pink",
-    title: "HR Management System",
+    title: "MySQL Optimization",
   },
   {
     id: "t7",
@@ -129,7 +129,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 2,
     template: "calendar",
     palette: "blue",
-    title: "School Management System",
+    title: "Multi-Role Admin Panel",
   },
   {
     id: "t8",
@@ -140,7 +140,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 2,
     template: "kanban",
     palette: "orange",
-    title: "Restaurant POS",
+    title: "Job Number Generator",
   },
   {
     id: "t9",
@@ -151,7 +151,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 2,
     template: "ecommerce-grid",
     palette: "rose",
-    title: "E-commerce Admin",
+    title: "Real-Time Notifications",
   },
   {
     id: "t10",
@@ -162,7 +162,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 2,
     template: "table-admin",
     palette: "amber",
-    title: "Inventory Management",
+    title: "Test Status Automation",
   },
   {
     id: "t11",
@@ -173,7 +173,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 2,
     template: "ecommerce-grid",
     palette: "amber",
-    title: "Real Estate Portal",
+    title: "Lab Task Assignment",
   },
   {
     id: "t12",
@@ -184,7 +184,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 1,
     template: "calendar",
     palette: "purple",
-    title: "Travel Booking Platform",
+    title: "Production VPS Setup",
   },
   {
     id: "t13",
@@ -195,7 +195,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 1,
     template: "analytics-chart",
     palette: "blue",
-    title: "Logistics Dashboard",
+    title: "Contabo Hosting",
   },
   {
     id: "t14",
@@ -206,7 +206,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 1,
     template: "kpi-cards",
     palette: "fuchsia",
-    title: "Marketing Analytics",
+    title: "Secure RESTful APIs",
   },
   {
     id: "t15",
@@ -217,7 +217,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 1,
     template: "kanban",
     palette: "teal",
-    title: "Project Management Tool",
+    title: "JPA/Hibernate Integration",
   },
   {
     id: "t16",
@@ -228,7 +228,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 2,
     template: "form-panel",
     palette: "red",
-    title: "Customer Support Dashboard",
+    title: "Scalable Data Sync",
   },
   {
     id: "t17",
@@ -239,7 +239,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 2,
     template: "mobile-app",
     palette: "sky",
-    title: "Mobile App UI",
+    title: "Automated Workflows",
   },
   {
     id: "t18",
@@ -250,7 +250,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 2,
     template: "ecommerce-grid",
     palette: "purple",
-    title: "Portfolio Website",
+    title: "Stripe Payment Gateway",
   },
   {
     id: "t19",
@@ -261,7 +261,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 3,
     template: "profile-stats",
     palette: "indigo",
-    title: "Social Media Dashboard",
+    title: "Resend Email API",
   },
   {
     id: "t20",
@@ -272,7 +272,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 3,
     template: "mobile-app",
     palette: "emerald",
-    title: "Fitness Tracking App",
+    title: "Firebase Real-Time",
   },
   {
     id: "t21",
@@ -283,7 +283,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 3,
     template: "table-admin",
     palette: "cyan",
-    title: "ERP System",
+    title: "OAuth2 Authentication",
   },
   {
     id: "t22",
@@ -294,7 +294,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 3,
     template: "sidebar-dashboard",
     palette: "violet",
-    title: "AI Analytics Dashboard",
+    title: "JWT Token Management",
   },
 ];
 

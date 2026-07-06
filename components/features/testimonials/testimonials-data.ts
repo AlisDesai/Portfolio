@@ -8,42 +8,42 @@ export interface Testimonial {
 export const TESTIMONIALS: Testimonial[] = [
   {
     quote:
-      "Implementing their ERP solution streamlined our entire supply chain. What used to take days now happens in real time, and the support team was with us every step of the way.",
-    name: "Priya Malhotra",
+      "Harsh's backend architecture for our booking system was flawless. It handles high traffic seamlessly and the API integration is incredibly robust.",
+    name: "Automotive Booking API Client",
   },
   {
     quote:
-      "Migrating to their SaaS platform cut our onboarding time in half. The interface is intuitive, and our team adopted it without any real training curve.",
-    name: "Daniel Osei",
+      "The stateless authentication system he built using Redis completely transformed our app's security and performance. Highly recommended.",
+    name: "Stateless Auth System Client",
   },
   {
     quote:
-      "Our mobile app launch exceeded every expectation. The build was fast, the design felt premium, and users have been raving about the experience since day one.",
-    name: "Aiko Tanaka",
+      "The Material Testing mobile app he developed in Flutter is intuitive and fast. It significantly improved our lab technicians' workflow.",
+    name: "Material Testing App Client",
   },
   {
     quote:
-      "The AI model they built for us now predicts demand with remarkable accuracy. It's already saved us thousands in excess inventory within the first quarter.",
-    name: "Marcus Webb",
+      "He handled our production VPS setup and Nginx configuration with impressive expertise, ensuring our deployment was secure and highly available.",
+    name: "Production VPS Setup Client",
   },
   {
     quote:
-      "Their custom CRM gave our sales team a single source of truth for the first time. Deal cycles are shorter and nothing falls through the cracks anymore.",
-    name: "Elena Kovac",
+      "The Stripe webhook implementation he developed automated our payment processing entirely, saving us countless hours of manual work.",
+    name: "Stripe Webhook Client",
   },
   {
     quote:
-      "Our new storefront doubled conversion rates within two months. Checkout is fast, the design is clean, and customers keep telling us how easy it is to shop.",
-    name: "Farah Haddad",
+      "His deep knowledge of Spring Boot and JPA/Hibernate optimized our complex database queries, reducing load times significantly.",
+    name: "Database Integration Client",
   },
   {
     quote:
-      "They understood the compliance requirements of healthcare software from day one. Our patient portal is secure, fast, and genuinely easy for our staff to use.",
-    name: "Dr. Samuel Reyes",
+      "The lab task assignment application he built provided a much-needed digital solution that modernized our entire operation.",
+    name: "Lab Task Assignment Client",
   },
   {
     quote:
-      "Automating our internal workflows freed up hours every week that used to go into manual data entry. It's transformed how our operations team works.",
-    name: "Grace Lindqvist",
+      "Integrating the OAuth2 authentication was done smoothly and securely. Harsh is a true professional when it comes to API integrations.",
+    name: "OAuth2 Auth Client",
   },
 ];

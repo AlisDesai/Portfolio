@@ -43,7 +43,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 3,
     template: "sidebar-dashboard",
     palette: "blue",
-    title: "UX Wireframes",
+    title: "Booking API",
   },
   {
     id: "s2",
@@ -54,7 +54,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 3,
     template: "kpi-cards",
     palette: "violet",
-    title: "AI Model Dashboard",
+    title: "Stateless Auth",
   },
   {
     id: "s3",
@@ -65,7 +65,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 2,
     template: "mobile-app",
     palette: "teal",
-    title: "Mobile Prototype",
+    title: "Material Testing",
   },
   {
     id: "s4",
@@ -76,7 +76,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 2,
     template: "analytics-chart",
     palette: "emerald",
-    title: "Cloud Architecture",
+    title: "Lab Tasks",
   },
   {
     id: "s5",
@@ -87,7 +87,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 1,
     template: "form-panel",
     palette: "amber",
-    title: "Design System",
+    title: "VPS Setup",
   },
   {
     id: "s6",
@@ -98,7 +98,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 1,
     template: "ecommerce-grid",
     palette: "rose",
-    title: "Growth Analytics",
+    title: "JPA/Hibernate",
   },
   {
     id: "s7",
@@ -109,7 +109,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 2,
     template: "kpi-cards",
     palette: "cyan",
-    title: "DevOps Pipeline",
+    title: "Stripe Webhook",
   },
   {
     id: "s8",
@@ -120,7 +120,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 2,
     template: "sidebar-dashboard",
     palette: "indigo",
-    title: "API Gateway",
+    title: "Payment Gateway",
   },
   {
     id: "s9",
@@ -131,7 +131,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 1,
     template: "mobile-app",
     palette: "blue",
-    title: "Automation Workflow",
+    title: "OAuth2",
   },
   {
     id: "s10",
@@ -142,7 +142,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 1,
     template: "analytics-chart",
     palette: "violet",
-    title: "Data Pipeline",
+    title: "Spring Boot",
   },
   {
     id: "s11",
@@ -153,7 +153,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 3,
     template: "form-panel",
     palette: "teal",
-    title: "Component Library",
+    title: "Flutter Apps",
   },
   {
     id: "s12",
@@ -164,7 +164,7 @@ export const COLLAGE_TILES: CollageTile[] = [
     depth: 3,
     template: "ecommerce-grid",
     palette: "amber",
-    title: "User Research",
+    title: "REST APIs",
   },
 ];
 
