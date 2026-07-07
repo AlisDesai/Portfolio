@@ -2,7 +2,6 @@
 
 import { motion, AnimatePresence, useMotionValueEvent, type MotionValue } from "framer-motion";
 import { useState } from "react";
-import { cn } from "@/lib/utils/cn";
 import { SERVICES } from "@/components/features/services/services-gallery-data";
 import type { ServiceGalleryItem } from "@/components/features/services/services-gallery-data";
 
@@ -104,20 +103,25 @@ export function ServicesHeroShowcase({ scrollYProgress, reduceMotion }: Services
 
 function HeroGalleryCard({ item }: { item: ServiceGalleryItem }) {
   return (
-    <div className="group/feature relative flex h-full w-full cursor-pointer flex-col justify-between overflow-hidden rounded-[1.5rem] border border-white/10 bg-white/5 p-5 backdrop-blur-md transition-all duration-500 hover:-translate-y-1 hover:border-white/20 hover:bg-white/10 hover:shadow-[0_8px_30px_-12px_rgba(255,255,255,0.1)] sm:p-6">
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff0a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0a_1px,transparent_1px)] bg-[size:12px_12px] opacity-0 transition-opacity duration-500 group-hover/feature:opacity-100" />
+    <div className="group/feature relative flex h-full w-full cursor-pointer flex-col justify-between overflow-hidden rounded-[2rem] border border-white/5 bg-gradient-to-b from-white/[0.06] to-transparent p-6 backdrop-blur-xl transition-all duration-500 hover:-translate-y-1.5 hover:border-white/15 hover:shadow-[0_20px_40px_-15px_rgba(255,255,255,0.08)] sm:p-8">
+      {/* Subtle inner ring highlight for depth */}
+      <div className="pointer-events-none absolute inset-0 rounded-[2rem] ring-1 ring-white/[0.08] transition-all duration-500 ring-inset group-hover/feature:ring-white/[0.15]" />
 
+      {/* Elegant hover noise/texture overlay */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.08),transparent_50%)] opacity-0 transition-opacity duration-700 group-hover/feature:opacity-100" />
+
+      {/* Top Section */}
       <div className="relative z-10 flex items-start justify-between">
-        <span className="inline-flex items-center justify-center rounded-xl bg-white/10 px-3 py-1.5 text-xs font-bold tracking-wider text-white uppercase shadow-sm backdrop-blur-sm transition-colors duration-300 group-hover/feature:bg-white/20">
+        <span className="font-mono text-[10px] font-semibold tracking-[0.25em] text-white/50 uppercase transition-colors duration-300 group-hover/feature:text-white/80">
           {item.category}
         </span>
-        <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white/5 text-white/50 transition-all duration-500 group-hover/feature:scale-110 group-hover/feature:bg-white group-hover/feature:text-black">
+        <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white/5 text-white/40 ring-1 ring-white/10 transition-all duration-500 ring-inset group-hover/feature:-rotate-45 group-hover/feature:bg-white group-hover/feature:text-black group-hover/feature:shadow-[0_0_20px_rgba(255,255,255,0.3)] group-hover/feature:ring-white">
           <svg
-            className="size-4 -rotate-45 transition-transform duration-500 group-hover/feature:rotate-0"
+            className="size-4"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
-            strokeWidth={2.5}
+            strokeWidth={2}
           >
             <path
               strokeLinecap="round"
@@ -128,8 +132,9 @@ function HeroGalleryCard({ item }: { item: ServiceGalleryItem }) {
         </span>
       </div>
 
-      <div className="relative z-10 mt-auto flex flex-col gap-1.5">
-        <span className="font-display text-lg leading-tight font-bold text-white shadow-black/50 drop-shadow-sm">
+      {/* Bottom Section */}
+      <div className="relative z-10 mt-auto flex flex-col">
+        <span className="font-display block text-[1.35rem] font-medium tracking-wide text-white/90 drop-shadow-sm transition-colors duration-300 group-hover/feature:text-white lg:text-[1.5rem]">
           {item.title}
         </span>
       </div>
