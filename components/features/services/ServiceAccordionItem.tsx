@@ -21,9 +21,9 @@ function PlusMinusIcon({ isOpen }: { isOpen: boolean }) {
     <span
       className={cn(
         "relative flex size-12 shrink-0 items-center justify-center rounded-full border transition-all duration-500 sm:size-14",
-        isOpen 
-          ? "border-accent bg-accent text-white shadow-[0_0_20px_rgba(129,140,248,0.3)]" 
-          : "border-zinc-200 bg-zinc-50 text-zinc-400 group-hover:border-accent/30 group-hover:bg-accent group-hover:text-white group-hover:scale-105"
+        isOpen
+          ? "border-accent bg-accent text-white shadow-[0_0_20px_rgba(129,140,248,0.3)]"
+          : "group-hover:border-accent/30 group-hover:bg-accent border-zinc-200 bg-zinc-50 text-zinc-400 group-hover:scale-105 group-hover:text-white"
       )}
     >
       <motion.span
@@ -91,16 +91,20 @@ export function ServiceAccordionItem({
               transition={{ duration: 0.6, ease: EASE_PREMIUM }}
               className="overflow-hidden"
             >
-              <div className="px-6 pb-8 pt-2 sm:px-10 sm:pb-10">
+              <div className="px-6 pt-2 pb-8 sm:px-10 sm:pb-10">
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {service.gallery.map((item, i) => {
                     const paletteClasses: Record<string, string> = {
                       blue: "from-blue-500/10 via-blue-500/5 to-transparent hover:border-blue-300/50 group-hover/feature:shadow-[0_8px_30px_-12px_rgba(59,130,246,0.2)]",
-                      indigo: "from-indigo-500/10 via-indigo-500/5 to-transparent hover:border-indigo-300/50 group-hover/feature:shadow-[0_8px_30px_-12px_rgba(99,102,241,0.2)]",
-                      violet: "from-violet-500/10 via-violet-500/5 to-transparent hover:border-violet-300/50 group-hover/feature:shadow-[0_8px_30px_-12px_rgba(139,92,246,0.2)]",
+                      indigo:
+                        "from-indigo-500/10 via-indigo-500/5 to-transparent hover:border-indigo-300/50 group-hover/feature:shadow-[0_8px_30px_-12px_rgba(99,102,241,0.2)]",
+                      violet:
+                        "from-violet-500/10 via-violet-500/5 to-transparent hover:border-violet-300/50 group-hover/feature:shadow-[0_8px_30px_-12px_rgba(139,92,246,0.2)]",
                       teal: "from-teal-500/10 via-teal-500/5 to-transparent hover:border-teal-300/50 group-hover/feature:shadow-[0_8px_30px_-12px_rgba(20,184,166,0.2)]",
-                      emerald: "from-emerald-500/10 via-emerald-500/5 to-transparent hover:border-emerald-300/50 group-hover/feature:shadow-[0_8px_30px_-12px_rgba(16,185,129,0.2)]",
-                      amber: "from-amber-500/10 via-amber-500/5 to-transparent hover:border-amber-300/50 group-hover/feature:shadow-[0_8px_30px_-12px_rgba(245,158,11,0.2)]",
+                      emerald:
+                        "from-emerald-500/10 via-emerald-500/5 to-transparent hover:border-emerald-300/50 group-hover/feature:shadow-[0_8px_30px_-12px_rgba(16,185,129,0.2)]",
+                      amber:
+                        "from-amber-500/10 via-amber-500/5 to-transparent hover:border-amber-300/50 group-hover/feature:shadow-[0_8px_30px_-12px_rgba(245,158,11,0.2)]",
                       rose: "from-rose-500/10 via-rose-500/5 to-transparent hover:border-rose-300/50 group-hover/feature:shadow-[0_8px_30px_-12px_rgba(244,63,94,0.2)]",
                       cyan: "from-cyan-500/10 via-cyan-500/5 to-transparent hover:border-cyan-300/50 group-hover/feature:shadow-[0_8px_30px_-12px_rgba(6,182,212,0.2)]",
                     };
@@ -129,9 +133,14 @@ export function ServiceAccordionItem({
                       >
                         {/* Decorative background grid inside the bento card */}
                         <div className="absolute inset-0 bg-[linear-gradient(to_right,#8080800a_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:12px_12px] opacity-0 transition-opacity duration-500 group-hover/feature:opacity-100" />
-                        
+
                         <div className="relative z-10 flex items-start justify-between">
-                          <span className={cn("inline-flex items-center justify-center rounded-xl px-3 py-1.5 text-xs font-bold tracking-wider uppercase shadow-sm", iconClass)}>
+                          <span
+                            className={cn(
+                              "inline-flex items-center justify-center rounded-xl px-3 py-1.5 text-xs font-bold tracking-wider uppercase shadow-sm",
+                              iconClass
+                            )}
+                          >
                             {item.category}
                           </span>
                           <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-zinc-50 text-zinc-300 transition-all duration-500 group-hover/feature:scale-110 group-hover/feature:bg-white group-hover/feature:text-zinc-800 group-hover/feature:shadow-md">
@@ -150,14 +159,12 @@ export function ServiceAccordionItem({
                             </svg>
                           </span>
                         </div>
-                        
+
                         <div className="relative z-10 mt-10 flex flex-col gap-1.5">
-                          <span className="font-display text-lg font-bold text-zinc-900 leading-tight">
+                          <span className="font-display text-lg leading-tight font-bold text-zinc-900">
                             {item.title}
                           </span>
-                          <span className="text-sm font-medium text-zinc-500">
-                            View details
-                          </span>
+                          <span className="text-sm font-medium text-zinc-500">View details</span>
                         </div>
                       </div>
                     );

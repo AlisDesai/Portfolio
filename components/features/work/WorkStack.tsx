@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useScroll, useTransform, useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { WORK_PROJECTS, type WorkProject } from "@/components/features/work/work-data";
 import { cn } from "@/lib/utils/cn";
@@ -26,13 +26,13 @@ export function WorkStack() {
     >
       {/* Background ambient light */}
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.03),transparent_50%)]" />
-      
+
       <div className="relative z-10 mx-auto w-full max-w-[1200px]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-16 md:mb-24 flex flex-col items-start gap-4"
+          className="mb-16 flex flex-col items-start gap-4 md:mb-24"
         >
           <span className="border-accent/30 text-accent rounded-full border bg-white/5 px-5 py-2 text-sm font-medium tracking-[0.2em] uppercase">
             Featured Work
@@ -58,7 +58,15 @@ export function WorkStack() {
   );
 }
 
-function WorkCard({ project, index, total }: { project: WorkProject; index: number; total: number }) {
+function WorkCard({
+  project,
+  index,
+  total,
+}: {
+  project: WorkProject;
+  index: number;
+  total: number;
+}) {
   const cardRef = useRef<HTMLDivElement>(null);
   const reduceMotion = usePrefersReducedMotion();
 
@@ -86,7 +94,7 @@ function WorkCard({ project, index, total }: { project: WorkProject; index: numb
         )}
       >
         <div className="absolute inset-0 bg-white/[0.01]" />
-        
+
         <div className="relative z-10 flex flex-col gap-10 md:flex-row md:items-center md:justify-between md:gap-16">
           <div className="flex w-full flex-col gap-6 md:max-w-2xl">
             <div className="flex items-center gap-4">
@@ -96,14 +104,12 @@ function WorkCard({ project, index, total }: { project: WorkProject; index: numb
               <div className="h-px flex-1 bg-white/10" />
               <span className="text-sm font-medium text-white/70">{project.category}</span>
             </div>
-            
+
             <h3 className="font-display text-3xl font-bold text-white sm:text-4xl md:text-5xl lg:text-6xl">
               {project.title}
             </h3>
-            
-            <p className="text-lg leading-relaxed text-white/60">
-              {project.description}
-            </p>
+
+            <p className="text-lg leading-relaxed text-white/60">{project.description}</p>
 
             <div className="mt-4 flex flex-wrap gap-3">
               {project.tags.map((tag) => (
@@ -120,8 +126,8 @@ function WorkCard({ project, index, total }: { project: WorkProject; index: numb
           <div className="relative aspect-[4/3] w-full shrink-0 overflow-hidden rounded-2xl border border-white/10 bg-black/40 shadow-inner md:w-[40%] xl:w-[45%]">
             {/* A glassmorphism placeholder for the project preview */}
             <div className="absolute inset-0 flex items-center justify-center bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.05)_0%,transparent_100%)]">
-              <div className="size-20 rounded-full border border-white/10 bg-white/5 shadow-2xl backdrop-blur-md flex items-center justify-center">
-                 <div className="size-8 rounded-full border border-white/20 bg-white/10" />
+              <div className="flex size-20 items-center justify-center rounded-full border border-white/10 bg-white/5 shadow-2xl backdrop-blur-md">
+                <div className="size-8 rounded-full border border-white/20 bg-white/10" />
               </div>
             </div>
           </div>

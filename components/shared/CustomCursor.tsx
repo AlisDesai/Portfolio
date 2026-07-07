@@ -22,6 +22,10 @@ export function CustomCursor() {
     // Only enable on non-touch devices and if user allows motion
     if (window.matchMedia("(pointer: coarse)").matches || reduceMotion) return;
 
+    // Synchronizing with an external system (device pointer capability) detected
+    // only at mount/dependency-change time, gated by the early return above —
+    // not a derivable-from-render value, so this is a legitimate effect use.
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- external device-capability sync, not a render-derivable value
     setIsVisible(true);
 
     const updateMousePosition = (e: MouseEvent) => {
@@ -40,7 +44,7 @@ export function CustomCursor() {
         target.closest("a") ||
         target.closest("[role='button']") ||
         target.closest(".cursor-pointer");
-      
+
       setIsHovering(!!isClickable);
     };
 
@@ -72,7 +76,7 @@ export function CustomCursor() {
     <>
       {/* Primary Center Dot */}
       <motion.div
-        className="pointer-events-none fixed top-0 left-0 z-[9999] size-2.5 rounded-full bg-accent"
+        className="bg-accent pointer-events-none fixed top-0 left-0 z-[9999] size-2.5 rounded-full"
         style={{
           x: mouseX,
           y: mouseY,
@@ -80,10 +84,10 @@ export function CustomCursor() {
           translateY: "-50%",
         }}
       />
-      
+
       {/* Trailing Ring */}
       <motion.div
-        className="pointer-events-none fixed top-0 left-0 z-[9998] size-10 rounded-full border-[1.5px] border-accent/70"
+        className="border-accent/70 pointer-events-none fixed top-0 left-0 z-[9998] size-10 rounded-full border-[1.5px]"
         style={{
           x: ringX,
           y: ringY,
