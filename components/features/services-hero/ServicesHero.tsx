@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 import { useRef } from "react";
-import { ServicesFloatingPills } from "@/components/features/services-hero/ServicesFloatingPills";
+import { ServicesHeroVisualIdentity } from "@/components/features/services-hero/ServicesHeroVisualIdentity";
 import { ServicesHeroCollage } from "@/components/features/services-hero/ServicesHeroCollage";
 import { ServicesMarquee } from "@/components/features/services-hero/ServicesMarquee";
 import { ServicesHeroShowcase } from "@/components/features/services-hero/ServicesHeroShowcase";
@@ -65,7 +65,7 @@ export function ServicesHero() {
             transition={{ duration: 1.2, delay: SPOTLIGHT_DELAY, ease: EASE_PREMIUM }}
             className="absolute inset-0 [background:radial-gradient(ellipse_at_center,rgba(99,102,241,0.22)_0%,transparent_55%)]"
           />
-          <ServicesFloatingPills reduceMotion={reduceMotion} />
+          <ServicesHeroVisualIdentity reduceMotion={reduceMotion} />
         </motion.div>
 
         {/* Intro Phase: Massive Title */}
