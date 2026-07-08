@@ -1,7 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform, type Variants } from "framer-motion";
-import { useRef } from "react";
+import { motion, useMotionValueEvent, useScroll, useTransform, type Variants } from "framer-motion";
+import { useRef, useState } from "react";
 import { ServicesHeroVisualIdentity } from "@/components/features/services-hero/ServicesHeroVisualIdentity";
 import { ServicesHeroCollage } from "@/components/features/services-hero/ServicesHeroCollage";
 import { ServicesMarquee } from "@/components/features/services-hero/ServicesMarquee";
@@ -34,6 +34,12 @@ const titleLine: Variants = {
 export function ServicesHero() {
   const sectionRef = useRef<HTMLElement>(null);
   const reduceMotion = usePrefersReducedMotion();
+  const [isIntroLayerMounted, setIsIntroLayerMounted] = useState(true);
+  // Only the very first mount should play the staggered title entrance —
+  // once the user has scrolled past the intro at least once, later re-entries
+  // (scrolling back up) must show the title already fully bright, not replay
+  // the fade-from-hidden and get caught mid-fade looking dim.
+  const [hasTitleEntrancePlayed, setHasTitleEntrancePlayed] = useState(false);
 
   // Scroll mapping for the 500vh container.
   // 0.0 - 0.15 is the Intro phase.
@@ -47,57 +53,77 @@ export function ServicesHero() {
   const textOpacity = useTransform(scrollYProgress, [0.05, 0.15], [1, 0]);
   const marqueeY = useTransform(scrollYProgress, [0, 0.15], [0, 100]);
 
+  // Fully unmount the intro's decorative background (collage, HUD identity,
+  // spotlight) once the Showcase phase takes over — an opacity fade alone
+  // left it painted (and visually bleeding through) behind every service.
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    const isInIntroRange = latest < 0.15;
+    setIsIntroLayerMounted((wasMounted) => {
+      if (wasMounted && !isInIntroRange) setHasTitleEntrancePlayed(true);
+      return isInIntroRange;
+    });
+  });
+
   return (
     <section ref={sectionRef} className="relative h-[500vh] w-full bg-[#080808]">
       <div className="sticky top-0 flex h-dvh min-h-[640px] w-full items-center justify-center overflow-hidden">
         {/* Intro Phase: Background Collage & Pills */}
-        <motion.div
-          style={{ opacity: introOpacity }}
-          className="pointer-events-none absolute inset-0 z-0"
-        >
-          <ServicesHeroCollage reduceMotion={reduceMotion} />
-          <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/85" />
-          <div className="absolute inset-0 [background:radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.85)_100%)]" />
-
+        {isIntroLayerMounted && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 1.2, delay: SPOTLIGHT_DELAY, ease: EASE_PREMIUM }}
-            className="absolute inset-0 [background:radial-gradient(ellipse_at_center,rgba(99,102,241,0.22)_0%,transparent_55%)]"
-          />
-          <ServicesHeroVisualIdentity reduceMotion={reduceMotion} />
-        </motion.div>
+            style={{ opacity: introOpacity }}
+            className="pointer-events-none absolute inset-0 z-0"
+          >
+            <ServicesHeroCollage reduceMotion={reduceMotion} />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/85" />
+            <div className="absolute inset-0 [background:radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.85)_100%)]" />
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 1.2, delay: SPOTLIGHT_DELAY, ease: EASE_PREMIUM }}
+              className="absolute inset-0 [background:radial-gradient(ellipse_at_center,rgba(99,102,241,0.22)_0%,transparent_55%)]"
+            />
+            <ServicesHeroVisualIdentity reduceMotion={reduceMotion} />
+          </motion.div>
+        )}
 
         {/* Intro Phase: Massive Title */}
-        <motion.div
-          style={reduceMotion ? undefined : { opacity: textOpacity, scale: textScale }}
-          className="relative z-20 mx-auto max-w-[1600px] px-6 text-center sm:px-10 lg:px-16"
-        >
-          <motion.h1
-            variants={titleContainer}
-            initial="hidden"
-            animate="visible"
-            className="font-display w-full text-[clamp(2.75rem,8vw,7.5rem)] leading-[1.05] tracking-tight uppercase"
+        {isIntroLayerMounted && (
+          <motion.div
+            style={reduceMotion ? undefined : { opacity: textOpacity, scale: textScale }}
+            className="relative z-20 mx-auto max-w-[1600px] px-6 text-center sm:px-10 lg:px-16"
           >
-            <motion.span variants={titleLine} className="block font-extrabold text-white">
-              Our
-            </motion.span>
-            <motion.span variants={titleLine} className="text-accent mt-2 block font-extrabold">
-              Offered
-            </motion.span>
-            <motion.span variants={titleLine} className="mt-2 block font-normal text-white italic">
-              Services
-            </motion.span>
-          </motion.h1>
-        </motion.div>
+            <motion.h1
+              variants={titleContainer}
+              initial={hasTitleEntrancePlayed ? "visible" : "hidden"}
+              animate="visible"
+              className="font-display w-full text-[clamp(2.75rem,8vw,7.5rem)] leading-[1.05] tracking-tight uppercase"
+            >
+              <motion.span variants={titleLine} className="block font-extrabold text-white">
+                Our
+              </motion.span>
+              <motion.span variants={titleLine} className="text-accent mt-2 block font-extrabold">
+                Offered
+              </motion.span>
+              <motion.span
+                variants={titleLine}
+                className="mt-2 block font-normal text-white italic"
+              >
+                Services
+              </motion.span>
+            </motion.h1>
+          </motion.div>
+        )}
 
         {/* Intro Phase: Marquee sliding down */}
-        <motion.div
-          style={{ opacity: introOpacity, y: marqueeY }}
-          className="absolute inset-x-0 bottom-0 z-10"
-        >
-          <ServicesMarquee reduceMotion={reduceMotion} />
-        </motion.div>
+        {isIntroLayerMounted && (
+          <motion.div
+            style={{ opacity: introOpacity, y: marqueeY }}
+            className="absolute inset-x-0 bottom-0 z-10"
+          >
+            <ServicesMarquee reduceMotion={reduceMotion} />
+          </motion.div>
+        )}
 
         {/* Showcase Phase: Takes over after Intro fades */}
         <ServicesHeroShowcase scrollYProgress={scrollYProgress} reduceMotion={reduceMotion} />

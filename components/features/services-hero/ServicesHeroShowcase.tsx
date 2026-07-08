@@ -35,8 +35,12 @@ export function ServicesHeroShowcase({ scrollYProgress, reduceMotion }: Services
             transition={{ duration: 0.6, ease: EASE_PREMIUM }}
             className="pointer-events-auto relative mx-auto flex h-full w-full max-w-[1600px] flex-col items-center justify-center px-6 pt-24 sm:px-10 lg:flex-row lg:items-center lg:justify-between lg:px-16 lg:pt-0"
           >
+            {/* Ambient background for the Showcase/Listing phase — subtle grid + soft glow, its own treatment distinct from the intro's collage/HUD background */}
+            <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:32px_32px]" />
+            <div className="pointer-events-none absolute inset-0 -z-10 [background:radial-gradient(ellipse_60%_50%_at_50%_50%,rgba(99,102,241,0.06)_0%,transparent_70%)]" />
+
             {/* Left Side: Title */}
-            <div className="flex w-full flex-col gap-4 text-left lg:w-[40%] xl:w-[35%]">
+            <div className="relative flex w-full flex-col gap-4 text-left lg:w-[40%] xl:w-[35%]">
               <motion.span
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
