@@ -48,9 +48,12 @@ export function ServicesHero() {
     offset: ["start start", "end end"],
   });
 
-  const introOpacity = useTransform(scrollYProgress, [0, 0.1, 0.15], [1, 1, 0]);
+  // Both fades start right at scroll 0 (rather than holding static for the
+  // first few percent) so every pixel scrolled past the Hero is visible
+  // motion — no dead scroll before the Listing transition begins.
+  const introOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
   const textScale = useTransform(scrollYProgress, [0, 0.15], [1, 4]);
-  const textOpacity = useTransform(scrollYProgress, [0.05, 0.15], [1, 0]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
   const marqueeY = useTransform(scrollYProgress, [0, 0.15], [0, 100]);
 
   // Fully unmount the intro's decorative background (collage, HUD identity,
