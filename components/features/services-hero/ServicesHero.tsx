@@ -90,7 +90,15 @@ export function ServicesHero() {
         {/* Intro Phase: Massive Title */}
         {isIntroLayerMounted && (
           <motion.div
-            style={reduceMotion ? undefined : { opacity: textOpacity, scale: textScale }}
+            // The scroll-linked zoom/fade only plays on the very first pass through
+            // the intro. Once the title has exited once, later re-entries (scrolling
+            // back up from below) must render it fully bright immediately, not tied
+            // to wherever scroll happens to sit inside the 0.05-0.15 fade window.
+            style={
+              reduceMotion || hasTitleEntrancePlayed
+                ? undefined
+                : { opacity: textOpacity, scale: textScale }
+            }
             className="relative z-20 mx-auto max-w-[1600px] px-6 text-center sm:px-10 lg:px-16"
           >
             <motion.h1
