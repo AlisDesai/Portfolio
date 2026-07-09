@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  motion,
-  AnimatePresence,
-  useMotionValue,
-  useMotionValueEvent,
-  type MotionValue,
-} from "framer-motion";
+import { motion, AnimatePresence, useMotionValueEvent, type MotionValue } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils/cn";
 import { SERVICES } from "@/components/features/services/services-gallery-data";
@@ -30,9 +24,9 @@ interface ServicesHeroShowcaseProps {
 const INTRO_END = 0.2113;
 const SERVICE_SPAN = (1 - INTRO_END) / SERVICES.length;
 
-// Ambient glow + icon-ring accent, tinted per-service using each service's
-// own flagship palette — reuses the exact Tailwind colors already present
-// in the gallery data, no new tokens.
+// Ambient glow behind the icon, tinted per-service using each service's own
+// flagship palette — reuses the exact Tailwind colors already present in
+// the gallery data, no new tokens.
 const GLOW_CLASSES: Record<GalleryPalette, string> = {
   blue: "bg-blue-500",
   indigo: "bg-indigo-500",
@@ -55,7 +49,7 @@ function splitTitle(title: string): { lead: string; trailing: string } {
 }
 
 // Deduplicated categories from a service's gallery data (e.g. "Backend",
-// "Security", "Payments"...) — real data, presented as a capability list
+// "Security", "Payments"...) — real data, presented as a capability index
 // instead of a fabricated product screenshot.
 function getCapabilities(service: ServiceItem): string[] {
   const seen = new Set<string>();
@@ -78,7 +72,7 @@ function ServerIcon({ className }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={2}
+      strokeWidth={1.5}
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
@@ -100,7 +94,7 @@ function DeviceIcon({ className }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={2}
+      strokeWidth={1.5}
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
@@ -118,7 +112,7 @@ function LayersIcon({ className }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={2}
+      strokeWidth={1.5}
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
@@ -137,7 +131,7 @@ function LinkIcon({ className }: IconProps) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={2}
+      strokeWidth={1.5}
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
@@ -188,45 +182,6 @@ function ProgressRail({ activeIndex }: { activeIndex: number }) {
   );
 }
 
-// A subtle pointer-following tilt on the card — skipped entirely under
-// reduced motion. Purely additive to the existing entrance transform
-// (opacity/x/scale stay on the outer element; rotateX/rotateY live on this
-// inner wrapper so the two never fight over the same style properties).
-function TiltCard({
-  reduceMotion,
-  children,
-}: {
-  reduceMotion: boolean;
-  children: React.ReactNode;
-}) {
-  const rotateX = useMotionValue(0);
-  const rotateY = useMotionValue(0);
-
-  if (reduceMotion) {
-    return <div className="relative h-full w-full">{children}</div>;
-  }
-
-  return (
-    <motion.div
-      className="relative h-full w-full"
-      style={{ rotateX, rotateY, transformPerspective: 1200 }}
-      onMouseMove={(event) => {
-        const rect = event.currentTarget.getBoundingClientRect();
-        const px = (event.clientX - rect.left) / rect.width - 0.5;
-        const py = (event.clientY - rect.top) / rect.height - 0.5;
-        rotateY.set(px * 6);
-        rotateX.set(py * -6);
-      }}
-      onMouseLeave={() => {
-        rotateX.set(0);
-        rotateY.set(0);
-      }}
-    >
-      {children}
-    </motion.div>
-  );
-}
-
 export function ServicesHeroShowcase({ scrollYProgress, reduceMotion }: ServicesHeroShowcaseProps) {
   const [activeIndex, setActiveIndex] = useState(-1);
 
@@ -266,16 +221,16 @@ export function ServicesHeroShowcase({ scrollYProgress, reduceMotion }: Services
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5, ease: EASE_PREMIUM }}
             className={cn(
-              "pointer-events-auto relative mx-auto flex h-full w-full max-w-[1600px] flex-col items-center justify-center gap-12 px-6 pt-24 sm:px-10 lg:flex-row lg:gap-20 lg:px-16 lg:pt-0 xl:gap-24 xl:px-20",
+              "pointer-events-auto relative mx-auto flex h-full w-full max-w-[1600px] flex-col items-center justify-center gap-14 px-6 pt-24 sm:px-10 lg:flex-row lg:items-center lg:gap-16 lg:px-16 lg:pt-0 xl:gap-24 xl:px-20",
               activeIndex % 2 === 1 && "lg:flex-row-reverse"
             )}
           >
-            {/* Text Column — a deliberate, time-based sequence: label, then
-                title sliding in from the right, then the description. */}
-            <div className="flex w-full min-w-0 flex-col gap-6 text-left lg:w-[42%]">
+            {/* Editorial text block — the title reveals via a cinematic mask
+                wipe (not a slide), the description via a soft focus-pull. */}
+            <div className="flex w-full min-w-0 flex-col gap-6 text-left lg:w-[55%]">
               <motion.div
-                initial={reduceMotion ? { opacity: 0 } : { opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
+                initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease: EASE_PREMIUM }}
                 className="flex items-center gap-3"
               >
@@ -285,67 +240,73 @@ export function ServicesHeroShowcase({ scrollYProgress, reduceMotion }: Services
                 </span>
               </motion.div>
               <motion.h2
-                initial={reduceMotion ? { opacity: 0 } : { opacity: 0, x: 140 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.9, delay: 0.12, ease: EASE_PREMIUM }}
+                initial={
+                  reduceMotion ? { opacity: 0 } : { opacity: 1, clipPath: "inset(0 100% 0 0)" }
+                }
+                animate={{ opacity: 1, clipPath: "inset(0 0% 0 0)" }}
+                transition={{ duration: 1, delay: 0.15, ease: EASE_PREMIUM }}
                 className="font-display text-4xl leading-[1.05] tracking-tight text-white drop-shadow-xl sm:text-5xl lg:text-6xl xl:text-7xl"
               >
                 <span className="font-extrabold">{titleParts.lead} </span>
                 <span className="font-normal text-white/85">{titleParts.trailing}</span>
               </motion.h2>
               <motion.p
-                initial={reduceMotion ? { opacity: 0 } : { opacity: 0, x: 90 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.8, delay: 0.6, ease: EASE_PREMIUM }}
+                initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12, filter: "blur(8px)" }}
+                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                transition={{ duration: 0.7, delay: 0.55, ease: EASE_PREMIUM }}
                 className="max-w-md text-lg leading-relaxed text-white/60"
               >
                 {activeService.description}
               </motion.p>
             </div>
 
-            {/* Showcase Card — a glass emblem panel: a large custom line-icon
-                plus a real capability list pulled from the service's own
-                data, sliding in from the left after the title has led the
-                sequence. No fabricated screenshot, no browser chrome. */}
-            <motion.div
-              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, x: -170, scale: 0.9 }}
-              animate={{ opacity: 1, x: 0, scale: 1 }}
-              transition={{ duration: 1, delay: 0.32, ease: EASE_PREMIUM }}
-              className="relative w-full lg:w-[52%]"
-            >
-              <div
-                className={cn(
-                  "pointer-events-none absolute top-1/2 left-1/2 -z-10 aspect-square w-[85%] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-20 blur-3xl",
-                  glowClass
-                )}
-              />
-              <TiltCard reduceMotion={reduceMotion}>
-                <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] p-8 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.55)] backdrop-blur-xl sm:p-10">
-                  <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
-                  <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#ffffff06_1px,transparent_1px),linear-gradient(to_bottom,#ffffff06_1px,transparent_1px)] bg-[size:24px_24px]" />
+            {/* Open, borderless composition — a large glowing line-icon
+                paired with a minimal numbered capability index, floating
+                directly on the section's own background instead of being
+                boxed in a card. Real data from the service's own gallery
+                categories. */}
+            <div className="flex w-full flex-col gap-10 lg:w-[38%]">
+              <motion.div
+                initial={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.6, rotate: -8 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                transition={{ duration: 0.9, delay: 0.3, ease: EASE_PREMIUM }}
+                className="relative flex size-20 items-center justify-center text-white sm:size-24"
+              >
+                <span
+                  className={cn(
+                    "pointer-events-none absolute inset-[-30%] -z-10 rounded-full opacity-25 blur-2xl",
+                    glowClass
+                  )}
+                />
+                <ServiceIcon className="size-full" />
+              </motion.div>
 
-                  <div className="relative flex flex-col gap-8">
-                    <div className="border-accent/25 bg-accent/10 text-accent flex size-16 items-center justify-center rounded-2xl border">
-                      <ServiceIcon className="size-8" />
+              <div className="flex flex-col">
+                {capabilities.map((capability, index) => {
+                  const delay = 0.55 + index * 0.1;
+                  return (
+                    <div key={capability} className="relative flex items-baseline gap-4 py-3">
+                      <span className="text-accent/60 font-mono text-xs">0{index + 1}</span>
+                      <motion.span
+                        initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 6 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, delay }}
+                        className="font-display text-lg text-white/80 sm:text-xl"
+                      >
+                        {capability}
+                      </motion.span>
+                      <motion.span
+                        initial={reduceMotion ? { scaleX: 1 } : { scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{ duration: 0.6, delay, ease: EASE_PREMIUM }}
+                        style={{ originX: 0 }}
+                        className="absolute inset-x-0 bottom-0 h-px bg-white/10"
+                      />
                     </div>
-
-                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                      {capabilities.map((capability) => (
-                        <div
-                          key={capability}
-                          className="hover:border-accent/30 flex items-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3.5 transition-colors duration-300 hover:bg-white/[0.07]"
-                        >
-                          <span className="bg-accent size-1.5 shrink-0 rounded-full" />
-                          <span className="font-display truncate text-sm font-medium text-white/85 sm:text-base">
-                            {capability}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </TiltCard>
-            </motion.div>
+                  );
+                })}
+              </div>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
