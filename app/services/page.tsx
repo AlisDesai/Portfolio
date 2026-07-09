@@ -1,3 +1,4 @@
+import { Contact } from "@/components/features/contact/Contact";
 import { ServicesHero } from "@/components/features/services-hero/ServicesHero";
 import { Navbar } from "@/components/layout/Navbar";
 
@@ -7,6 +8,7 @@ export default function ServicesPage() {
       <Navbar />
       <main className="flex flex-1 flex-col">
         <ServicesHero />
+        <Contact showCollaborateCta={false} />
       </main>
     </>
   );
