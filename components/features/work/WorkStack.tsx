@@ -14,7 +14,7 @@ const THEME_STYLES: Record<WorkProject["theme"], string> = {
   rose: "from-rose-500/20 via-rose-500/5 to-transparent border-rose-500/20",
 };
 
-export function WorkStack() {
+export function WorkStack({ hideHeader = false }: { hideHeader?: boolean }) {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.05 });
 
@@ -28,19 +28,21 @@ export function WorkStack() {
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,255,255,0.03),transparent_50%)]" />
 
       <div className="relative z-10 mx-auto w-full max-w-[1200px]">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-16 flex flex-col items-start gap-4 md:mb-24"
-        >
-          <span className="border-accent/30 text-accent rounded-full border bg-white/5 px-5 py-2 text-sm font-medium tracking-[0.2em] uppercase">
-            Featured Work
-          </span>
-          <h2 className="font-display text-4xl font-extrabold text-white sm:text-5xl md:text-6xl">
-            Selected <span className="text-white/40">Projects</span>
-          </h2>
-        </motion.div>
+        {!hideHeader && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            className="mb-16 flex flex-col items-start gap-4 md:mb-24"
+          >
+            <span className="border-accent/30 text-accent rounded-full border bg-white/5 px-5 py-2 text-sm font-medium tracking-[0.2em] uppercase">
+              Featured Work
+            </span>
+            <h2 className="font-display text-4xl font-extrabold text-white sm:text-5xl md:text-6xl">
+              Selected <span className="text-white/40">Projects</span>
+            </h2>
+          </motion.div>
+        )}
 
         {/* The container needs to have enough padding at the bottom so the last card can be scrolled past */}
         <div className="flex flex-col gap-10 pb-[10vh] sm:gap-14">

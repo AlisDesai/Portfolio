@@ -7,7 +7,7 @@ export interface NavItem {
 
 // exist — in-page anchors for now. "Services" now has its own page.
 export const NAV_ITEMS: NavItem[] = [
-  { label: "Work", href: "#work" },
+  { label: "Work", href: ROUTES.WORK },
   { label: "Services", href: ROUTES.SERVICES },
   { label: "Contact", href: ROUTES.CONTACT },
 ];

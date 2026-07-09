@@ -159,7 +159,7 @@ export default function ContactPage() {
                 Location
               </h3>
               <p className="text-lg leading-relaxed font-medium text-zinc-900 sm:text-xl">
-                Based in New York
+                Based in Ahmedabad/Vadodara
                 <br />
                 Available Worldwide
               </p>
