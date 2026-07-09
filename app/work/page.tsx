@@ -27,8 +27,7 @@ export default function WorkPage() {
   return (
     <>
       <Navbar />
-      <main className="relative flex min-h-screen flex-col overflow-hidden bg-[#F9FAFB] text-zinc-900 selection:bg-zinc-200 pt-20">
-        
+      <main className="relative flex min-h-screen flex-col overflow-hidden bg-[#F9FAFB] pt-20 text-zinc-900 selection:bg-zinc-200">
         {/* Ambient Top Glow & Grid Pattern to match Contact Page */}
         <div className="absolute inset-0 -z-20 h-full w-full">
           <div className="from-accent/5 via-accent/2 absolute inset-x-0 top-0 h-[800px] bg-gradient-to-b to-transparent mix-blend-multiply" />
@@ -36,33 +35,34 @@ export default function WorkPage() {
         </div>
 
         {/* Hero Section */}
-        <section className="relative pt-24 pb-20 sm:pt-32 sm:pb-32 px-6 sm:px-10 lg:px-16 mx-auto w-full max-w-[1400px]">
+        <section className="relative mx-auto w-full max-w-[1400px] px-6 pt-24 pb-20 sm:px-10 sm:pt-32 sm:pb-32 lg:px-16">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
             <h1 className="font-display text-[4rem] leading-[1.05] font-black tracking-tighter text-zinc-900 sm:text-[6rem] md:text-[8rem]">
-              Selected <br/>
+              Selected <br />
               <span className="text-zinc-300">Works.</span>
             </h1>
-            <p className="mt-8 max-w-2xl text-xl font-medium text-zinc-500 sm:text-2xl leading-relaxed">
-              A curated showcase of digital experiences, where premium design meets relentless engineering.
+            <p className="mt-8 max-w-2xl text-xl leading-relaxed font-medium text-zinc-500 sm:text-2xl">
+              A curated showcase of digital experiences, where premium design meets relentless
+              engineering.
             </p>
           </motion.div>
         </section>
 
         {/* Projects Gallery */}
-        <section className="px-6 sm:px-10 lg:px-16 pb-32">
-          <div className="mx-auto max-w-[1400px] flex flex-col gap-32 sm:gap-48">
-             {WORK_PROJECTS.map((project, index) => (
-                <ProjectItem key={project.id} project={project} index={index} />
-             ))}
+        <section className="px-6 pb-32 sm:px-10 lg:px-16">
+          <div className="mx-auto flex max-w-[1400px] flex-col gap-32 sm:gap-48">
+            {WORK_PROJECTS.map((project, index) => (
+              <ProjectItem key={project.id} project={project} index={index} />
+            ))}
           </div>
         </section>
 
         {/* Footer section (Replicated from Contact Page) */}
-        <div className="relative z-10 mt-10 flex w-full flex-col items-center pt-10 sm:mt-20 border-t border-zinc-200">
+        <div className="relative z-10 mt-10 flex w-full flex-col items-center border-t border-zinc-200 pt-10 sm:mt-20">
           <div className="mx-auto mb-16 grid w-full max-w-6xl grid-cols-1 gap-12 px-6 sm:mb-24 md:grid-cols-3 lg:px-8">
             <div className="flex flex-col gap-3">
               <h3 className="text-xs font-bold tracking-[0.2em] text-zinc-400 uppercase">
@@ -141,30 +141,30 @@ function ProjectItem({ project, index }: { project: WorkProject; index: number }
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.3, 1, 1, 0.3]);
 
   return (
-    <motion.div 
+    <motion.div
       ref={ref}
       style={{ opacity }}
-      className="group relative flex flex-col lg:flex-row items-center gap-12 lg:gap-20"
+      className="group relative flex flex-col items-center gap-12 lg:flex-row lg:gap-20"
     >
       {/* Text Info - alternates sides based on index */}
-      <div className={`flex w-full flex-col gap-8 lg:w-1/2 ${index % 2 !== 0 ? 'lg:order-2' : ''}`}>
+      <div className={`flex w-full flex-col gap-8 lg:w-1/2 ${index % 2 !== 0 ? "lg:order-2" : ""}`}>
         <div className="flex items-center gap-4">
           <span className="text-sm font-bold tracking-[0.2em] text-zinc-400 uppercase">
             {String(index + 1).padStart(2, "0")}
           </span>
           <div className="h-px w-12 bg-zinc-300" />
-          <span className={`text-sm font-bold tracking-[0.2em] uppercase ${THEME_ACCENTS[project.theme]}`}>
+          <span
+            className={`text-sm font-bold tracking-[0.2em] uppercase ${THEME_ACCENTS[project.theme]}`}
+          >
             {project.category}
           </span>
         </div>
 
-        <h2 className="font-display text-4xl font-extrabold text-zinc-900 sm:text-5xl md:text-6xl tracking-tight group-hover:text-zinc-600 transition-colors duration-500">
+        <h2 className="font-display text-4xl font-extrabold tracking-tight text-zinc-900 transition-colors duration-500 group-hover:text-zinc-600 sm:text-5xl md:text-6xl">
           {project.title}
         </h2>
 
-        <p className="text-xl leading-relaxed text-zinc-500">
-          {project.description}
-        </p>
+        <p className="text-xl leading-relaxed text-zinc-500">{project.description}</p>
 
         <div className="flex flex-wrap gap-3 pt-2">
           {project.tags.map((tag) => (
@@ -179,19 +179,19 @@ function ProjectItem({ project, index }: { project: WorkProject; index: number }
       </div>
 
       {/* Visual / Image Placeholder with Parallax */}
-      <motion.div 
+      <motion.div
         style={{ y, scale }}
-        className={`relative aspect-[4/3] w-full lg:w-1/2 overflow-hidden rounded-[2.5rem] bg-gradient-to-br ${THEME_GRADIENTS[project.theme]} shadow-[0_30px_60px_-20px_rgba(0,0,0,0.1)] transition-transform duration-700`}
+        className={`relative aspect-[4/3] w-full overflow-hidden rounded-[2.5rem] bg-gradient-to-br lg:w-1/2 ${THEME_GRADIENTS[project.theme]} shadow-[0_30px_60px_-20px_rgba(0,0,0,0.1)] transition-transform duration-700`}
       >
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.9)_0%,transparent_100%)] mix-blend-overlay" />
-        
+
         {/* Subtle hover effect orb */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-64 rounded-full bg-white/40 blur-[60px] transition-transform duration-700 group-hover:scale-150 group-hover:bg-white/60" />
+        <div className="absolute top-1/2 left-1/2 size-64 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white/40 blur-[60px] transition-transform duration-700 group-hover:scale-150 group-hover:bg-white/60" />
 
         <div className="absolute inset-0 flex items-center justify-center">
-            <div className="px-8 py-4 rounded-full bg-white/40 backdrop-blur-md border border-white/60 shadow-xl text-zinc-900 font-bold tracking-widest uppercase text-sm transition-transform duration-500 group-hover:scale-110">
-              View Project
-            </div>
+          <div className="rounded-full border border-white/60 bg-white/40 px-8 py-4 text-sm font-bold tracking-widest text-zinc-900 uppercase shadow-xl backdrop-blur-md transition-transform duration-500 group-hover:scale-110">
+            View Project
+          </div>
         </div>
       </motion.div>
     </motion.div>
