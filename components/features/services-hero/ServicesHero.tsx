@@ -41,8 +41,10 @@ export function ServicesHero() {
   // the fade-from-hidden and get caught mid-fade looking dim.
   const [hasTitleEntrancePlayed, setHasTitleEntrancePlayed] = useState(false);
 
-  // Scroll mapping for the 500vh container.
-  // 0.0 - 0.15 is the Intro phase.
+  // Scroll mapping for the 355vh container.
+  // 0.0 - 0.2113 is the Intro phase (still exactly 75vh of scroll distance,
+  // same as before — only the Showcase's own per-service hold time below it
+  // was shrunk, so the Hero's own intro pacing/feel is unchanged).
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start start", "end end"],
@@ -51,16 +53,16 @@ export function ServicesHero() {
   // Both fades start right at scroll 0 (rather than holding static for the
   // first few percent) so every pixel scrolled past the Hero is visible
   // motion — no dead scroll before the Listing transition begins.
-  const introOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
-  const textScale = useTransform(scrollYProgress, [0, 0.15], [1, 4]);
-  const textOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
-  const marqueeY = useTransform(scrollYProgress, [0, 0.15], [0, 100]);
+  const introOpacity = useTransform(scrollYProgress, [0, 0.2113], [1, 0]);
+  const textScale = useTransform(scrollYProgress, [0, 0.2113], [1, 4]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.2113], [1, 0]);
+  const marqueeY = useTransform(scrollYProgress, [0, 0.2113], [0, 100]);
 
   // Fully unmount the intro's decorative background (collage, HUD identity,
   // spotlight) once the Showcase phase takes over — an opacity fade alone
   // left it painted (and visually bleeding through) behind every service.
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const isInIntroRange = latest < 0.15;
+    const isInIntroRange = latest < 0.2113;
     setIsIntroLayerMounted((wasMounted) => {
       if (wasMounted && !isInIntroRange) setHasTitleEntrancePlayed(true);
       return isInIntroRange;
@@ -68,7 +70,7 @@ export function ServicesHero() {
   });
 
   return (
-    <section ref={sectionRef} className="relative h-[500vh] w-full bg-[#080808]">
+    <section ref={sectionRef} className="relative h-[355vh] w-full bg-[#080808]">
       <div className="sticky top-0 flex h-dvh min-h-[640px] w-full items-center justify-center overflow-hidden">
         {/* Intro Phase: Background Collage & Pills */}
         {isIntroLayerMounted && (

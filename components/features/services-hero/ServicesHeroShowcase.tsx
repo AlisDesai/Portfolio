@@ -22,10 +22,12 @@ interface ServicesHeroShowcaseProps {
   reduceMotion: boolean;
 }
 
-// Intro occupies the first 15% of scroll; the rest is split evenly across
-// every service so each gets the same scroll distance (mirrors the mapping
-// ServicesHero uses to unmount its own intro layer at the same 0.15 mark).
-const INTRO_END = 0.15;
+// Intro occupies the first ~21% of the 355vh section (still exactly 75vh,
+// unchanged from before) — the rest is split evenly across every service,
+// now ~70vh each instead of ~106vh, so there's no more long dead hold after
+// a service has already fully revealed. Mirrors the mapping ServicesHero
+// uses to unmount its own intro layer at the same 0.2113 mark.
+const INTRO_END = 0.2113;
 const SERVICE_SPAN = (1 - INTRO_END) / SERVICES.length;
 
 // Ambient glow + icon-ring accent, tinted per-service using each service's
