@@ -37,6 +37,7 @@ export const metadata: Metadata = {
 };
 
 import { CustomCursor } from "@/components/shared/CustomCursor";
+import { FloatingAssistant } from "@/components/shared/FloatingAssistant";
 
 export default function RootLayout({
   children,
@@ -50,6 +51,7 @@ export default function RootLayout({
     >
       <body className="flex min-h-full flex-col">
         <CustomCursor />
+        <FloatingAssistant />
         <Providers>{children}</Providers>
       </body>
     </html>
