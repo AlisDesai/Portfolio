@@ -1,11 +1,6 @@
 "use client";
 
-import {
-  motion,
-  useMotionValueEvent,
-  useTransform,
-  type MotionValue,
-} from "framer-motion";
+import { motion, useMotionValueEvent, useTransform, type MotionValue } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils/cn";
 import { ServiceGalleryTile } from "@/components/features/services/ServiceGalleryTile";
