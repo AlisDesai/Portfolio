@@ -62,7 +62,7 @@ function getCapabilities(service: ServiceItem): string[] {
   for (const item of service.gallery) {
     if (!seen.has(item.category)) seen.add(item.category);
   }
-  return Array.from(seen).slice(0, 5);
+  return Array.from(seen).slice(0, 6);
 }
 
 interface IconProps {
@@ -321,6 +321,7 @@ export function ServicesHeroShowcase({ scrollYProgress, reduceMotion }: Services
               />
               <TiltCard reduceMotion={reduceMotion}>
                 <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] p-8 shadow-[0_30px_70px_-20px_rgba(0,0,0,0.55)] backdrop-blur-xl sm:p-10">
+                  <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent" />
                   <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#ffffff06_1px,transparent_1px),linear-gradient(to_bottom,#ffffff06_1px,transparent_1px)] bg-[size:24px_24px]" />
 
                   <div className="relative flex flex-col gap-8">
@@ -328,22 +329,19 @@ export function ServicesHeroShowcase({ scrollYProgress, reduceMotion }: Services
                       <ServiceIcon className="size-8" />
                     </div>
 
-                    <ul className="flex flex-col gap-4">
-                      {capabilities.map((capability, index) => (
-                        <li
+                    <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                      {capabilities.map((capability) => (
+                        <div
                           key={capability}
-                          className={cn(
-                            "flex items-center gap-3 pb-4",
-                            index < capabilities.length - 1 && "border-b border-white/10"
-                          )}
+                          className="hover:border-accent/30 flex items-center gap-2.5 rounded-xl border border-white/10 bg-white/[0.04] px-4 py-3.5 transition-colors duration-300 hover:bg-white/[0.07]"
                         >
                           <span className="bg-accent size-1.5 shrink-0 rounded-full" />
-                          <span className="font-display text-base font-medium text-white/85 sm:text-lg">
+                          <span className="font-display truncate text-sm font-medium text-white/85 sm:text-base">
                             {capability}
                           </span>
-                        </li>
+                        </div>
                       ))}
-                    </ul>
+                    </div>
                   </div>
                 </div>
               </TiltCard>
