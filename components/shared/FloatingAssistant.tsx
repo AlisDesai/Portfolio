@@ -22,7 +22,7 @@ export function FloatingAssistant() {
       initial={{ opacity: 0, scale: 0.8, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 1, ease: EASE_PREMIUM }}
-      className="fixed right-5 bottom-5 z-40 sm:right-8 sm:bottom-8"
+      className="fixed right-5 bottom-8 z-40 sm:right-8 sm:bottom-2"
     >
       <Link
         href={ROUTES.CONTACT}
@@ -55,8 +55,8 @@ export function FloatingAssistant() {
             viewBox="0 0 100 100"
             className={
               reduceMotion
-                ? "group-hover:text-accent absolute inset-0 size-full text-zinc-300 transition-colors duration-300"
-                : "group-hover:text-accent absolute inset-0 size-full animate-[spin_16s_linear_infinite] text-zinc-300 transition-colors duration-300"
+                ? "group-hover:text-accent absolute inset-0 size-full text-zinc-900 transition-colors duration-300"
+                : "group-hover:text-accent absolute inset-0 size-full animate-[spin_16s_linear_infinite] text-zinc-900 transition-colors duration-300"
             }
             aria-hidden="true"
           >
