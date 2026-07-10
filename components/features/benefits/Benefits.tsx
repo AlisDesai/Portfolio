@@ -37,7 +37,7 @@ export function Benefits() {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.1, ease: EASE_PREMIUM }}
-            className="font-display mt-5 text-5xl leading-[1.05] font-extrabold tracking-tight text-zinc-900 sm:text-6xl lg:text-7xl"
+            className="font-display mt-5 text-5xl leading-[1.3] font-extrabold tracking-tight text-zinc-900 sm:text-6xl lg:text-7xl"
           >
             Benefits of
             <br />
