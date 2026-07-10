@@ -7,6 +7,24 @@ export interface WorkProject {
   theme: "blue" | "emerald" | "violet" | "amber" | "rose";
 }
 
+// Used by the /work page's editorial index + hover preview only — WorkStack
+// (home page) keeps its own separate theme-class map untouched.
+export const WORK_THEME_GRADIENTS: Record<WorkProject["theme"], string> = {
+  blue: "from-blue-500 to-blue-300",
+  emerald: "from-emerald-500 to-emerald-300",
+  violet: "from-violet-500 to-violet-300",
+  amber: "from-amber-500 to-amber-300",
+  rose: "from-rose-500 to-rose-300",
+};
+
+export const WORK_THEME_ACCENTS: Record<WorkProject["theme"], string> = {
+  blue: "text-blue-600",
+  emerald: "text-emerald-600",
+  violet: "text-violet-600",
+  amber: "text-amber-600",
+  rose: "text-rose-600",
+};
+
 export const WORK_PROJECTS: WorkProject[] = [
   {
     id: "booking-api",
