@@ -1,7 +1,12 @@
 "use client";
 
 import { AnimatePresence, motion, type MotionValue } from "framer-motion";
-import { WORK_THEME_GRADIENTS, type WorkProject } from "@/components/features/work/work-data";
+import { ArrowUpRightIcon } from "@/components/features/contact/icons";
+import {
+  WORK_THEME_ACCENTS,
+  WORK_THEME_GRADIENTS,
+  type WorkProject,
+} from "@/components/features/work/work-data";
 import { cn } from "@/lib/utils/cn";
 
 const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
@@ -31,14 +36,21 @@ export function WorkHoverPreview({ project, x, y }: WorkHoverPreviewProps) {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.85 }}
             transition={{ duration: 0.35, ease: EASE_PREMIUM }}
-            className={cn(
-              "relative flex aspect-[4/3] w-40 items-center justify-center overflow-hidden rounded-2xl bg-linear-to-br shadow-[0_16px_32px_-12px_rgba(0,0,0,0.3)] sm:w-47.5",
-              WORK_THEME_GRADIENTS[project.theme]
-            )}
+            className="relative flex aspect-4/3 w-28 items-center justify-center overflow-hidden rounded-xl border border-zinc-100 bg-white shadow-[0_20px_40px_-18px_rgba(0,0,0,0.25)] sm:w-32"
           >
-            <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.3)_0%,transparent_70%)]" />
-            <span className="rounded-full border border-white/50 bg-white/25 px-3.5 py-1.5 text-[10px] font-bold tracking-widest text-white uppercase shadow-lg backdrop-blur-md">
-              View Project
+            <div
+              className={cn(
+                "absolute inset-0 bg-linear-to-br opacity-[0.08]",
+                WORK_THEME_GRADIENTS[project.theme]
+              )}
+            />
+            <span
+              className={cn(
+                "relative flex size-9 items-center justify-center rounded-full bg-current/10",
+                WORK_THEME_ACCENTS[project.theme]
+              )}
+            >
+              <ArrowUpRightIcon className="size-4" />
             </span>
           </motion.div>
         )}
