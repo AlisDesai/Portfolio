@@ -3,9 +3,14 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { siteConfig } from "@/config/metadata";
 import { ROUTES } from "@/config/routes";
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";
+import {
+  CONTACT_FORM_FOCUS_EVENT,
+  type ContactFormFocusEventDetail,
+} from "@/lib/constants/assistant";
 
 const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
 
@@ -15,6 +20,19 @@ const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
  */
 export function FloatingAssistant() {
   const reduceMotion = usePrefersReducedMotion();
+  // Set true while a field on the Contact form is focused (see
+  // app/contact/page.tsx), so the avatar can subtly lean into the moment.
+  const [isFormActive, setIsFormActive] = useState(false);
+
+  useEffect(() => {
+    function handleFocusChange(event: Event) {
+      const { active } = (event as CustomEvent<ContactFormFocusEventDetail>).detail;
+      setIsFormActive(active);
+    }
+
+    window.addEventListener(CONTACT_FORM_FOCUS_EVENT, handleFocusChange);
+    return () => window.removeEventListener(CONTACT_FORM_FOCUS_EVENT, handleFocusChange);
+  }, []);
 
   return (
     <motion.div
@@ -29,19 +47,33 @@ export function FloatingAssistant() {
         className="group relative block"
       >
         <motion.div
-          animate={reduceMotion ? undefined : { y: [0, -6, 0], scale: [1, 1.03, 1] }}
+          animate={
+            reduceMotion
+              ? undefined
+              : isFormActive
+                ? { y: [0, -4, 0], scale: [1, 1.05, 1], rotate: [-2, 2, -2] }
+                : { y: [0, -6, 0], scale: [1, 1.03, 1] }
+          }
           transition={
-            reduceMotion ? undefined : { duration: 4.5, repeat: Infinity, ease: "easeInOut" }
+            reduceMotion
+              ? undefined
+              : { duration: isFormActive ? 3 : 4.5, repeat: Infinity, ease: "easeInOut" }
           }
           whileHover={reduceMotion ? undefined : { scale: 1.08, rotate: -4 }}
           whileTap={{ scale: 0.96 }}
           className="relative flex size-26 items-center justify-center sm:size-32"
         >
           {/* Soft ambient glow, pulsing gently behind the inner badge only —
-              the ring area around it stays clean and airy. */}
+              the ring area around it stays clean and airy. A touch brighter
+              while a Contact form field is focused, as a small, elegant
+              acknowledgement of the user's attention. */}
           <motion.span
             aria-hidden="true"
-            animate={reduceMotion ? undefined : { opacity: [0.25, 0.45, 0.25] }}
+            animate={
+              reduceMotion
+                ? undefined
+                : { opacity: isFormActive ? [0.35, 0.55, 0.35] : [0.25, 0.45, 0.25] }
+            }
             transition={
               reduceMotion ? undefined : { duration: 3.5, repeat: Infinity, ease: "easeInOut" }
             }

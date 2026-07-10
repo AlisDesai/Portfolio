@@ -38,6 +38,25 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
   },
 ];
 
+export const PROJECT_INTERESTS = [
+  "Full Website",
+  "Web Application",
+  "Mobile App",
+  "UI / UX Design",
+  "Branding",
+  "AI Solutions",
+  "Automation",
+  "SaaS Platform",
+  "Dashboard",
+  "API Integration",
+  "Backend Development",
+  "Frontend Development",
+] as const;
+
+export const BUDGET_RANGES = ["10-20k", "30-40k", "40-50k", "50-100k", "> 100k"] as const;
+
+export const PROJECT_TIMELINES = ["ASAP", "1-3 months", "3-6 months", "Flexible"] as const;
+
 export type SocialPlatform = "LinkedIn" | "Instagram" | "Facebook" | "WhatsApp";
 
 export interface SocialLink {
