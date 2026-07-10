@@ -8,7 +8,6 @@ import { ROUTES } from "@/config/routes";
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";
 
 const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
-const RING_LABEL = "CONTACT";
 
 /**
  * Globally rendered, persistent floating avatar — fixed bottom-right on
@@ -22,7 +21,7 @@ export function FloatingAssistant() {
       initial={{ opacity: 0, scale: 0.8, y: 20 }}
       animate={{ opacity: 1, scale: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 1, ease: EASE_PREMIUM }}
-      className="fixed right-5 bottom-8 z-40 sm:right-8 sm:bottom-2"
+      className="fixed right-1 bottom-8 z-40 sm:right-3 sm:bottom-1"
     >
       <Link
         href={ROUTES.CONTACT}
@@ -48,37 +47,6 @@ export function FloatingAssistant() {
             }
             className="bg-accent pointer-events-none absolute inset-6 rounded-full opacity-30 blur-xl sm:inset-7"
           />
-
-          {/* Rotating "contact" text ring — loose and airy, floating with
-              generous breathing room around the badge. */}
-          <svg
-            viewBox="0 0 100 100"
-            className={
-              reduceMotion
-                ? "group-hover:text-accent absolute inset-0 size-full text-zinc-900 transition-colors duration-300"
-                : "group-hover:text-accent absolute inset-0 size-full animate-[spin_16s_linear_infinite] text-zinc-900 transition-colors duration-300"
-            }
-            aria-hidden="true"
-          >
-            <defs>
-              <path
-                id="assistant-ring-path"
-                d="M 50,50 m -39,0 a 39,39 0 1 1 78,0 a 39,39 0 1 1 -78,0"
-              />
-            </defs>
-            <text
-              fontSize="7"
-              letterSpacing="2.75"
-              fill="currentColor"
-              xmlSpace="preserve"
-              className="font-mono font-medium lowercase"
-              style={{ filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.45))" }}
-            >
-              <textPath href="#assistant-ring-path" textLength="245.04" lengthAdjust="spacing">
-                {`${RING_LABEL} - ${RING_LABEL} - ${RING_LABEL} - `}
-              </textPath>
-            </text>
-          </svg>
 
           {/* Inner avatar badge — the site owner's photo, cropped to a
               perfect circle. */}
