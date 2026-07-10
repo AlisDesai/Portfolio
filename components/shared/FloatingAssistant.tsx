@@ -70,6 +70,7 @@ export function FloatingAssistant() {
               fontSize="7"
               letterSpacing="2.75"
               fill="currentColor"
+              xmlSpace="preserve"
               className="font-mono font-medium lowercase"
               style={{ filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.45))" }}
             >
