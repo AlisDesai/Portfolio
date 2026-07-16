@@ -85,10 +85,7 @@ export function FamiliarPhrases() {
   const reduceMotion = usePrefersReducedMotion();
 
   return (
-    <section
-      ref={sectionRef}
-      className="relative w-full overflow-hidden bg-white pt-4 pb-24 md:pt-6 md:pb-32"
-    >
+    <section ref={sectionRef} className="relative w-full overflow-hidden bg-white py-24 md:py-32">
       <div className="bg-accent pointer-events-none absolute top-1/2 left-1/2 size-[40rem] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-[0.04] blur-3xl" />
 
       <div className="relative z-10 mx-auto mb-14 flex w-full max-w-[1600px] flex-col items-center px-6 text-center sm:px-10 md:mb-16 lg:px-16">

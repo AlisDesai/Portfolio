@@ -33,7 +33,7 @@ export function WorkStack({ hideHeader = false }: { hideHeader?: boolean }) {
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-16 flex flex-col items-start gap-4 md:mb-24"
+            className="mb-16 flex flex-col items-center gap-4 text-center md:mb-24"
           >
             <span className="border-accent/30 text-accent rounded-full border bg-white/5 px-5 py-2 text-sm font-medium tracking-[0.2em] uppercase">
               Featured Work
