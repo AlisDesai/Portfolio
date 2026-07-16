@@ -17,23 +17,18 @@ interface WorkProjectRowProps {
   total: number;
   isFinePointer: boolean;
   reduceMotion: boolean;
-  onHoverStart: () => void;
-  onHoverEnd: () => void;
 }
 
 /** One row of the editorial project index. On a fine-pointer device, hovering
- * just reports up to WorkIndex (which drives the floating cursor preview) —
- * this row stays a clean typographic line. On touch/coarse pointers, where a
- * cursor-following preview can't exist, the row shows its own compact inline
- * swatch instead, so nothing is lost on mobile. */
+ * the title is a clean typographic color emphasis (group-hover below) — no
+ * floating preview. On touch/coarse pointers, the row shows its own compact
+ * inline swatch instead, so nothing is lost on mobile. */
 export function WorkProjectRow({
   project,
   index,
   total,
   isFinePointer,
   reduceMotion,
-  onHoverStart,
-  onHoverEnd,
 }: WorkProjectRowProps) {
   const rowRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(rowRef, { once: true, amount: 0.3, margin: "0px 0px -10% 0px" });
@@ -44,8 +39,6 @@ export function WorkProjectRow({
       initial={{ opacity: 0, y: reduceMotion ? 0 : 24 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, ease: EASE_PREMIUM }}
-      onMouseEnter={isFinePointer ? onHoverStart : undefined}
-      onMouseLeave={isFinePointer ? onHoverEnd : undefined}
       className="group border-b border-zinc-200 py-8 first:border-t sm:py-10"
     >
       <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:gap-8">

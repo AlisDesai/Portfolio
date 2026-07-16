@@ -81,7 +81,7 @@ export default function WorkPage() {
         </section>
 
         {/* Closing CTA — a short conversion prompt before the footer */}
-        <section className="px-6 pb-24 sm:px-10 lg:px-16">
+        <section className="px-6 pb-6 sm:px-10 lg:px-16">
           <div className="mx-auto flex max-w-[1400px] flex-col items-start gap-8 sm:flex-row sm:items-center sm:justify-between">
             <h2 className="font-display max-w-xl text-3xl font-extrabold tracking-tight text-zinc-900 sm:text-4xl">
               Have a project in mind?

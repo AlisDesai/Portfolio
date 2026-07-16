@@ -1,26 +1,17 @@
 "use client";
 
-import { useMotionValue, useSpring } from "framer-motion";
 import { useEffect, useState } from "react";
-import { WORK_PROJECTS, type WorkProject } from "@/components/features/work/work-data";
-import { WorkHoverPreview } from "@/components/features/work/WorkHoverPreview";
+import { WORK_PROJECTS } from "@/components/features/work/work-data";
 import { WorkProjectRow } from "@/components/features/work/WorkProjectRow";
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";
 
-/** Editorial project index — a typographic list rather than a card grid, with
- * a floating preview that follows the cursor on fine-pointer devices (same
- * spring-following technique already used by CustomCursor, reused here for
- * one contained section rather than the whole viewport). */
+/** Editorial project index — a typographic list rather than a card grid.
+ * Fine-pointer devices get a clean color-emphasis hover on the title
+ * (handled by WorkProjectRow itself); coarse/touch pointers show a small
+ * inline swatch per row instead, since there's no hover state to rely on. */
 export function WorkIndex() {
   const reduceMotion = usePrefersReducedMotion();
   const [isFinePointer, setIsFinePointer] = useState(false);
-  const [activeProject, setActiveProject] = useState<WorkProject | null>(null);
-
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const springConfig = { damping: 25, stiffness: 300, mass: 0.5 };
-  const previewX = useSpring(mouseX, springConfig);
-  const previewY = useSpring(mouseY, springConfig);
 
   useEffect(() => {
     // Synchronizing with an external system (device pointer capability),
@@ -30,12 +21,7 @@ export function WorkIndex() {
   }, [reduceMotion]);
 
   return (
-    <div
-      onMouseMove={(event) => {
-        mouseX.set(event.clientX);
-        mouseY.set(event.clientY);
-      }}
-    >
+    <div>
       {WORK_PROJECTS.map((project, index) => (
         <WorkProjectRow
           key={project.id}
@@ -44,12 +30,8 @@ export function WorkIndex() {
           total={WORK_PROJECTS.length}
           isFinePointer={isFinePointer}
           reduceMotion={reduceMotion}
-          onHoverStart={() => setActiveProject(project)}
-          onHoverEnd={() => setActiveProject(null)}
         />
       ))}
-
-      {isFinePointer && <WorkHoverPreview project={activeProject} x={previewX} y={previewY} />}
     </div>
   );
 }
