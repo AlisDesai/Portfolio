@@ -43,7 +43,7 @@ export function Navbar() {
       >
         <Link
           href={ROUTES.HOME}
-          className="group flex items-center gap-2 font-display text-sm font-bold tracking-tight text-zinc-900 transition-transform duration-300 ease-out hover:scale-[1.02] sm:text-base"
+          className="group font-display flex items-center gap-2 text-sm font-bold tracking-tight text-zinc-900 transition-transform duration-300 ease-out hover:scale-[1.02] sm:text-base"
         >
           <span className="bg-accent size-1.5 shrink-0 rounded-full transition-transform duration-300 ease-out group-hover:scale-125" />
           {siteConfig.name}
