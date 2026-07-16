@@ -1,23 +1,43 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { cn } from "@/lib/utils/cn";
+
+const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
 
 interface NavLinkProps {
   href: string;
   children: React.ReactNode;
   className?: string;
+  isActive?: boolean;
+  onMouseEnter?: () => void;
 }
 
-/** Calm nav link: underline reveal, minimal scale on hover. */
-export function NavLink({ href, children, className }: NavLinkProps) {
+/** Nav link with a sliding shared-element pill behind whichever item is
+ * active/hovered (same layoutId technique already used for the Contact
+ * page's budget/timeline selector) — replaces the old static underline with
+ * something that feels like one continuous, intentional piece of motion. */
+export function NavLink({ href, children, className, isActive, onMouseEnter }: NavLinkProps) {
   return (
     <a
       href={href}
+      onMouseEnter={onMouseEnter}
       className={cn(
-        "group hover:text-accent relative inline-block rounded-full px-1 py-1 text-sm font-medium tracking-wide text-zinc-600 transition-all duration-300 ease-out hover:scale-[1.02]",
+        "relative rounded-full px-3 py-1.5 font-medium tracking-wide transition-colors duration-300 ease-out sm:px-3.5 sm:py-2",
+        isActive ? "text-zinc-900" : "text-zinc-500 hover:text-zinc-900",
         className
       )}
     >
-      {children}
-      <span className="bg-accent absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 transition-transform duration-300 ease-out group-hover:scale-x-100" />
+      {isActive && (
+        <motion.span
+          layoutId="navbar-active-pill"
+          transition={{ duration: 0.4, ease: EASE_PREMIUM }}
+          className="absolute inset-0 -z-10 rounded-full bg-zinc-100"
+        />
+      )}
+      <motion.span whileTap={{ scale: 0.94 }} className="relative inline-block">
+        {children}
+      </motion.span>
     </a>
   );
 }

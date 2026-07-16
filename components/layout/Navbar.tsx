@@ -2,20 +2,28 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
 import { NavLink } from "@/components/ui/NavLink";
 import { NAV_ITEMS } from "@/config/navigation";
 import { ROUTES } from "@/config/routes";
 import { siteConfig } from "@/config/metadata";
 import { useScrolled } from "@/hooks/shared/useScrolled";
+import { cn } from "@/lib/utils/cn";
+
+const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
 
 export function Navbar() {
   const scrolled = useScrolled();
+  const pathname = usePathname();
+  const [hoveredHref, setHoveredHref] = useState<string | null>(null);
+  const activeHref = hoveredHref ?? pathname;
 
   return (
     <motion.header
-      initial={{ y: -16, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ y: -16, opacity: 0, filter: "blur(8px)" }}
+      animate={{ y: 0, opacity: 1, filter: "blur(0px)" }}
+      transition={{ duration: 0.7, ease: EASE_PREMIUM }}
       className="fixed inset-x-0 top-4 z-50 flex justify-center px-4 sm:top-6"
     >
       <motion.div
@@ -25,19 +33,34 @@ export function Navbar() {
           paddingTop: scrolled ? "8px" : "12px",
           paddingBottom: scrolled ? "8px" : "12px",
         }}
-        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
-        className="flex w-full max-w-3xl items-center justify-between gap-6 rounded-full border border-black/5 bg-white/95 shadow-[0_8px_30px_rgba(0,0,0,0.12)] backdrop-blur-xl"
+        transition={{ duration: 0.4, ease: EASE_PREMIUM }}
+        className={cn(
+          "flex w-full max-w-3xl items-center justify-between gap-4 rounded-full border bg-white/90 backdrop-blur-xl transition-shadow duration-500 ease-out sm:gap-6",
+          scrolled
+            ? "border-black/6 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),inset_0_-1px_0_rgba(0,0,0,0.03),0_10px_30px_-10px_rgba(129,140,248,0.3),0_2px_10px_rgba(0,0,0,0.06)]"
+            : "border-black/4 shadow-[inset_0_1px_0_rgba(255,255,255,0.8),inset_0_-1px_0_rgba(0,0,0,0.02),0_6px_20px_-8px_rgba(129,140,248,0.18),0_1px_4px_rgba(0,0,0,0.04)]"
+        )}
       >
         <Link
           href={ROUTES.HOME}
-          className="font-display text-sm font-bold tracking-tight text-zinc-900 transition-transform duration-300 ease-out hover:scale-[1.02] sm:text-base"
+          className="group flex items-center gap-2 font-display text-sm font-bold tracking-tight text-zinc-900 transition-transform duration-300 ease-out hover:scale-[1.02] sm:text-base"
         >
+          <span className="bg-accent size-1.5 shrink-0 rounded-full transition-transform duration-300 ease-out group-hover:scale-125" />
           {siteConfig.name}
         </Link>
 
-        <nav className="flex items-center gap-4 sm:gap-8">
+        <nav
+          className="relative flex items-center gap-1 sm:gap-2"
+          onMouseLeave={() => setHoveredHref(null)}
+        >
           {NAV_ITEMS.map((item) => (
-            <NavLink key={item.href} href={item.href} className="text-xs sm:text-sm">
+            <NavLink
+              key={item.href}
+              href={item.href}
+              className="text-xs sm:text-sm"
+              isActive={activeHref === item.href}
+              onMouseEnter={() => setHoveredHref(item.href)}
+            >
               {item.label}
             </NavLink>
           ))}
