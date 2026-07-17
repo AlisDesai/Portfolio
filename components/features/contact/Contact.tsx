@@ -172,7 +172,7 @@ export function Contact({ showCollaborateCta = true }: ContactProps) {
 
       {/* Full-bleed bottom bar — bleeds edge-to-edge, independent of the
           section's max-w-[1400px] content container. */}
-      <div className="bg-accent relative z-10 mt-24 w-full py-4 md:mt-32">
+      <div className="bg-accent relative z-10 mt-12 w-full py-4 md:mt-16">
         <p className="font-jakarta text-center text-xs font-medium text-white sm:text-sm">
           &copy;{new Date().getFullYear()} {siteConfig.name} | All rights reserved
         </p>
