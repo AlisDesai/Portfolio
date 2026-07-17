@@ -46,7 +46,7 @@ export default function WorkPage() {
             </span>
           </motion.div>
 
-          <h1 className="font-display mt-6 text-[4rem] leading-[1.05] font-black tracking-tighter text-zinc-900 sm:text-[6rem] md:text-[8rem]">
+          <h1 className="font-display mt-6 text-[clamp(2.125rem,calc(12.5vw-6px),4rem)] leading-[1.05] font-black tracking-tighter text-zinc-900 sm:text-[6rem] md:text-[8rem]">
             <motion.span initial="hidden" animate="visible" variants={titleLine} className="block">
               Selected
             </motion.span>

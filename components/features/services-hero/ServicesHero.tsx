@@ -110,7 +110,7 @@ export function ServicesHero() {
               variants={titleContainer}
               initial={hasTitleEntrancePlayed ? "visible" : "hidden"}
               animate="visible"
-              className="font-display wrap-break-word w-full text-[clamp(2.75rem,8vw,7.5rem)] leading-[1.05] tracking-tight uppercase"
+              className="font-display w-full text-[clamp(2.75rem,8vw,7.5rem)] leading-[1.05] tracking-tight wrap-break-word uppercase"
             >
               <motion.span variants={titleLine} className="block font-extrabold text-white">
                 Our

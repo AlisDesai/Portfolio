@@ -47,7 +47,7 @@ export function WorkProjectRow({
         </span>
 
         <div className="flex min-w-0 flex-1 flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-8">
-          <h3 className="font-display group-hover:text-accent text-3xl font-extrabold tracking-tight text-zinc-900 transition-colors duration-500 sm:text-4xl lg:text-5xl">
+          <h3 className="font-display group-hover:text-accent text-3xl font-extrabold tracking-tight wrap-break-word text-zinc-900 transition-colors duration-500 sm:text-4xl lg:text-5xl">
             {project.title}
           </h3>
 
