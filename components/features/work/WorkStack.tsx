@@ -107,7 +107,7 @@ function WorkCard({
               <span className="text-sm font-medium text-white/70">{project.category}</span>
             </div>
 
-            <h3 className="font-display text-3xl font-bold text-white sm:text-4xl md:text-5xl lg:text-6xl">
+            <h3 className="font-display text-3xl font-bold wrap-break-word text-white sm:text-4xl md:text-5xl lg:text-6xl">
               {project.title}
             </h3>
 

@@ -68,7 +68,7 @@ export function ServiceAccordionItem({
           type="button"
           onClick={onToggle}
           aria-expanded={isOpen}
-          className="flex w-full cursor-pointer items-center justify-between gap-6 px-7 py-7 text-left sm:px-10 sm:py-9"
+          className="flex w-full cursor-pointer items-center justify-between gap-3 px-4 py-7 text-left min-[400px]:gap-6 min-[400px]:px-7 sm:px-10 sm:py-9"
         >
           <span
             className={cn(

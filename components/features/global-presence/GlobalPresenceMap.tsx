@@ -201,7 +201,7 @@ export function GlobalPresenceMap({ isInView, reduceMotion, baseDelay }: GlobalP
   }, [isInView, reduceMotion, t, baseDelay]);
 
   return (
-    <div className="relative mx-auto w-[96%] max-w-[2200px] px-4 sm:px-12">
+    <div className="relative mx-auto w-[96%] max-w-[2200px] px-11 min-[480px]:px-4 sm:px-12">
       {/* Unpadded reference box: the SVG's own rendered width (via w-full) and the
           labels' percentage-based left/top must share this exact same box, or the
           two bases (content-box vs padding-box) drift apart and produce an

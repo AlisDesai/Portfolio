@@ -45,7 +45,10 @@ export function StatCounter({ stat, isInView, delay }: StatCounterProps) {
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, delay, ease: EASE_PREMIUM }}
     >
-      <span ref={valueRef} className="font-display text-6xl font-extrabold text-white sm:text-7xl">
+      <span
+        ref={valueRef}
+        className="font-display text-[clamp(2rem,calc(17.5vw_-_24px),3.75rem)] font-extrabold text-white sm:text-7xl md:text-6xl lg:text-7xl"
+      >
         0{stat.suffix}
       </span>
       <span className="text-accent text-base font-medium tracking-[0.15em] uppercase">

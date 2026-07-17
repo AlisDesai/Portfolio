@@ -23,7 +23,7 @@ export function NavLink({ href, children, className, isActive, onMouseEnter }: N
       href={href}
       onMouseEnter={onMouseEnter}
       className={cn(
-        "relative rounded-full px-3 py-1.5 font-medium tracking-wide transition-colors duration-300 ease-out sm:px-3.5 sm:py-2",
+        "relative rounded-full px-1.5 py-1.5 font-medium tracking-wide transition-colors duration-300 ease-out min-[480px]:px-3 sm:px-3.5 sm:py-2",
         isActive ? "text-zinc-900" : "text-zinc-500 hover:text-zinc-900",
         className
       )}

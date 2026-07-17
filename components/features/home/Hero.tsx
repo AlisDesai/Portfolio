@@ -11,8 +11,8 @@ const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
 
 // Headline reveal begins only once the background collage is established.
 const HEADLINE_START = 1.3;
-const HEADLINE_STAGGER = 0.3;
-const HEADLINE_LINE_DURATION = 0.7;
+const HEADLINE_STAGGER = 0.22;
+const HEADLINE_LINE_DURATION = 0.55;
 
 const headlineContainer: Variants = {
   hidden: {},
@@ -113,7 +113,7 @@ export function Hero() {
     // Wait for the headline's entrance animation to finish before measuring
     // its final (settled) position. This also gates when the service tags
     // first mount, so they naturally appear only once the headline is done.
-    const timeout = setTimeout(measure, HEADLINE_DONE_MS + 100);
+    const timeout = setTimeout(measure, HEADLINE_DONE_MS + 60);
     window.addEventListener("resize", measure);
     return () => {
       clearTimeout(timeout);
@@ -125,7 +125,7 @@ export function Hero() {
     <section
       id="home"
       ref={sectionRef}
-      className="relative flex h-screen min-h-[640px] w-full items-center justify-center overflow-hidden bg-zinc-950"
+      className="relative flex h-dvh min-h-[640px] w-full items-center justify-center overflow-hidden bg-zinc-950"
     >
       <HeroCollage reduceMotion={reduceMotion} />
 

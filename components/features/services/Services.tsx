@@ -25,7 +25,7 @@ export function Services() {
     <section
       id="services"
       ref={sectionRef}
-      className="relative w-full overflow-hidden bg-zinc-50 px-6 py-24 sm:px-10 md:py-32 lg:px-16"
+      className="relative w-full overflow-hidden bg-zinc-50 px-6 py-28 sm:px-10 md:py-32 lg:px-16"
     >
       {/* Premium subtle grid pattern and ambient glow */}
       <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
@@ -35,24 +35,24 @@ export function Services() {
       <div className="relative z-10 mx-auto w-full max-w-[1400px]">
         <div className="flex flex-col gap-16 lg:flex-row lg:items-start lg:gap-24">
           {/* Left Column - Sticky Heading */}
-          <div className="lg:sticky lg:top-32 lg:w-[40%] xl:w-1/3">
+          <div className="lg:sticky lg:top-32 lg:w-[40%] lg:py-12 xl:w-1/3">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: LABEL_DELAY, ease: EASE_PREMIUM }}
-              className="flex flex-col items-start gap-5"
+              className="flex flex-col items-start gap-7"
             >
               <span className="border-accent/20 bg-accent/5 text-accent rounded-full border px-4 py-1.5 text-xs font-semibold tracking-[0.2em] uppercase shadow-sm">
                 Expertise
               </span>
-              <h2 className="font-display text-4xl leading-[1.1] font-extrabold tracking-tight text-zinc-900 sm:text-5xl lg:text-6xl">
+              <h2 className="font-display text-4xl leading-[1.1] font-extrabold tracking-tight text-zinc-900 sm:text-5xl lg:text-7xl">
                 Services <br className="hidden lg:block" /> We Provide
               </h2>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
                 animate={isInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.7, delay: HEADING_DELAY, ease: EASE_PREMIUM }}
-                className="mt-2 max-w-sm text-lg leading-relaxed text-zinc-500"
+                className="mt-3 max-w-sm text-lg leading-relaxed text-zinc-500"
               >
                 Comprehensive technical solutions tailored to elevate your business, enhance
                 security, and streamline your operations.

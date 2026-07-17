@@ -85,12 +85,15 @@ export function Contact({ showCollaborateCta = true }: ContactProps) {
               variants={headingContainer}
               initial="hidden"
               animate={isInView ? "visible" : "hidden"}
-              className="font-display max-w-4xl text-[clamp(2.75rem,8vw,7rem)] leading-[1.02] font-extrabold tracking-tight text-white"
+              className="font-display max-w-4xl text-[clamp(2.75rem,8vw,7rem)] leading-[1.02] font-extrabold tracking-tight wrap-break-word text-white"
             >
               <motion.span variants={headingWord} className="inline-block">
                 Let&rsquo;s{" "}
               </motion.span>
-              <motion.span variants={headingWord} className="text-accent inline-block">
+              <motion.span
+                variants={headingWord}
+                className="text-accent inline-block max-[559px]:text-[clamp(1.625rem,calc(7.5vw+2px),2.75rem)]"
+              >
                 Collaborate
               </motion.span>
             </motion.h2>
