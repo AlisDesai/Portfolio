@@ -1,9 +1,18 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
+import { usePathname } from "next/navigation";
+import { ROUTES } from "@/config/routes";
+
+// Inner pages read calmer without the wave background — only the Landing
+// Page keeps it as the brand showcase.
+const WAVE_HIDDEN_ROUTES: string[] = [ROUTES.SERVICES, ROUTES.WORK, ROUTES.CONTACT];
 
 export function ScrollWaveTheme() {
+  const pathname = usePathname();
   const { scrollYProgress } = useScroll();
+
+  if (WAVE_HIDDEN_ROUTES.includes(pathname)) return null;
 
   // Dramatically shift the waves vertically based on scroll progress
   const wave1Y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
