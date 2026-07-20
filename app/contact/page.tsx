@@ -190,7 +190,7 @@ export default function ContactPage() {
                 className="font-display w-full text-[1.5rem] leading-[2.4] font-bold text-zinc-400 sm:text-[2rem] sm:leading-[2.5] md:text-[2.75rem] md:leading-[2.4]"
               >
                 <StepMarker index="03" />
-                Hi Harsh, my name is{" "}
+                Hi BrightWave, my name is{" "}
                 <span className="relative mx-2 inline-block align-middle">
                   <motion.span
                     aria-hidden="true"
@@ -335,10 +335,10 @@ export default function ContactPage() {
                 Direct Contact
               </h3>
               <a
-                href="mailto:hello@harshpatel.com"
+                href="mailto:hello@brightwavesol.com"
                 className="hover:text-accent text-lg font-medium text-zinc-900 transition-colors sm:text-xl"
               >
-                hello@harshpatel.com
+                hello@brightwavesol.com
               </a>
               <a
                 href="tel:+1234567890"
@@ -385,8 +385,8 @@ export default function ContactPage() {
 
           {/* Giant Gradient Footer Text */}
           <div className="pointer-events-none flex w-full flex-col items-center justify-end pb-4 select-none">
-            <h2 className="font-display from-accent/20 bg-gradient-to-b to-transparent bg-clip-text px-8 text-[18vw] leading-[0.85] font-black whitespace-nowrap text-transparent">
-              HARSH
+            <h2 className="font-display from-accent/20 bg-gradient-to-b to-transparent bg-clip-text px-8 text-[12vw] leading-[0.85] font-black whitespace-nowrap text-transparent">
+              BRIGHTWAVE
             </h2>
           </div>
         </motion.div>

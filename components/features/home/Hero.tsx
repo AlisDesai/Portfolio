@@ -2,7 +2,6 @@
 
 import { motion, useScroll, type Variants } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { HeroCollage } from "@/components/features/home/HeroCollage";
 import { ScrollIndicator } from "@/components/features/home/ScrollIndicator";
 import { ServicePills, type ServicePillStyle } from "@/components/features/home/ServicePills";
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";
@@ -127,8 +126,6 @@ export function Hero() {
       ref={sectionRef}
       className="relative flex h-dvh min-h-[640px] w-full items-center justify-center overflow-hidden bg-zinc-950"
     >
-      <HeroCollage reduceMotion={reduceMotion} />
-
       <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/85" />
       <div className="pointer-events-none absolute inset-0 [background:radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.85)_100%)]" />
 

@@ -38,6 +38,7 @@ export const metadata: Metadata = {
 
 import { CustomCursor } from "@/components/shared/CustomCursor";
 import { FloatingAssistant } from "@/components/shared/FloatingAssistant";
+import { ScrollWaveTheme } from "@/components/layout/ScrollWaveTheme";
 
 export default function RootLayout({
   children,
@@ -50,6 +51,7 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} ${syne.variable} ${plusJakartaSans.variable} h-full antialiased`}
     >
       <body className="flex min-h-full flex-col">
+        <ScrollWaveTheme />
         <CustomCursor />
         <FloatingAssistant />
         <Providers>{children}</Providers>

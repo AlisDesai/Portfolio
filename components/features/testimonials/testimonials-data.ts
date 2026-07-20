@@ -8,7 +8,7 @@ export interface Testimonial {
 export const TESTIMONIALS: Testimonial[] = [
   {
     quote:
-      "Harsh's backend architecture for our booking system was flawless. It handles high traffic seamlessly and the API integration is incredibly robust.",
+      "BrightWave's backend architecture for our booking system was flawless. It handles high traffic seamlessly and the API integration is incredibly robust.",
     name: "Automotive Booking API Client",
   },
   {
@@ -43,7 +43,7 @@ export const TESTIMONIALS: Testimonial[] = [
   },
   {
     quote:
-      "Integrating the OAuth2 authentication was done smoothly and securely. Harsh is a true professional when it comes to API integrations.",
+      "Integrating the OAuth2 authentication was done smoothly and securely. BrightWave is a true professional team when it comes to API integrations.",
     name: "OAuth2 Auth Client",
   },
 ];

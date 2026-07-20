@@ -17,11 +17,9 @@ const THEME_STYLES: Record<WorkProject["theme"], string> = {
 export function WorkStack({ hideHeader = false }: { hideHeader?: boolean }) {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.05 });
-
   return (
     <section
       id="work"
-      ref={sectionRef}
       className="relative w-full bg-zinc-950 px-6 py-24 sm:px-10 md:py-32 lg:px-16"
     >
       {/* Background ambient light */}
