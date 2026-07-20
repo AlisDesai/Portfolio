@@ -5,6 +5,7 @@ import { useRef } from "react";
 import { BenefitRow } from "@/components/features/benefits/BenefitRow";
 import { BENEFITS } from "@/components/features/benefits/benefits-data";
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";
+import { BlueprintAtmosphere } from "@/components/shared/BlueprintAtmosphere";
 
 const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
 
@@ -21,8 +22,10 @@ export function Benefits() {
   return (
     <section
       ref={sectionRef}
-      className="relative w-full rounded-t-[2.5rem] bg-white px-6 py-24 sm:rounded-t-[3.5rem] sm:px-10 md:py-32 lg:px-16"
+      className="relative w-full overflow-hidden rounded-t-[2.5rem] bg-white px-6 py-24 sm:rounded-t-[3.5rem] sm:px-10 md:py-32 lg:px-16"
     >
+      <BlueprintAtmosphere />
+
       <div className="relative z-10 mx-auto w-full max-w-[1400px]">
         <div className="flex flex-col items-center text-center">
           <motion.span

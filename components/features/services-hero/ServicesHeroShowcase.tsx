@@ -17,16 +17,15 @@ interface ServicesHeroShowcaseProps {
 }
 
 // Intro occupies the first ~21% of the 355vh section (still exactly 75vh,
-// unchanged from before) — the rest is split evenly across every service,
-// now ~70vh each instead of ~106vh, so there's no more long dead hold after
-// a service has already fully revealed. Mirrors the mapping ServicesHero
-// uses to unmount its own intro layer at the same 0.2113 mark.
+// unchanged from before) — the rest is split evenly across every service.
+// Mirrors the mapping ServicesHero uses to unmount its own intro layer at
+// the same 0.2113 mark.
 const INTRO_END = 0.2113;
 const SERVICE_SPAN = (1 - INTRO_END) / SERVICES.length;
 
-// Ambient glow behind the icon, tinted per-service using each service's own
-// flagship palette — reuses the exact Tailwind colors already present in
-// the gallery data, no new tokens.
+// Ambient tint behind each service's giant background icon, using each
+// service's own flagship palette — reuses the exact Tailwind colors already
+// present in the gallery data, no new tokens.
 const GLOW_CLASSES: Record<GalleryPalette, string> = {
   blue: "bg-blue-500",
   indigo: "bg-indigo-500",
@@ -151,33 +150,21 @@ const SERVICE_ICONS: Record<string, (props: IconProps) => React.JSX.Element> = {
   "api-integration": LinkIcon,
 };
 
-// Numbered progress rail (01-04) along the left edge — a common wayfinding
-// touch on premium agency portfolios, purely informational (not clickable,
-// so it can't conflict with the pinned scroll mechanics above it).
-function ProgressRail({ activeIndex }: { activeIndex: number }) {
+// Minimal horizontal segment tracker — a slim, unnumbered progress bar
+// instead of a navigational rail, so it reads as ambient wayfinding rather
+// than a menu.
+function ProgressTracker({ total, activeIndex }: { total: number; activeIndex: number }) {
   return (
-    <div className="pointer-events-none absolute top-1/2 left-5 z-20 hidden -translate-y-1/2 flex-col items-center gap-2.5 lg:flex xl:left-7">
-      {SERVICES.map((_, index) => {
-        const isActive = index === activeIndex;
-        return (
-          <div key={index} className="flex flex-col items-center gap-1.5">
-            <span
-              className={cn(
-                "font-mono text-[9px] tracking-widest transition-colors duration-500",
-                isActive ? "text-accent" : "text-white/25"
-              )}
-            >
-              0{index + 1}
-            </span>
-            <span
-              className={cn(
-                "w-[3px] rounded-full transition-all duration-500",
-                isActive ? "bg-accent h-6" : "h-3 bg-white/15"
-              )}
-            />
-          </div>
-        );
-      })}
+    <div className="pointer-events-none absolute inset-x-0 bottom-8 z-20 flex items-center justify-center gap-2 sm:bottom-10">
+      {Array.from({ length: total }).map((_, index) => (
+        <span
+          key={index}
+          className={cn(
+            "h-[3px] rounded-full transition-all duration-500 ease-out",
+            index === activeIndex ? "bg-accent w-10" : "w-4 bg-white/20"
+          )}
+        />
+      ))}
     </div>
   );
 }
@@ -206,110 +193,104 @@ export function ServicesHeroShowcase({ scrollYProgress, reduceMotion }: Services
 
   return (
     <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center">
-      {/* Ambient background for the Showcase/Listing phase — subtle grid + soft glow, its own treatment distinct from the intro's collage/HUD background */}
+      {/* Ambient background for the Showcase phase — subtle grid + soft
+          glow, its own treatment distinct from the intro's collage/HUD. */}
       <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:32px_32px]" />
       <div className="pointer-events-none absolute inset-0 -z-10 [background:radial-gradient(ellipse_60%_50%_at_50%_50%,rgba(99,102,241,0.06)_0%,transparent_70%)]" />
-
-      {activeIndex >= 0 && <ProgressRail activeIndex={activeIndex} />}
 
       <AnimatePresence mode="wait">
         {activeService && titleParts && capabilities && ServiceIcon && glowClass && (
           <motion.div
             key={activeService.id}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: EASE_PREMIUM }}
-            className={cn(
-              "pointer-events-auto relative mx-auto flex h-full w-full max-w-[1600px] flex-col items-center justify-center gap-14 px-6 pt-24 sm:px-10 lg:flex-row lg:items-center lg:gap-16 lg:px-16 lg:pt-0 xl:gap-24 xl:px-20",
-              activeIndex % 2 === 1 && "lg:flex-row-reverse"
-            )}
+            initial={{ opacity: 0, scale: reduceMotion ? 1 : 1.02 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: reduceMotion ? 1 : 0.98 }}
+            transition={{ duration: 0.6, ease: EASE_PREMIUM }}
+            className="pointer-events-auto relative mx-auto flex h-full w-full max-w-[1000px] flex-col items-center justify-center gap-7 px-6 text-center sm:gap-8 sm:px-10 lg:px-16"
           >
-            {/* Editorial text block — the title reveals via a cinematic mask
-                wipe (not a slide), the description via a soft focus-pull. */}
-            <div className="flex w-full min-w-0 flex-col gap-6 text-left lg:w-[55%]">
-              <motion.div
-                initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, ease: EASE_PREMIUM }}
-                className="flex items-center gap-3"
-              >
-                <span className="bg-accent h-px w-6" />
-                <span className="text-accent text-sm font-bold tracking-[0.2em] uppercase drop-shadow-md">
-                  Service 0{activeIndex + 1}
-                </span>
-              </motion.div>
-              <motion.h2
-                initial={
-                  reduceMotion ? { opacity: 0 } : { opacity: 1, clipPath: "inset(0 100% 0 0)" }
-                }
-                animate={{ opacity: 1, clipPath: "inset(0 0% 0 0)" }}
-                transition={{ duration: 1, delay: 0.15, ease: EASE_PREMIUM }}
-                className="font-display text-4xl leading-[1.05] tracking-tight text-white drop-shadow-xl sm:text-5xl lg:text-6xl xl:text-7xl"
-              >
-                <span className="font-extrabold">{titleParts.lead} </span>
-                <span className="font-normal text-white/85">{titleParts.trailing}</span>
-              </motion.h2>
-              <motion.p
-                initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12, filter: "blur(8px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                transition={{ duration: 0.7, delay: 0.55, ease: EASE_PREMIUM }}
-                className="max-w-md text-lg leading-relaxed text-white/60"
-              >
-                {activeService.description}
-              </motion.p>
-            </div>
+            {/* The service's own line icon, recast as an oversized, almost
+                invisible background texture rather than a small UI badge —
+                distinct per service, but ambient rather than a foreground
+                element competing with the type. */}
+            <motion.div
+              aria-hidden="true"
+              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.85 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1.2, ease: EASE_PREMIUM }}
+              className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center"
+            >
+              <span
+                className={cn(
+                  "absolute size-[55vmin] max-h-[420px] max-w-[420px] rounded-full opacity-20 blur-3xl",
+                  glowClass
+                )}
+              />
+              <ServiceIcon className="size-[34vmin] max-h-[340px] max-w-[340px] text-white/[0.06]" />
+            </motion.div>
 
-            {/* Open, borderless composition — a large glowing line-icon
-                paired with a minimal numbered capability index, floating
-                directly on the section's own background instead of being
-                boxed in a card. Real data from the service's own gallery
-                categories. */}
-            <div className="flex w-full flex-col gap-10 lg:w-[38%]">
-              <motion.div
-                initial={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.6, rotate: -8 }}
-                animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                transition={{ duration: 0.9, delay: 0.3, ease: EASE_PREMIUM }}
-                className="relative flex size-20 items-center justify-center text-white sm:size-24"
-              >
-                <span
-                  className={cn(
-                    "pointer-events-none absolute inset-[-30%] -z-10 rounded-full opacity-25 blur-2xl",
-                    glowClass
+            {/* Kicker */}
+            <motion.div
+              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: EASE_PREMIUM }}
+              className="flex items-center gap-3"
+            >
+              <span className="bg-accent h-px w-6" />
+              <span className="text-accent text-sm font-bold tracking-[0.2em] uppercase drop-shadow-md">
+                Service 0{activeIndex + 1}
+              </span>
+              <span className="bg-accent h-px w-6" />
+            </motion.div>
+
+            {/* Title — reveals via the same cinematic mask wipe already used
+                elsewhere on this page, just at a larger, centered scale. */}
+            <motion.h2
+              initial={
+                reduceMotion ? { opacity: 0 } : { opacity: 1, clipPath: "inset(0 100% 0 0)" }
+              }
+              animate={{ opacity: 1, clipPath: "inset(0 0% 0 0)" }}
+              transition={{ duration: 1, delay: 0.15, ease: EASE_PREMIUM }}
+              className="font-display text-5xl leading-[1.05] tracking-tight text-white drop-shadow-xl sm:text-6xl lg:text-7xl xl:text-8xl"
+            >
+              <span className="font-extrabold">{titleParts.lead} </span>
+              <span className="font-normal text-white/85">{titleParts.trailing}</span>
+            </motion.h2>
+
+            {/* Description */}
+            <motion.p
+              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12, filter: "blur(8px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.7, delay: 0.4, ease: EASE_PREMIUM }}
+              className="max-w-xl text-lg leading-relaxed text-white/60 sm:text-xl"
+            >
+              {activeService.description}
+            </motion.p>
+
+            {/* Capabilities — an unlisted, horizontal meta line (real data
+                from the service's own gallery categories) instead of a
+                numbered vertical index. */}
+            <motion.div
+              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.6, ease: EASE_PREMIUM }}
+              className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 pt-2"
+            >
+              {capabilities.map((capability, index) => (
+                <span key={capability} className="flex items-center gap-4">
+                  {index > 0 && (
+                    <span aria-hidden="true" className="size-1 rounded-full bg-white/20" />
                   )}
-                />
-                <ServiceIcon className="size-full" />
-              </motion.div>
-
-              <div className="flex flex-col">
-                {capabilities.map((capability, index) => {
-                  const delay = 0.55 + index * 0.1;
-                  return (
-                    <div key={capability} className="relative flex items-baseline gap-4 py-3">
-                      <span className="text-accent/60 font-mono text-xs">0{index + 1}</span>
-                      <motion.span
-                        initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 6 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay }}
-                        className="font-display text-lg text-white/80 sm:text-xl"
-                      >
-                        {capability}
-                      </motion.span>
-                      <motion.span
-                        initial={reduceMotion ? { scaleX: 1 } : { scaleX: 0 }}
-                        animate={{ scaleX: 1 }}
-                        transition={{ duration: 0.6, delay, ease: EASE_PREMIUM }}
-                        style={{ originX: 0 }}
-                        className="absolute inset-x-0 bottom-0 h-px bg-white/10"
-                      />
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+                  <span className="text-xs font-semibold tracking-[0.15em] text-white/50 uppercase">
+                    {capability}
+                  </span>
+                </span>
+              ))}
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
+
+      {activeIndex >= 0 && <ProgressTracker total={SERVICES.length} activeIndex={activeIndex} />}
     </div>
   );
 }

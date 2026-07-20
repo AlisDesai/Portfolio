@@ -11,6 +11,7 @@ import {
 } from "@/components/features/contact/icons";
 import { siteConfig } from "@/config/metadata";
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";
+import { BlueprintAtmosphere } from "@/components/shared/BlueprintAtmosphere";
 import { cn } from "@/lib/utils/cn";
 
 const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
@@ -55,6 +56,11 @@ export function Contact({ showCollaborateCta = true }: ContactProps) {
       ref={sectionRef}
       className="relative w-full overflow-hidden bg-white pt-10 md:pt-14"
     >
+      {/* Services-page-only atmosphere — gated on the same prop that already
+          distinguishes this usage from the Landing Page's, so the Landing
+          Page instance (showCollaborateCta=true) is never affected. */}
+      {!showCollaborateCta && <BlueprintAtmosphere />}
+
       {/* Full-bleed CTA band — an immersive dark canvas for the primary call
           to action (edge-to-edge, same "break out of the content container"
           technique already used by the bottom copyright bar below), distinct
