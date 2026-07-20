@@ -50,8 +50,16 @@ export function Navbar() {
           href={ROUTES.HOME}
           className="group font-display flex items-center gap-1 text-sm font-bold tracking-tight text-zinc-900 transition-transform duration-300 ease-out hover:scale-[1.02] min-[480px]:gap-2 sm:text-base"
         >
-          <div className="flex h-5 w-5 shrink-0 items-center justify-center text-accent transition-transform duration-300 ease-out group-hover:scale-110">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="w-full h-full">
+          <div className="text-accent flex h-5 w-5 shrink-0 items-center justify-center transition-transform duration-300 ease-out group-hover:scale-110">
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="h-full w-full"
+            >
               <motion.path
                 d="M 3 12 Q 7.5 4, 12 12 T 21 12"
                 animate={{
@@ -59,7 +67,7 @@ export function Navbar() {
                     "M 3 12 Q 7.5 4, 12 12 T 21 12",
                     "M 3 12 Q 7.5 20, 12 12 T 21 12",
                     "M 3 12 Q 7.5 4, 12 12 T 21 12",
-                  ]
+                  ],
                 }}
                 transition={{ duration: 4, ease: "easeInOut", repeat: Infinity }}
               />

@@ -4,11 +4,11 @@ import { motion } from "framer-motion";
 
 export function BrightWave() {
   return (
-    <div 
+    <div
       className="pointer-events-none absolute inset-0 z-0 overflow-hidden opacity-60 mix-blend-screen"
       style={{
-        maskImage: 'radial-gradient(120% 60% at 50% 50%, black 20%, transparent 100%)',
-        WebkitMaskImage: 'radial-gradient(120% 60% at 50% 50%, black 20%, transparent 100%)',
+        maskImage: "radial-gradient(120% 60% at 50% 50%, black 20%, transparent 100%)",
+        WebkitMaskImage: "radial-gradient(120% 60% at 50% 50%, black 20%, transparent 100%)",
       }}
     >
       {/* Wave layer 1 - Deep blue/purple */}
@@ -17,10 +17,17 @@ export function BrightWave() {
         transition={{ duration: 24, ease: "linear", repeat: Infinity }}
         className="absolute top-[30%] left-0 w-[200vw]"
       >
-        <svg viewBox="0 0 2400 300" className="w-full h-[300px]" preserveAspectRatio="none" fill="none">
+        <svg
+          viewBox="0 0 2400 300"
+          className="h-[300px] w-full"
+          preserveAspectRatio="none"
+          fill="none"
+        >
           <path
             d="M0 150 C 300 0, 300 300, 600 150 C 900 0, 900 300, 1200 150 C 1500 0, 1500 300, 1800 150 C 2100 0, 2100 300, 2400 150"
-            stroke="url(#grad1)" strokeWidth="3" filter="url(#glow)"
+            stroke="url(#grad1)"
+            strokeWidth="3"
+            filter="url(#glow)"
           />
         </svg>
       </motion.div>
@@ -31,10 +38,18 @@ export function BrightWave() {
         transition={{ duration: 32, ease: "linear", repeat: Infinity }}
         className="absolute top-[35%] left-0 w-[200vw]"
       >
-        <svg viewBox="0 0 2400 300" className="w-full h-[300px]" preserveAspectRatio="none" fill="none">
+        <svg
+          viewBox="0 0 2400 300"
+          className="h-[300px] w-full"
+          preserveAspectRatio="none"
+          fill="none"
+        >
           <path
             d="M0 150 C 200 300, 400 0, 600 150 C 800 300, 1000 0, 1200 150 C 1400 300, 1600 0, 1800 150 C 2000 300, 2200 0, 2400 150"
-            stroke="url(#grad2)" strokeWidth="5" opacity="0.8" filter="url(#glow)"
+            stroke="url(#grad2)"
+            strokeWidth="5"
+            opacity="0.8"
+            filter="url(#glow)"
           />
         </svg>
       </motion.div>
@@ -45,16 +60,24 @@ export function BrightWave() {
         transition={{ duration: 18, ease: "linear", repeat: Infinity }}
         className="absolute top-[25%] left-0 w-[200vw]"
       >
-        <svg viewBox="0 0 2400 300" className="w-full h-[300px]" preserveAspectRatio="none" fill="none">
+        <svg
+          viewBox="0 0 2400 300"
+          className="h-[300px] w-full"
+          preserveAspectRatio="none"
+          fill="none"
+        >
           <path
             d="M0 150 C 400 -50, 200 350, 600 150 C 1000 -50, 800 350, 1200 150 C 1600 -50, 1400 350, 1800 150 C 2200 -50, 2000 350, 2400 150"
-            stroke="url(#grad3)" strokeWidth="2" opacity="0.9" filter="url(#glow)"
+            stroke="url(#grad3)"
+            strokeWidth="2"
+            opacity="0.9"
+            filter="url(#glow)"
           />
         </svg>
       </motion.div>
 
       {/* Definitions for Gradients and Glows */}
-      <svg className="w-0 h-0 absolute">
+      <svg className="absolute h-0 w-0">
         <defs>
           <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
             <stop offset="0%" stopColor="#4f46e5" />

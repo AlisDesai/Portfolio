@@ -70,6 +70,10 @@ export function GlobalPresence() {
       </div>
 
       <div ref={mapRef} className="relative z-10 mt-20 w-full md:mt-24">
+        {/* Opaque backdrop matching the section's own background — blocks
+            the globally fixed ScrollWaveTheme (z-[1]) from showing through
+            behind the map, without touching the shared wave component. */}
+        <div aria-hidden="true" className="absolute inset-0 -z-10 bg-[#050505]" />
         <GlobalPresenceMap
           isInView={mapIsInView}
           reduceMotion={reduceMotion}

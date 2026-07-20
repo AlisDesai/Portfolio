@@ -100,7 +100,12 @@ export function CustomCursor() {
                 scale: 1.5,
                 backgroundColor: "rgba(129, 140, 248, 0.1)",
                 borderColor: "rgba(129, 140, 248, 1)",
-                borderRadius: ["50%", "40% 60% 70% 30% / 40% 50% 60% 50%", "60% 40% 30% 70% / 50% 40% 60% 50%", "50%"],
+                borderRadius: [
+                  "50%",
+                  "40% 60% 70% 30% / 40% 50% 60% 50%",
+                  "60% 40% 30% 70% / 50% 40% 60% 50%",
+                  "50%",
+                ],
               }
             : {
                 scale: 1,
@@ -111,7 +116,10 @@ export function CustomCursor() {
         }
         transition={
           isHovering
-            ? { borderRadius: { repeat: Infinity, duration: 3, ease: "easeInOut" }, default: { duration: 0.2 } }
+            ? {
+                borderRadius: { repeat: Infinity, duration: 3, ease: "easeInOut" },
+                default: { duration: 0.2 },
+              }
             : { duration: 0.2 }
         }
       />
