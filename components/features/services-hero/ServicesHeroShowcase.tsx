@@ -217,7 +217,7 @@ export function ServicesHeroShowcase({ scrollYProgress, reduceMotion }: Services
               className="flex items-center gap-3"
             >
               <span className="bg-accent h-px w-6" />
-              <span className="text-accent text-sm font-bold tracking-[0.2em] uppercase drop-shadow-md">
+              <span className="text-accent text-xs font-semibold tracking-[0.35em] uppercase drop-shadow-md">
                 Service 0{activeIndex + 1}
               </span>
               <span className="bg-accent h-px w-6" />
@@ -231,10 +231,10 @@ export function ServicesHeroShowcase({ scrollYProgress, reduceMotion }: Services
               }
               animate={{ opacity: 1, clipPath: "inset(0 0% 0 0)" }}
               transition={{ duration: 1, delay: 0.15, ease: EASE_PREMIUM }}
-              className="font-display text-5xl leading-[1.05] tracking-tight text-white drop-shadow-xl sm:text-6xl lg:text-7xl xl:text-8xl"
+              className="font-display text-5xl leading-[1.05] tracking-tight text-balance text-white [text-shadow:0_2px_28px_rgba(0,0,0,0.4)] sm:text-6xl lg:text-7xl xl:text-8xl"
             >
-              <span className="font-extrabold">{titleParts.lead} </span>
-              <span className="font-normal text-white/85">{titleParts.trailing}</span>
+              <span className="font-extrabold tracking-tighter">{titleParts.lead} </span>
+              <span className="font-normal tracking-wide text-white/85">{titleParts.trailing}</span>
             </motion.h2>
 
             {/* Description */}
@@ -242,7 +242,7 @@ export function ServicesHeroShowcase({ scrollYProgress, reduceMotion }: Services
               initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 12, filter: "blur(8px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 0.7, delay: 0.4, ease: EASE_PREMIUM }}
-              className="max-w-xl text-lg leading-relaxed text-white/60 sm:text-xl"
+              className="max-w-xl text-lg leading-relaxed text-balance text-white/60 sm:text-xl"
             >
               {activeService.description}
             </motion.p>
@@ -254,18 +254,21 @@ export function ServicesHeroShowcase({ scrollYProgress, reduceMotion }: Services
               initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6, ease: EASE_PREMIUM }}
-              className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 pt-2"
+              className="flex flex-col items-center gap-3 pt-2"
             >
-              {capabilities.map((capability, index) => (
-                <span key={capability} className="flex items-center gap-4">
-                  {index > 0 && (
-                    <span aria-hidden="true" className="size-1 rounded-full bg-white/20" />
-                  )}
-                  <span className="text-xs font-semibold tracking-[0.15em] text-white/50 uppercase">
-                    {capability}
+              <span aria-hidden="true" className="h-px w-10 bg-white/10" />
+              <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+                {capabilities.map((capability, index) => (
+                  <span key={capability} className="flex items-center gap-4">
+                    {index > 0 && (
+                      <span aria-hidden="true" className="size-1 rounded-full bg-white/20" />
+                    )}
+                    <span className="text-xs font-medium tracking-[0.2em] text-white/50 uppercase">
+                      {capability}
+                    </span>
                   </span>
-                </span>
-              ))}
+                ))}
+              </div>
             </motion.div>
           </motion.div>
         )}
