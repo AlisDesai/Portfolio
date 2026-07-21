@@ -4,10 +4,13 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { GlobalPresenceMap } from "@/components/features/global-presence/GlobalPresenceMap";
 import { StatCounter } from "@/components/features/global-presence/StatCounter";
+import { Badge } from "@/components/ui/Badge";
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";
 import { GLOBAL_STATS } from "@/lib/constants/stats";
 
-const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
+import { EASE_PREMIUM } from "@/components/animations/easing";
+
+const MotionBadge = motion.create(Badge);
 
 // Sequenced delays (seconds), each relative to its own element scrolling
 // into view — not one shared flag from the top of this (very tall) section,
@@ -36,14 +39,14 @@ export function GlobalPresence() {
       <div className="pointer-events-none absolute inset-0 [background:radial-gradient(ellipse_at_center,rgba(129,140,248,0.08)_0%,transparent_60%)]" />
 
       <div className="relative z-10 flex w-full max-w-6xl flex-col items-center gap-5 text-center">
-        <motion.span
+        <MotionBadge
+          variant="dark"
           initial={{ opacity: 0, y: 16 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: BADGE_DELAY, ease: EASE_PREMIUM }}
-          className="border-accent/30 text-accent rounded-full border bg-white/5 px-5 py-2 text-sm font-medium tracking-[0.2em] uppercase"
         >
           Global Presence
-        </motion.span>
+        </MotionBadge>
 
         <motion.h2
           initial={{ opacity: 0, y: 16 }}

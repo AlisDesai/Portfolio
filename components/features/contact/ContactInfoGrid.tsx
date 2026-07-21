@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { FOOTER_COLUMNS } from "@/components/features/contact/contact-data";
 import { FooterItemIconMark } from "@/components/features/contact/icons";
 
-const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
+import { EASE_PREMIUM } from "@/components/animations/easing";
 
 interface ContactInfoGridProps {
   isInView: boolean;

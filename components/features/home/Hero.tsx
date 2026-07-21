@@ -6,7 +6,7 @@ import { ScrollIndicator } from "@/components/features/home/ScrollIndicator";
 import { ServicePills, type ServicePillStyle } from "@/components/features/home/ServicePills";
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";
 
-const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
+import { EASE_PREMIUM } from "@/components/animations/easing";
 
 // Headline reveal begins only once the background collage is established.
 const HEADLINE_START = 1.3;

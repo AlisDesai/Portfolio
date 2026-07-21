@@ -3,6 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { WORK_PROJECTS, type WorkProject } from "@/components/features/work/work-data";
+import { Badge } from "@/components/ui/Badge";
 import { cn } from "@/lib/utils/cn";
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";
 
@@ -33,9 +34,7 @@ export function WorkStack({ hideHeader = false }: { hideHeader?: boolean }) {
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
             className="mb-16 flex flex-col items-center gap-4 text-center md:mb-24"
           >
-            <span className="border-accent/30 text-accent rounded-full border bg-white/5 px-5 py-2 text-sm font-medium tracking-[0.2em] uppercase">
-              Featured Work
-            </span>
+            <Badge variant="dark">Featured Work</Badge>
             <h2 className="font-display text-4xl font-extrabold text-white sm:text-5xl md:text-6xl">
               Selected <span className="text-white/40">Projects</span>
             </h2>

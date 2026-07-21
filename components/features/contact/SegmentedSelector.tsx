@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils/cn";
 
-const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
+import { EASE_PREMIUM } from "@/components/animations/easing";
 
 interface SegmentedSelectorProps {
   label: string;

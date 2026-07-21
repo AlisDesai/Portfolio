@@ -14,7 +14,7 @@ import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion"
 import { ServicesAtmosphere } from "@/components/features/services-hero/ServicesAtmosphere";
 import { cn } from "@/lib/utils/cn";
 
-const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
+import { EASE_PREMIUM } from "@/components/animations/easing";
 
 // Staged reveal timeline (seconds): mark -> heading words (staggered) ->
 // signature-line input -> send button -> footer columns (each staggered) ->

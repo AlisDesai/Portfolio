@@ -8,7 +8,7 @@ import { WORK_PROJECTS } from "@/components/features/work/work-data";
 import { WorkIndex } from "@/components/features/work/WorkIndex";
 import { ROUTES } from "@/config/routes";
 
-const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
+import { EASE_PREMIUM } from "@/components/animations/easing";
 
 const titleLine = {
   hidden: { opacity: 1, clipPath: "inset(0 100% 0 0)" },

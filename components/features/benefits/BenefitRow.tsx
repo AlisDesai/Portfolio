@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { BenefitIconMark, type BenefitIconHandle } from "@/components/features/benefits/icons";
 import type { Benefit } from "@/components/features/benefits/benefits-data";
 
-const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
+import { EASE_PREMIUM } from "@/components/animations/easing";
 
 interface BenefitRowProps {
   benefit: Benefit;

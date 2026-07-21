@@ -6,7 +6,7 @@ import { FAMILIAR_PHRASES } from "@/components/features/familiar-phrases/phrases
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";
 import { cn } from "@/lib/utils/cn";
 
-const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
+import { EASE_PREMIUM } from "@/components/animations/easing";
 
 const HEADING_DELAY = 0;
 const ROW_START_DELAY = 0.25;

@@ -10,7 +10,7 @@ import type {
   ServiceItem,
 } from "@/components/features/services/services-gallery-data";
 
-const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
+import { EASE_PREMIUM } from "@/components/animations/easing";
 
 interface ServicesHeroShowcaseProps {
   scrollYProgress: MotionValue<number>;

@@ -5,7 +5,7 @@ import { CheckIcon } from "@/components/features/contact/icons";
 import { PROJECT_INTERESTS } from "@/components/features/contact/contact-data";
 import { cn } from "@/lib/utils/cn";
 
-const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
+import { EASE_PREMIUM } from "@/components/animations/easing";
 
 interface InterestChipsProps {
   selected: string[];

@@ -16,7 +16,7 @@ import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion"
 import { CONTACT_FORM_FOCUS_EVENT } from "@/lib/constants/assistant";
 import { cn } from "@/lib/utils/cn";
 
-const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
+import { EASE_PREMIUM } from "@/components/animations/easing";
 
 const FADE_UP = {
   hidden: { opacity: 0, y: 40 },

@@ -7,7 +7,7 @@ import { ServicesMarquee } from "@/components/features/services-hero/ServicesMar
 import { ServicesHeroShowcase } from "@/components/features/services-hero/ServicesHeroShowcase";
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";
 
-const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
+import { EASE_PREMIUM } from "@/components/animations/easing";
 
 // Entrance sequence (seconds): background atmosphere -> title lines
 // (staggered) -> floating pills (see ServicesFloatingPills' own delay).

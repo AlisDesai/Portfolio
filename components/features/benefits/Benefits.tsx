@@ -4,9 +4,12 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { BenefitRow } from "@/components/features/benefits/BenefitRow";
 import { BENEFITS } from "@/components/features/benefits/benefits-data";
+import { Badge } from "@/components/ui/Badge";
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";
 
-const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
+import { EASE_PREMIUM } from "@/components/animations/easing";
+
+const MotionBadge = motion.create(Badge);
 
 /** "Benefits of working with us" — full-width light editorial section
  * immediately after the Services Listing, its rounded top edge peeling over
@@ -25,14 +28,14 @@ export function Benefits() {
     >
       <div className="relative z-10 mx-auto w-full max-w-[1400px]">
         <div className="flex flex-col items-center text-center">
-          <motion.span
+          <MotionBadge
+            variant="light"
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, ease: EASE_PREMIUM }}
-            className="border-accent/20 bg-accent/5 text-accent rounded-full border px-4 py-1.5 text-xs font-semibold tracking-[0.2em] uppercase shadow-sm"
           >
             Why Us
-          </motion.span>
+          </MotionBadge>
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}

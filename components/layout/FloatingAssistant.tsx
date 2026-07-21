@@ -12,7 +12,7 @@ import {
   type ContactFormFocusEventDetail,
 } from "@/lib/constants/assistant";
 
-const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
+import { EASE_PREMIUM } from "@/components/animations/easing";
 
 /**
  * Globally rendered, persistent floating avatar — fixed bottom-right on

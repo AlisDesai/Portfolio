@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 
-const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
+import { EASE_PREMIUM } from "@/components/animations/easing";
 
 interface ServicesAtmosphereProps {
   /** "dark" for the Hero/Showcase's near-black canvas, "light" for the

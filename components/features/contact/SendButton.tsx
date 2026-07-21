@@ -4,7 +4,7 @@ import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motio
 import { useState } from "react";
 import { ArrowUpRightIcon, CheckIcon, SpinnerIcon } from "@/components/features/contact/icons";
 
-const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
+import { EASE_PREMIUM } from "@/components/animations/easing";
 const SENDING_DURATION_MS = 900;
 const SENT_DISPLAY_MS = 2200;
 

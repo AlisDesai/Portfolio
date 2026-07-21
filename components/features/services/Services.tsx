@@ -4,9 +4,10 @@ import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { ServiceAccordionItem } from "@/components/features/services/ServiceAccordionItem";
 import { SERVICES } from "@/components/features/services/services-gallery-data";
+import { Badge } from "@/components/ui/Badge";
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";
 
-const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
+import { EASE_PREMIUM } from "@/components/animations/easing";
 
 const LABEL_DELAY = 0;
 const HEADING_DELAY = 0.15;
@@ -42,9 +43,7 @@ export function Services() {
               transition={{ duration: 0.7, delay: LABEL_DELAY, ease: EASE_PREMIUM }}
               className="flex flex-col items-start gap-7"
             >
-              <span className="border-accent/20 bg-accent/5 text-accent rounded-full border px-4 py-1.5 text-xs font-semibold tracking-[0.2em] uppercase shadow-sm">
-                Expertise
-              </span>
+              <Badge variant="light">Expertise</Badge>
               <h2 className="font-display text-4xl leading-[1.1] font-extrabold tracking-tight text-zinc-900 sm:text-5xl lg:text-7xl">
                 Services <br className="hidden lg:block" /> We Provide
               </h2>

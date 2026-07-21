@@ -5,7 +5,7 @@ import { useEffect, useRef } from "react";
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";
 import type { StatItem } from "@/lib/constants/stats";
 
-const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
+import { EASE_PREMIUM } from "@/components/animations/easing";
 
 interface StatCounterProps {
   stat: StatItem;

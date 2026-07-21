@@ -8,7 +8,7 @@ import type {
   ServiceGalleryItem,
 } from "@/components/features/services/services-gallery-data";
 
-const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
+import { EASE_PREMIUM } from "@/components/animations/easing";
 
 // Fixed pixel widths (rather than proportional flex-grow) so the duplicated
 // track below produces an exact, seamless repeating strip for the marquee —

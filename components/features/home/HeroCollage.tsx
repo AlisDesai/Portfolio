@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { COLLAGE_TILES, getDepthStyle } from "@/components/features/home/collage-tiles";
 import { HeroCollageTile } from "@/components/features/home/HeroCollageTile";
 
-const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
+import { EASE_PREMIUM } from "@/components/animations/easing";
 
 interface HeroCollageProps {
   reduceMotion: boolean;

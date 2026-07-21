@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 import { FileIcon, PaperclipIcon, XIcon } from "@/components/features/contact/icons";
 import { cn } from "@/lib/utils/cn";
 
-const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
+import { EASE_PREMIUM } from "@/components/animations/easing";
 
 interface AttachmentDropzoneProps {
   reduceMotion: boolean;
