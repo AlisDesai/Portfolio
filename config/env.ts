@@ -4,7 +4,6 @@ const requiredEnv = {
 
 export const env = {
   siteUrl: requiredEnv.siteUrl,
-  apiUrl: process.env.NEXT_PUBLIC_API_URL ?? "",
   isProduction: process.env.NODE_ENV === "production",
   isDevelopment: process.env.NODE_ENV === "development",
 } as const;
