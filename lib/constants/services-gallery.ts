@@ -27,7 +27,7 @@ export const SERVICES: ServiceItem[] = [
     id: "backend-development",
     title: "Backend Development",
     description:
-      "Resilient, secure backend systems engineered for scale — from authentication and payments to automated workflows that keep the business running smoothly.",
+      "Resilient, secure backend systems engineered for scale, from authentication and payments to automated workflows that keep the business running smoothly.",
     gallery: [
       {
         title: "Automotive Booking API",
@@ -74,10 +74,46 @@ export const SERVICES: ServiceItem[] = [
     ],
   },
   {
+    id: "web-development",
+    title: "Web Development",
+    description:
+      "Modern, responsive, and dynamic web applications built with cutting-edge frameworks to deliver exceptional user experiences and robust performance.",
+    gallery: [
+      {
+        title: "Texnova Machinery",
+        category: "Corporate Site",
+        template: "dashboard",
+        palette: "emerald",
+        size: "md",
+      },
+      {
+        title: "Granth Impex",
+        category: "E-Commerce",
+        template: "ecommerce",
+        palette: "amber",
+        size: "lg",
+      },
+      {
+        title: "BugWise",
+        category: "AI Tool",
+        template: "analytics",
+        palette: "rose",
+        size: "sm",
+      },
+      {
+        title: "SkillBridge",
+        category: "Platform",
+        template: "table",
+        palette: "blue",
+        size: "md",
+      },
+    ],
+  },
+  {
     id: "mobile-development",
     title: "Mobile Development",
     description:
-      "Cross-platform mobile experiences built for real-world reliability — from role-based admin tooling to real-time notifications users can depend on.",
+      "Cross-platform mobile experiences built for real-world reliability, from role-based admin tooling to real-time notifications users can depend on.",
     gallery: [
       {
         title: "Material Testing App",
@@ -127,7 +163,7 @@ export const SERVICES: ServiceItem[] = [
     id: "system-architecture",
     title: "System Architecture",
     description:
-      "Production-grade infrastructure and data architecture designed to scale with confidence — from hosting and deployment to secure, well-structured APIs.",
+      "Production-grade infrastructure and data architecture designed to scale with confidence, from hosting and deployment to secure, well-structured APIs.",
     gallery: [
       {
         title: "Production VPS Setup",
@@ -177,7 +213,7 @@ export const SERVICES: ServiceItem[] = [
     id: "api-integration",
     title: "API Integration",
     description:
-      "Seamless third-party integrations across payments, communications, and cloud services — wired together securely and built to just work.",
+      "Seamless third-party integrations across payments, communications, and cloud services, wired together securely and built to just work.",
     gallery: [
       {
         title: "Stripe Payment Gateway",

@@ -375,7 +375,7 @@ export default function ContactPage() {
           <div className="flex flex-col gap-3 md:items-end md:text-right">
             <h3 className="text-xs font-bold tracking-[0.2em] text-zinc-400 uppercase">Location</h3>
             <p className="text-lg leading-relaxed font-medium text-zinc-900 sm:text-xl">
-              Based in Ahmedabad/Vadodara
+              Based in Ahmedabad / Vadodara
               <br />
               Available Worldwide
             </p>
@@ -384,7 +384,7 @@ export default function ContactPage() {
 
         {/* Giant Gradient Footer Text */}
         <div className="pointer-events-none flex w-full flex-col items-center justify-end pb-4 select-none">
-          <h2 className="font-display from-accent/20 bg-gradient-to-b to-transparent bg-clip-text px-8 text-[12vw] leading-[0.85] font-black whitespace-nowrap text-transparent">
+          <h2 className="font-display from-accent/20 bg-gradient-to-b to-transparent bg-clip-text px-8 text-[9.5vw] leading-[0.85] font-black whitespace-nowrap text-transparent">
             BRIGHTWAVE
           </h2>
         </div>

@@ -39,7 +39,7 @@ export function ServicesHero() {
   // the fade-from-hidden and get caught mid-fade looking dim.
   const [hasTitleEntrancePlayed, setHasTitleEntrancePlayed] = useState(false);
 
-  // Scroll mapping for the 355vh container.
+  // Scroll mapping for the 425vh container.
   // 0.0 - 0.2113 is the Intro phase (still exactly 75vh of scroll distance,
   // same as before — only the Showcase's own per-service hold time below it
   // was shrunk, so the Hero's own intro pacing/feel is unchanged).
@@ -68,7 +68,7 @@ export function ServicesHero() {
   });
 
   return (
-    <section ref={sectionRef} className="relative h-[355vh] w-full bg-[#080808]">
+    <section ref={sectionRef} className="relative h-[425vh] w-full bg-[#080808]">
       <div className="sticky top-0 flex h-dvh min-h-[640px] w-full items-center justify-center overflow-hidden">
         {/* Intro Phase: Background Atmosphere */}
         {isIntroLayerMounted && (

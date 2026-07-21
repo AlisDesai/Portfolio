@@ -1,7 +1,7 @@
 export const COMPANY_CONTACT = {
   email: "inquiry@brightwavesol.com",
   phone: "+91 90160 71000",
-  address: "148 Market Street, San Francisco, CA 94105",
+  address: "Based in Ahmedabad / Vadodara",
 };
 
 const EMAIL_HREF = `mailto:${COMPANY_CONTACT.email}`;

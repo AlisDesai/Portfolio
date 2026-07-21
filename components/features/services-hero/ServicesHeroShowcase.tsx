@@ -141,8 +141,29 @@ function LinkIcon({ className }: IconProps) {
   );
 }
 
+function WebIcon({ className }: IconProps) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth={1.5}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+      aria-hidden="true"
+    >
+      <rect width={20} height={14} x={2} y={5} rx={2} />
+      <line x1={2} x2={22} y1={9} y2={9} />
+      <circle cx={5} cy={7} r={0.5} />
+      <circle cx={8} cy={7} r={0.5} />
+    </svg>
+  );
+}
+
 const SERVICE_ICONS: Record<string, (props: IconProps) => React.JSX.Element> = {
   "backend-development": ServerIcon,
+  "web-development": WebIcon,
   "mobile-development": DeviceIcon,
   "system-architecture": LayersIcon,
   "api-integration": LinkIcon,

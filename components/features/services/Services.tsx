@@ -17,8 +17,8 @@ const LIST_STAGGER = 0.1;
 export function Services() {
   const sectionRef = useRef<HTMLElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
-  const isInView = useInView(sectionRef, { once: true, amount: 0.15 });
-  const listIsInView = useInView(listRef, { once: true, amount: 0.1 });
+  const isInView = useInView(sectionRef, { once: true, amount: 0.05 });
+  const listIsInView = useInView(listRef, { once: true, margin: "-50px" });
   const reduceMotion = usePrefersReducedMotion();
   const [openId, setOpenId] = useState<string | null>(null);
 
