@@ -39,6 +39,7 @@ export const metadata: Metadata = {
 import { CustomCursor } from "@/components/shared/CustomCursor";
 import { FloatingAssistant } from "@/components/shared/FloatingAssistant";
 import { ScrollWaveTheme } from "@/components/layout/ScrollWaveTheme";
+import { Navbar } from "@/components/layout/Navbar";
 
 export default function RootLayout({
   children,
@@ -54,6 +55,7 @@ export default function RootLayout({
         <ScrollWaveTheme />
         <CustomCursor />
         <FloatingAssistant />
+        <Navbar />
         <Providers>{children}</Providers>
       </body>
     </html>
