@@ -12,8 +12,6 @@ export function ScrollWaveTheme() {
   const pathname = usePathname();
   const { scrollYProgress } = useScroll();
 
-  if (WAVE_HIDDEN_ROUTES.includes(pathname)) return null;
-
   // Dramatically shift the waves vertically based on scroll progress
   const wave1Y = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
   const wave2Y = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
@@ -23,6 +21,12 @@ export function ScrollWaveTheme() {
   const rotate = useTransform(scrollYProgress, [0, 1], ["0deg", "4deg"]);
 
   const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.8, 0.3, 0.9]);
+
+  // Every hook above must run on every render regardless of route — this
+  // component lives in the root layout and persists across client-side
+  // navigation, so gating hook calls themselves (rather than just the
+  // rendered output) would violate the Rules of Hooks between route changes.
+  if (WAVE_HIDDEN_ROUTES.includes(pathname)) return null;
 
   return (
     <motion.div

@@ -40,10 +40,10 @@ type ContactField = "name" | "idea" | "email";
 function StepMarker({ index }: { index: string }) {
   return (
     <div aria-hidden="true" className="mb-4 flex items-center gap-3">
-      <span className="font-mono text-[11px] font-bold tracking-[0.3em] text-zinc-300">
+      <span className="text-accent/70 font-mono text-[11px] font-extrabold tracking-[0.3em]">
         {index}
       </span>
-      <span className="h-px flex-1 bg-zinc-200/70" />
+      <span className="from-accent/30 h-px flex-1 bg-linear-to-r to-transparent" />
     </div>
   );
 }
@@ -360,7 +360,13 @@ export default function ContactPage() {
                     aria-label={social.name}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group hover:border-accent hover:bg-accent flex size-14 items-center justify-center rounded-full border border-black/5 bg-white text-zinc-900 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:text-white hover:shadow-lg"
+                    style={{ "--social-brand-color": social.brandColor } as React.CSSProperties}
+                    className={cn(
+                      "group flex size-14 items-center justify-center rounded-full border border-black/5 bg-white text-zinc-900 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:text-white hover:shadow-lg",
+                      social.name === "Instagram"
+                        ? "hover:bg-linear-to-tr hover:from-[#FFDC80] hover:via-[#E1306C] hover:to-[#833AB4]"
+                        : "hover:bg-(--social-brand-color)"
+                    )}
                   >
                     <SocialIcon
                       platform={social.name}
