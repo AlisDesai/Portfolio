@@ -4,6 +4,4 @@ const requiredEnv = {
 
 export const env = {
   siteUrl: requiredEnv.siteUrl,
-  isProduction: process.env.NODE_ENV === "production",
-  isDevelopment: process.env.NODE_ENV === "development",
 } as const;
