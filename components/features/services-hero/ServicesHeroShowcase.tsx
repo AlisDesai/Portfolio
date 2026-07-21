@@ -3,6 +3,7 @@
 import { motion, AnimatePresence, useMotionValueEvent, type MotionValue } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils/cn";
+import { ServicesAtmosphere } from "@/components/features/services-hero/ServicesAtmosphere";
 import { SERVICES } from "@/components/features/services/services-gallery-data";
 import type {
   GalleryPalette,
@@ -193,10 +194,10 @@ export function ServicesHeroShowcase({ scrollYProgress, reduceMotion }: Services
 
   return (
     <div className="pointer-events-none absolute inset-0 z-30 flex items-center justify-center">
-      {/* Ambient background for the Showcase phase — subtle grid + soft
-          glow, its own treatment distinct from the intro's collage/HUD. */}
-      <div className="pointer-events-none absolute inset-0 -z-10 bg-[linear-gradient(to_right,#ffffff08_1px,transparent_1px),linear-gradient(to_bottom,#ffffff08_1px,transparent_1px)] bg-[size:32px_32px]" />
-      <div className="pointer-events-none absolute inset-0 -z-10 [background:radial-gradient(ellipse_60%_50%_at_50%_50%,rgba(99,102,241,0.06)_0%,transparent_70%)]" />
+      {/* Ambient background for the Showcase phase — same continuous
+          atmosphere as the Hero's intro, so there's no visual break between
+          phases. */}
+      <ServicesAtmosphere variant="dark" reduceMotion={reduceMotion} />
 
       <AnimatePresence mode="wait">
         {activeService && titleParts && capabilities && ServiceIcon && glowClass && (

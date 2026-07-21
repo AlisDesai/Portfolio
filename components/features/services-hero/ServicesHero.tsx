@@ -2,20 +2,18 @@
 
 import { motion, useMotionValueEvent, useScroll, useTransform, type Variants } from "framer-motion";
 import { useRef, useState } from "react";
-import { ServicesHeroVisualIdentity } from "@/components/features/services-hero/ServicesHeroVisualIdentity";
-import { ServicesHeroCollage } from "@/components/features/services-hero/ServicesHeroCollage";
+import { ServicesAtmosphere } from "@/components/features/services-hero/ServicesAtmosphere";
 import { ServicesMarquee } from "@/components/features/services-hero/ServicesMarquee";
 import { ServicesHeroShowcase } from "@/components/features/services-hero/ServicesHeroShowcase";
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";
 
 const EASE_PREMIUM = [0.16, 1, 0.3, 1] as const;
 
-// Entrance sequence (seconds): background collage -> spotlight -> title lines
+// Entrance sequence (seconds): background atmosphere -> title lines
 // (staggered) -> floating pills (see ServicesFloatingPills' own delay).
 const TITLE_START = 0.8;
 const TITLE_STAGGER = 0.3;
 const TITLE_LINE_DURATION = 0.7;
-const SPOTLIGHT_DELAY = 0.4;
 
 const titleContainer: Variants = {
   hidden: {},
@@ -72,23 +70,13 @@ export function ServicesHero() {
   return (
     <section ref={sectionRef} className="relative h-[355vh] w-full bg-[#080808]">
       <div className="sticky top-0 flex h-dvh min-h-[640px] w-full items-center justify-center overflow-hidden">
-        {/* Intro Phase: Background Collage & Pills */}
+        {/* Intro Phase: Background Atmosphere */}
         {isIntroLayerMounted && (
           <motion.div
             style={{ opacity: introOpacity }}
             className="pointer-events-none absolute inset-0 z-0"
           >
-            <ServicesHeroCollage reduceMotion={reduceMotion} />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/85" />
-            <div className="absolute inset-0 [background:radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.85)_100%)]" />
-
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 1.2, delay: SPOTLIGHT_DELAY, ease: EASE_PREMIUM }}
-              className="absolute inset-0 [background:radial-gradient(ellipse_at_center,rgba(99,102,241,0.22)_0%,transparent_55%)]"
-            />
-            <ServicesHeroVisualIdentity reduceMotion={reduceMotion} />
+            <ServicesAtmosphere variant="dark" reduceMotion={reduceMotion} />
           </motion.div>
         )}
 
