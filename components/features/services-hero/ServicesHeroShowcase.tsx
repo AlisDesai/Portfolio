@@ -209,26 +209,6 @@ export function ServicesHeroShowcase({ scrollYProgress, reduceMotion }: Services
             transition={{ duration: 0.6, ease: EASE_PREMIUM }}
             className="pointer-events-auto relative mx-auto flex h-full w-full max-w-[1000px] flex-col items-center justify-center gap-7 px-6 text-center sm:gap-8 sm:px-10 lg:px-16"
           >
-            {/* The service's own line icon, recast as an oversized, almost
-                invisible background texture rather than a small UI badge —
-                distinct per service, but ambient rather than a foreground
-                element competing with the type. */}
-            <motion.div
-              aria-hidden="true"
-              initial={reduceMotion ? { opacity: 0 } : { opacity: 0, scale: 0.85 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.2, ease: EASE_PREMIUM }}
-              className="pointer-events-none absolute inset-0 -z-10 flex items-center justify-center"
-            >
-              <span
-                className={cn(
-                  "absolute size-[55vmin] max-h-[420px] max-w-[420px] rounded-full opacity-20 blur-3xl",
-                  glowClass
-                )}
-              />
-              <ServiceIcon className="size-[34vmin] max-h-[340px] max-w-[340px] text-white/[0.06]" />
-            </motion.div>
-
             {/* Kicker */}
             <motion.div
               initial={reduceMotion ? { opacity: 0 } : { opacity: 0, y: 10 }}
