@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { cn } from "@/lib/utils/cn";
-import type { ServiceItem } from "@/components/features/services/services-gallery-data";
+import type { ServiceItem } from "@/lib/constants/services-gallery";
 
 import { EASE_PREMIUM } from "@/components/animations/easing";
 

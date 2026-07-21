@@ -1,8 +1,5 @@
 import { cn } from "@/lib/utils/cn";
-import type {
-  GalleryPalette,
-  ServiceGalleryItem,
-} from "@/components/features/services/services-gallery-data";
+import type { GalleryPalette, ServiceGalleryItem } from "@/lib/constants/services-gallery";
 
 const CHART_BARS = [45, 70, 55, 85, 60, 95, 50];
 const CHART_PEAK_INDEX = CHART_BARS.indexOf(Math.max(...CHART_BARS));

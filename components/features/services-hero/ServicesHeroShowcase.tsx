@@ -3,12 +3,9 @@
 import { motion, AnimatePresence, useMotionValueEvent, type MotionValue } from "framer-motion";
 import { useState } from "react";
 import { cn } from "@/lib/utils/cn";
-import { ServicesAtmosphere } from "@/components/features/services-hero/ServicesAtmosphere";
-import { SERVICES } from "@/components/features/services/services-gallery-data";
-import type {
-  GalleryPalette,
-  ServiceItem,
-} from "@/components/features/services/services-gallery-data";
+import { ServicesAtmosphere } from "@/components/shared/ServicesAtmosphere";
+import { SERVICES } from "@/lib/constants/services-gallery";
+import type { GalleryPalette, ServiceItem } from "@/lib/constants/services-gallery";
 
 import { EASE_PREMIUM } from "@/components/animations/easing";
 

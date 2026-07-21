@@ -11,7 +11,7 @@ import {
 } from "@/components/features/contact/icons";
 import { siteConfig } from "@/config/metadata";
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";
-import { ServicesAtmosphere } from "@/components/features/services-hero/ServicesAtmosphere";
+import { ServicesAtmosphere } from "@/components/shared/ServicesAtmosphere";
 import { cn } from "@/lib/utils/cn";
 
 import { EASE_PREMIUM } from "@/components/animations/easing";

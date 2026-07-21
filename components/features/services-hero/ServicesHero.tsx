@@ -2,7 +2,7 @@
 
 import { motion, useMotionValueEvent, useScroll, useTransform, type Variants } from "framer-motion";
 import { useRef, useState } from "react";
-import { ServicesAtmosphere } from "@/components/features/services-hero/ServicesAtmosphere";
+import { ServicesAtmosphere } from "@/components/shared/ServicesAtmosphere";
 import { ServicesMarquee } from "@/components/features/services-hero/ServicesMarquee";
 import { ServicesHeroShowcase } from "@/components/features/services-hero/ServicesHeroShowcase";
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";

@@ -3,7 +3,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { ServiceAccordionItem } from "@/components/features/services/ServiceAccordionItem";
-import { SERVICES } from "@/components/features/services/services-gallery-data";
+import { SERVICES } from "@/lib/constants/services-gallery";
 import { Badge } from "@/components/ui/Badge";
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";
 

@@ -3,10 +3,7 @@
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils/cn";
 import { ServiceGalleryTile } from "@/components/features/services/ServiceGalleryTile";
-import type {
-  GallerySize,
-  ServiceGalleryItem,
-} from "@/components/features/services/services-gallery-data";
+import type { GallerySize, ServiceGalleryItem } from "@/lib/constants/services-gallery";
 
 import { EASE_PREMIUM } from "@/components/animations/easing";
 
