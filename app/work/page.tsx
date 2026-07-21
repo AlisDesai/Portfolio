@@ -132,16 +132,16 @@ export default function WorkPage() {
                 Direct Contact
               </h3>
               <a
-                href="mailto:hello@harshpatel.com"
+                href="mailto:inquiry@brightwavesol.com"
                 className="hover:text-accent text-lg font-medium text-zinc-900 transition-colors sm:text-xl"
               >
-                hello@harshpatel.com
+                inquiry@brightwavesol.com
               </a>
               <a
-                href="tel:+1234567890"
+                href="tel:+919016071000"
                 className="hover:text-accent text-lg font-medium text-zinc-900 transition-colors sm:text-xl"
               >
-                +1 (234) 567-890
+                +91 90160 71000
               </a>
             </div>
 

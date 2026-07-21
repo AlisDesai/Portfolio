@@ -1,6 +1,6 @@
 export const COMPANY_CONTACT = {
-  email: "hello@portfolio.dev",
-  phone: "+1 (555) 012-4567",
+  email: "inquiry@brightwavesol.com",
+  phone: "+91 90160 71000",
   address: "148 Market Street, San Francisco, CA 94105",
 };
 
@@ -70,5 +70,5 @@ export const SOCIAL_LINKS: SocialLink[] = [
   { name: "LinkedIn", href: "https://linkedin.com", brandColor: "#0A66C2" },
   { name: "Instagram", href: "https://instagram.com", brandColor: "#E4405F" },
   { name: "Facebook", href: "https://facebook.com", brandColor: "#1877F2" },
-  { name: "WhatsApp", href: "https://wa.me/15550124567", brandColor: "#25D366" },
+  { name: "WhatsApp", href: "https://wa.me/919016071000", brandColor: "#25D366" },
 ];
