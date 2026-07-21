@@ -7,6 +7,8 @@ import { Badge } from "@/components/ui/Badge";
 import { cn } from "@/lib/utils/cn";
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";
 
+import { EASE_PREMIUM } from "@/components/animations/easing";
+
 const THEME_STYLES: Record<WorkProject["theme"], string> = {
   blue: "from-blue-500/20 via-blue-500/5 to-transparent border-blue-500/20",
   emerald: "from-emerald-500/20 via-emerald-500/5 to-transparent border-emerald-500/20",
@@ -31,7 +33,7 @@ export function WorkStack({ hideHeader = false }: { hideHeader?: boolean }) {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.7, ease: EASE_PREMIUM }}
             className="mb-16 flex flex-col items-center gap-4 text-center md:mb-24"
           >
             <Badge variant="dark">Featured Work</Badge>
@@ -85,7 +87,7 @@ function WorkCard({
         initial={{ opacity: 0, y: reduceMotion ? 0 : 50, scale: reduceMotion ? 1 : 0.95 }}
         whileInView={{ opacity: 1, y: 0, scale: 1 }}
         viewport={{ once: true, margin: "-50px" }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: 0.8, ease: EASE_PREMIUM }}
         className={cn(
           "relative overflow-hidden rounded-3xl border bg-zinc-900/80 p-8 shadow-[0_0_40px_rgba(0,0,0,0.3)] backdrop-blur-2xl sm:p-12 md:p-16",
           "bg-gradient-to-br",

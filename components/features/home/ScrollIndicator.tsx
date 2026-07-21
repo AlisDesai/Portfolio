@@ -2,6 +2,8 @@
 
 import { motion, useTransform, type MotionValue } from "framer-motion";
 
+import { EASE_PREMIUM } from "@/components/animations/easing";
+
 interface ScrollIndicatorProps {
   scrollYProgress: MotionValue<number>;
   reduceMotion: boolean;
@@ -14,7 +16,7 @@ export function ScrollIndicator({ scrollYProgress, reduceMotion }: ScrollIndicat
     <motion.div
       initial={{ opacity: 0, y: reduceMotion ? 0 : 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.7, delay: 3.8, ease: [0.16, 1, 0.3, 1] }}
+      transition={{ duration: 0.7, delay: 3.8, ease: EASE_PREMIUM }}
       className="absolute inset-x-0 bottom-8 z-20"
     >
       {/* Separate element for the scroll-linked fade so it doesn't fight the entrance animation above. */}
