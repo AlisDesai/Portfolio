@@ -36,8 +36,8 @@ export const metadata: Metadata = {
   description: siteConfig.description,
 };
 
-import { CustomCursor } from "@/components/shared/CustomCursor";
-import { FloatingAssistant } from "@/components/shared/FloatingAssistant";
+import { CustomCursor } from "@/components/layout/CustomCursor";
+import { FloatingAssistant } from "@/components/layout/FloatingAssistant";
 import { ScrollWaveTheme } from "@/components/layout/ScrollWaveTheme";
 import { Navbar } from "@/components/layout/Navbar";
 
