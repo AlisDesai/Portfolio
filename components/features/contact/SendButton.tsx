@@ -1,23 +1,24 @@
 "use client";
 
 import { AnimatePresence, motion, useMotionValue, useSpring } from "framer-motion";
-import { useState } from "react";
 import { ArrowUpRightIcon, CheckIcon, SpinnerIcon } from "@/components/features/contact/icons";
 
 import { EASE_PREMIUM } from "@/components/animations/easing";
-const SENDING_DURATION_MS = 900;
-const SENT_DISPLAY_MS = 2200;
 
-type SendStatus = "idle" | "sending" | "sent";
+export type SendStatus = "idle" | "sending" | "sent" | "error";
 
 interface SendButtonProps {
   reduceMotion: boolean;
+  /** Submission status, owned by the parent form (which has the actual
+   * field values and talks to the API) -- this component is purely
+   * presentational plus the magnetic-hover/tap interaction. */
+  status: SendStatus;
+  onSend: () => void;
 }
 
 /** Premium CTA — subtle magnetic hover pull, a gradient sheen sweep, and a
- * local (UI-only, no submission endpoint exists yet) sending/sent transition. */
-export function SendButton({ reduceMotion }: SendButtonProps) {
-  const [status, setStatus] = useState<SendStatus>("idle");
+ * status-driven sending/sent/error transition wired to a real submission. */
+export function SendButton({ reduceMotion, status, onSend }: SendButtonProps) {
   const x = useMotionValue(0);
   const y = useMotionValue(0);
   const springX = useSpring(x, { stiffness: 150, damping: 15, mass: 0.2 });
@@ -36,23 +37,25 @@ export function SendButton({ reduceMotion }: SendButtonProps) {
   };
 
   const handleClick = () => {
-    if (status !== "idle") return;
-    setStatus("sending");
-    setTimeout(() => {
-      setStatus("sent");
-      setTimeout(() => setStatus("idle"), SENT_DISPLAY_MS);
-    }, SENDING_DURATION_MS);
+    if (status !== "idle" && status !== "error") return;
+    onSend();
   };
 
   const label =
-    status === "sending" ? "Sending" : status === "sent" ? "Message Sent" : "Send Message";
+    status === "sending"
+      ? "Sending"
+      : status === "sent"
+        ? "Message Sent"
+        : status === "error"
+          ? "Try Again"
+          : "Send Message";
 
   return (
     <div className="relative inline-flex">
       {/* Soft idle "breathing" glow — same accent-pulse language as the
           heading's status dot, just scaled up to sit behind the CTA. Lives
           outside the button so its own overflow-hidden doesn't clip it. */}
-      {status === "idle" && !reduceMotion && (
+      {(status === "idle" || status === "error") && !reduceMotion && (
         <span
           aria-hidden="true"
           className="bg-accent/25 pointer-events-none absolute -inset-3 -z-10 animate-pulse rounded-full blur-xl"
@@ -61,7 +64,7 @@ export function SendButton({ reduceMotion }: SendButtonProps) {
 
       <motion.button
         type="button"
-        disabled={status !== "idle"}
+        disabled={status === "sending" || status === "sent"}
         onClick={handleClick}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}

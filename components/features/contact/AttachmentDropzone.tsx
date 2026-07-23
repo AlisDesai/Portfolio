@@ -3,22 +3,55 @@
 import { AnimatePresence, motion } from "framer-motion";
 import { useRef, useState } from "react";
 import { FileIcon, PaperclipIcon, XIcon } from "@/components/features/contact/icons";
+import {
+  ALLOWED_ATTACHMENT_EXTENSIONS,
+  fileExtensionOf,
+  MAX_ATTACHMENT_BYTES,
+} from "@/lib/validators/contact";
 import { cn } from "@/lib/utils/cn";
 
 import { EASE_PREMIUM } from "@/components/animations/easing";
 
 interface AttachmentDropzoneProps {
   reduceMotion: boolean;
+  /** Called with the selected File (or null if cleared/rejected) so the
+   * parent form can include it in the actual submission. */
+  onFileSelected?: (file: File | null) => void;
 }
 
+const MAX_ATTACHMENT_MB = Math.round(MAX_ATTACHMENT_BYTES / (1024 * 1024));
+
 /** Drag-and-drop attachment picker with empty / hover / drag / success states. */
-export function AttachmentDropzone({ reduceMotion }: AttachmentDropzoneProps) {
+export function AttachmentDropzone({ reduceMotion, onFileSelected }: AttachmentDropzoneProps) {
   const [fileName, setFileName] = useState<string | null>(null);
   const [isDragActive, setIsDragActive] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleFiles = (files: FileList | null) => {
-    if (files && files.length > 0) setFileName(files[0].name);
+    if (!files || files.length === 0) return;
+    const file = files[0];
+
+    // Quick client-side pre-check for a fast, friendly message -- the
+    // server repeats this (and adds a byte-signature check it can't do
+    // here) and is the actual authority.
+    const extension = fileExtensionOf(file.name);
+    if (!(ALLOWED_ATTACHMENT_EXTENSIONS as readonly string[]).includes(extension)) {
+      setError("Only PDF, JPG, PNG, and WEBP files are allowed.");
+      setFileName(null);
+      onFileSelected?.(null);
+      return;
+    }
+    if (file.size > MAX_ATTACHMENT_BYTES) {
+      setError(`Attachments must be under ${MAX_ATTACHMENT_MB}MB.`);
+      setFileName(null);
+      onFileSelected?.(null);
+      return;
+    }
+
+    setError(null);
+    setFileName(file.name);
+    onFileSelected?.(file);
   };
 
   return (
@@ -50,6 +83,7 @@ export function AttachmentDropzone({ reduceMotion }: AttachmentDropzoneProps) {
           ref={inputRef}
           id="contact-attachment"
           type="file"
+          accept={ALLOWED_ATTACHMENT_EXTENSIONS.join(",")}
           className="sr-only"
           onChange={(event) => handleFiles(event.target.files)}
         />
@@ -82,6 +116,8 @@ export function AttachmentDropzone({ reduceMotion }: AttachmentDropzoneProps) {
                   event.preventDefault();
                   event.stopPropagation();
                   setFileName(null);
+                  setError(null);
+                  onFileSelected?.(null);
                   if (inputRef.current) inputRef.current.value = "";
                 }}
                 className="flex size-7 shrink-0 items-center justify-center rounded-full text-zinc-400 transition-colors duration-300 hover:bg-zinc-200 hover:text-zinc-900"
@@ -103,6 +139,7 @@ export function AttachmentDropzone({ reduceMotion }: AttachmentDropzoneProps) {
           )}
         </AnimatePresence>
       </label>
+      {error && <p className="mt-2 text-sm font-medium text-rose-500">{error}</p>}
     </div>
   );
 }

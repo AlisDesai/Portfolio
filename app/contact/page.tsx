@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   BUDGET_RANGES,
   EMAIL_HREF,
@@ -12,12 +12,16 @@ import { SocialIcon, CheckIcon } from "@/components/features/contact/icons";
 import { AttachmentDropzone } from "@/components/features/contact/AttachmentDropzone";
 import { InterestChips } from "@/components/features/contact/InterestChips";
 import { SegmentedSelector } from "@/components/features/contact/SegmentedSelector";
-import { SendButton } from "@/components/features/contact/SendButton";
+import { SendButton, type SendStatus } from "@/components/features/contact/SendButton";
+import { TurnstileWidget } from "@/components/features/contact/TurnstileWidget";
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";
 import { CONTACT_FORM_FOCUS_EVENT } from "@/lib/constants/assistant";
 import { cn } from "@/lib/utils/cn";
+import { ContactFormSchema } from "@/lib/validators/contact";
 
 import { EASE_PREMIUM } from "@/components/animations/easing";
+
+const SENT_DISPLAY_MS = 2200;
 
 const FADE_UP = {
   hidden: { opacity: 0, y: 40 },
@@ -54,13 +58,92 @@ export default function ContactPage() {
   const [budget, setBudget] = useState<string | null>(null);
   const [timeline, setTimeline] = useState<string | null>(null);
   const [focusedField, setFocusedField] = useState<ContactField | null>(null);
+  const [name, setName] = useState("");
+  const [projectIdea, setProjectIdea] = useState("");
   const [email, setEmail] = useState("");
+  const [attachment, setAttachment] = useState<File | null>(null);
+  const [attachmentResetKey, setAttachmentResetKey] = useState(0);
+  const [sendStatus, setSendStatus] = useState<SendStatus>("idle");
+  const [sendError, setSendError] = useState<string | null>(null);
   const isEmailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+  const honeypotRef = useRef<HTMLInputElement>(null);
+  const turnstileTokenRef = useRef("");
+  const formRenderedAtRef = useRef<number | null>(null);
+
+  // Records when the form actually became interactive -- used server-side
+  // as a bot-timing check (see app/api/contact/route.ts). Set in an effect
+  // rather than during render, since Date.now() is impure.
+  useEffect(() => {
+    formRenderedAtRef.current = Date.now();
+  }, []);
 
   const toggleInterest = (label: string) => {
     setSelectedInterests((prev) =>
       prev.includes(label) ? prev.filter((item) => item !== label) : [...prev, label]
     );
+  };
+
+  const handleSend = async () => {
+    const validation = ContactFormSchema.safeParse({
+      name,
+      email,
+      message: projectIdea,
+      interests: selectedInterests,
+      budget,
+      timeline,
+    });
+
+    if (!validation.success) {
+      setSendStatus("error");
+      setSendError(validation.error.issues[0]?.message ?? "Please check the form and try again.");
+      return;
+    }
+
+    setSendStatus("sending");
+    setSendError(null);
+
+    try {
+      const formData = new FormData();
+      formData.append("name", validation.data.name);
+      formData.append("email", validation.data.email);
+      formData.append("message", validation.data.message);
+      formData.append("interests", JSON.stringify(validation.data.interests));
+      if (validation.data.budget) formData.append("budget", validation.data.budget);
+      if (validation.data.timeline) formData.append("timeline", validation.data.timeline);
+      if (attachment) formData.append("attachment", attachment);
+      // Honeypot -- real visitors never see/fill this field; its actual DOM
+      // value is forwarded as-is so the server can reject anything a bot put in it.
+      formData.append("company_website", honeypotRef.current?.value ?? "");
+      formData.append("form_rendered_at", String(formRenderedAtRef.current));
+      formData.append("turnstileToken", turnstileTokenRef.current);
+
+      const response = await fetch("/api/contact", { method: "POST", body: formData });
+      const result = (await response.json().catch(() => null)) as {
+        success?: boolean;
+        error?: string;
+      } | null;
+
+      if (!response.ok || !result?.success) {
+        setSendStatus("error");
+        setSendError(result?.error ?? "Something went wrong. Please try again.");
+        return;
+      }
+
+      setSendStatus("sent");
+      setName("");
+      setProjectIdea("");
+      setEmail("");
+      setSelectedInterests([]);
+      setBudget(null);
+      setTimeline(null);
+      setAttachment(null);
+      setAttachmentResetKey((key) => key + 1);
+      setTimeout(() => setSendStatus("idle"), SENT_DISPLAY_MS);
+    } catch {
+      setSendStatus("error");
+      setSendError("Network error. Please check your connection and try again.");
+    }
   };
 
   const handleFieldFocus = (field: ContactField) => {
@@ -205,6 +288,8 @@ export default function ContactPage() {
                 <motion.input
                   type="text"
                   placeholder="your name"
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
                   onFocus={() => handleFieldFocus("name")}
                   onBlur={handleFieldBlur}
                   whileFocus={reduceMotion ? undefined : { scale: 1.03 }}
@@ -239,6 +324,8 @@ export default function ContactPage() {
                 <motion.input
                   type="text"
                   placeholder="your project idea"
+                  value={projectIdea}
+                  onChange={(event) => setProjectIdea(event.target.value)}
                   onFocus={() => handleFieldFocus("idea")}
                   onBlur={handleFieldBlur}
                   whileFocus={reduceMotion ? undefined : { scale: 1.03 }}
@@ -308,12 +395,37 @@ export default function ContactPage() {
               <div className="mt-16 flex flex-col gap-10 sm:mt-20">
                 <div>
                   <StepMarker index="04" />
-                  <AttachmentDropzone reduceMotion={reduceMotion} />
+                  <AttachmentDropzone
+                    key={attachmentResetKey}
+                    reduceMotion={reduceMotion}
+                    onFileSelected={setAttachment}
+                  />
                 </div>
-                <div className="flex items-center">
-                  <SendButton reduceMotion={reduceMotion} />
+                <div className="flex flex-col gap-3">
+                  {/* Honeypot -- invisible to real visitors, real bots that
+                      blindly fill every input trip it (see handleSend). */}
+                  <input
+                    ref={honeypotRef}
+                    type="text"
+                    name="company_website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    aria-hidden="true"
+                    className="sr-only"
+                  />
+                  <div className="flex items-center">
+                    <SendButton
+                      reduceMotion={reduceMotion}
+                      status={sendStatus}
+                      onSend={handleSend}
+                    />
+                  </div>
+                  {sendStatus === "error" && sendError && (
+                    <p className="text-base font-semibold text-rose-500 sm:text-lg">{sendError}</p>
+                  )}
                 </div>
               </div>
+              <TurnstileWidget onToken={(token) => (turnstileTokenRef.current = token)} />
             </motion.form>
           </motion.div>
         </div>
