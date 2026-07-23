@@ -4,6 +4,7 @@ import { ArrowUpRightIcon, SocialIcon } from "@/components/features/contact/icon
 import { WorkHero } from "@/components/features/work/WorkHero";
 import { WorkIndex } from "@/components/features/work/WorkIndex";
 import { ROUTES } from "@/config/routes";
+import { cn } from "@/lib/utils/cn";
 
 export default function WorkPage() {
   return (
@@ -73,7 +74,13 @@ export default function WorkPage() {
                   aria-label={social.name}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group hover:border-accent hover:bg-accent flex size-14 items-center justify-center rounded-full border border-black/5 bg-white text-zinc-900 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:text-white hover:shadow-lg"
+                  style={{ "--social-brand-color": social.brandColor } as React.CSSProperties}
+                  className={cn(
+                    "group flex size-14 items-center justify-center rounded-full border border-black/5 bg-white text-zinc-900 shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:text-white hover:shadow-lg",
+                    social.name === "Instagram"
+                      ? "hover:bg-linear-to-tr hover:from-[#FFDC80] hover:via-[#E1306C] hover:to-[#833AB4]"
+                      : "hover:bg-(--social-brand-color)"
+                  )}
                 >
                   <SocialIcon
                     platform={social.name}

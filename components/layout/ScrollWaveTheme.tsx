@@ -44,11 +44,7 @@ export function ScrollWaveTheme() {
 
       {/* Layer 1 - Giant scrolling wave */}
       <motion.div style={{ y: wave1Y }} className="absolute top-[-10%] left-0 h-[120vh] w-[200vw]">
-        <motion.div
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 25, ease: "linear", repeat: Infinity }}
-          className="absolute inset-0 w-[200%]"
-        >
+        <div className="absolute inset-0 w-[200%] animate-[marquee-scroll_25s_linear_infinite]">
           <svg
             viewBox="0 0 4800 1000"
             className="h-full w-full"
@@ -62,16 +58,12 @@ export function ScrollWaveTheme() {
               filter="url(#scrollGlow)"
             />
           </svg>
-        </motion.div>
+        </div>
       </motion.div>
 
       {/* Layer 2 - Fast sharp wave */}
       <motion.div style={{ y: wave2Y }} className="absolute top-[10%] left-0 h-[100vh] w-[200vw]">
-        <motion.div
-          animate={{ x: ["-50%", "0%"] }}
-          transition={{ duration: 18, ease: "linear", repeat: Infinity }}
-          className="absolute inset-0 w-[200%]"
-        >
+        <div className="absolute inset-0 w-[200%] animate-[wave-scroll-reverse_18s_linear_infinite]">
           <svg
             viewBox="0 0 4800 1000"
             className="h-full w-full"
@@ -86,16 +78,12 @@ export function ScrollWaveTheme() {
               filter="url(#scrollGlow)"
             />
           </svg>
-        </motion.div>
+        </div>
       </motion.div>
 
       {/* Layer 3 - Slow ambient wave */}
       <motion.div style={{ y: wave3Y }} className="absolute top-[40%] left-0 h-[100vh] w-[200vw]">
-        <motion.div
-          animate={{ x: ["0%", "-50%"] }}
-          transition={{ duration: 40, ease: "linear", repeat: Infinity }}
-          className="absolute inset-0 w-[200%]"
-        >
+        <div className="absolute inset-0 w-[200%] animate-[marquee-scroll_40s_linear_infinite]">
           <svg
             viewBox="0 0 4800 1000"
             className="h-full w-full"
@@ -110,7 +98,7 @@ export function ScrollWaveTheme() {
               filter="url(#scrollGlow)"
             />
           </svg>
-        </motion.div>
+        </div>
       </motion.div>
 
       {/* SVG Definitions */}

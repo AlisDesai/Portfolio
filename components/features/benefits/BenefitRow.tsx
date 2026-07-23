@@ -45,22 +45,15 @@ export function BenefitRow({ benefit, reduceMotion }: BenefitRowProps) {
             transition={{ duration: 0.6, delay: 0.1, ease: EASE_PREMIUM }}
             className="flex size-11 shrink-0 items-center justify-center text-zinc-900 sm:size-12"
           >
-            <motion.span
-              animate={
-                reduceMotion ? undefined : { rotate: [-1.5, 1.5, -1.5], scale: [1, 1.015, 1] }
-              }
-              transition={
+            <span
+              className={
                 reduceMotion
-                  ? undefined
-                  : {
-                      rotate: { duration: 3.2, repeat: Infinity, ease: "easeInOut" },
-                      scale: { duration: 2.6, repeat: Infinity, ease: "easeInOut" },
-                    }
+                  ? "flex size-full items-center justify-center"
+                  : "flex size-full animate-[benefit-icon-rotate_3.2s_ease-in-out_infinite,benefit-icon-scale_2.6s_ease-in-out_infinite] items-center justify-center"
               }
-              className="flex size-full items-center justify-center"
             >
               <BenefitIconMark ref={iconRef} icon={benefit.icon} className="size-full" />
-            </motion.span>
+            </span>
           </motion.span>
 
           <motion.span

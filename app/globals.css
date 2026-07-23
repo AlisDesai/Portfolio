@@ -40,3 +40,65 @@ body {
     transform: translate3d(-50%, 0, 0);
   }
 }
+
+/* Reverse-direction counterpart to marquee-scroll, used by ScrollWaveTheme's
+   middle wave layer (was previously driven by a per-frame Framer Motion
+   `animate` loop; translate3d here gets the same guaranteed GPU layer
+   promotion as marquee-scroll, off the main thread). */
+@keyframes wave-scroll-reverse {
+  from {
+    transform: translate3d(-50%, 0, 0);
+  }
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+/* ServicesAtmosphere's traveling signal-trace dash (was a per-frame Framer
+   Motion `strokeDashoffset` loop) — same 0 to -46 cycle, now scheduled by the
+   browser's own animation engine instead of JS on every frame. */
+@keyframes dash-trace-scroll {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: -46;
+  }
+}
+
+/* ServicesAtmosphere's node opacity pulse (was a per-frame Framer Motion
+   opacity loop). */
+@keyframes atmosphere-node-pulse {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+/* BenefitRow's idle icon "breathing" drift (was two per-frame Framer Motion
+   rotate/scale loops). Kept as separate rotate/scale keyframes — rather than
+   folded into one `transform` animation — so they can run as independent,
+   differently-timed CSS animations on the same element, matching how Framer
+   Motion composed them as independent motion values. */
+@keyframes benefit-icon-rotate {
+  0%,
+  100% {
+    rotate: -1.5deg;
+  }
+  50% {
+    rotate: 1.5deg;
+  }
+}
+
+@keyframes benefit-icon-scale {
+  0%,
+  100% {
+    scale: 1;
+  }
+  50% {
+    scale: 1.015;
+  }
+}

@@ -46,12 +46,7 @@ export function WorkStack({ hideHeader = false }: { hideHeader?: boolean }) {
         {/* The container needs to have enough padding at the bottom so the last card can be scrolled past */}
         <div className="flex flex-col gap-10 pb-[10vh] sm:gap-14">
           {WORK_PROJECTS.slice(0, 5).map((project, index, arr) => (
-            <WorkCard
-              key={project.id}
-              project={project}
-              index={index}
-              total={arr.length}
-            />
+            <WorkCard key={project.id} project={project} index={index} total={arr.length} />
           ))}
         </div>
       </div>

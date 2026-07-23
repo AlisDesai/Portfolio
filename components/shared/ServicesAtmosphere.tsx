@@ -63,7 +63,7 @@ export function ServicesAtmosphere({ variant, reduceMotion }: ServicesAtmosphere
         ))}
 
         {SIGNAL_TRACES.map((d, index) => (
-          <motion.path
+          <path
             key={index}
             d={d}
             fill="none"
@@ -71,28 +71,23 @@ export function ServicesAtmosphere({ variant, reduceMotion }: ServicesAtmosphere
             strokeWidth={1.5}
             strokeLinecap="round"
             strokeDasharray="1 22"
-            animate={reduceMotion ? undefined : { strokeDashoffset: [0, -46] }}
-            transition={
-              reduceMotion
-                ? undefined
-                : { duration: 16 + index * 4, ease: "linear", repeat: Infinity }
-            }
+            className={reduceMotion ? undefined : "animate-[dash-trace-scroll_16s_linear_infinite]"}
+            style={reduceMotion ? undefined : { animationDuration: `${16 + index * 4}s` }}
           />
         ))}
 
         {NODES.map((node, index) => (
-          <motion.circle
+          <circle
             key={index}
             cx={node.x}
             cy={node.y}
             r={3}
             fill={nodeColor}
-            initial={{ opacity: 0.25 }}
-            animate={reduceMotion ? { opacity: 0.4 } : { opacity: [0.25, 0.7, 0.25] }}
-            transition={
-              reduceMotion
-                ? undefined
-                : { duration: 4, delay: node.delay, ease: "easeInOut", repeat: Infinity }
+            className={
+              reduceMotion ? undefined : "animate-[atmosphere-node-pulse_4s_ease-in-out_infinite]"
+            }
+            style={
+              reduceMotion ? { opacity: 0.4 } : { opacity: 0.25, animationDelay: `${node.delay}s` }
             }
           />
         ))}
