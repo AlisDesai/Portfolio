@@ -4,7 +4,28 @@ export const COMPANY_CONTACT = {
   address: "Based in Ahmedabad / Vadodara",
 };
 
-const EMAIL_HREF = `mailto:${COMPANY_CONTACT.email}`;
+const EMAIL_SUBJECT = "General Inquiry";
+
+const EMAIL_BODY = [
+  "Hello BrightWave Solutions Team,",
+  "",
+  "I hope you're doing well.",
+  "",
+  "I'm interested in learning more about your services and would like to discuss a potential project.",
+  "",
+  "Please let me know a convenient time to connect.",
+  "",
+  "Looking forward to hearing from you.",
+  "",
+  "Best regards,",
+  "[Your Name]",
+  "[Your Mobile Number]",
+].join("\r\n");
+
+// Pre-filled mailto: link — opens the visitor's default mail client (Apple
+// Mail, Outlook, Gmail app, Thunderbird, etc.) with a ready-to-send inquiry,
+// on both desktop and mobile.
+export const EMAIL_HREF = `mailto:${COMPANY_CONTACT.email}?subject=${encodeURIComponent(EMAIL_SUBJECT)}&body=${encodeURIComponent(EMAIL_BODY)}`;
 const PHONE_HREF = `tel:${COMPANY_CONTACT.phone.replace(/[^+\d]/g, "")}`;
 
 export type FooterItemIcon = "mail" | "phone" | "pin";

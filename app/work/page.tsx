@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { SOCIAL_LINKS } from "@/components/features/contact/contact-data";
+import { EMAIL_HREF, SOCIAL_LINKS } from "@/components/features/contact/contact-data";
 import { ArrowUpRightIcon, SocialIcon } from "@/components/features/contact/icons";
 import { WorkHero } from "@/components/features/work/WorkHero";
 import { WorkIndex } from "@/components/features/work/WorkIndex";
@@ -51,7 +51,7 @@ export default function WorkPage() {
               Direct Contact
             </h3>
             <a
-              href="mailto:inquiry@brightwavesol.com"
+              href={EMAIL_HREF}
               className="hover:text-accent text-lg font-medium text-zinc-900 transition-colors sm:text-xl"
             >
               inquiry@brightwavesol.com

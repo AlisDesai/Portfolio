@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import {
   BUDGET_RANGES,
+  EMAIL_HREF,
   PROJECT_TIMELINES,
   SOCIAL_LINKS,
 } from "@/components/features/contact/contact-data";
@@ -332,7 +333,7 @@ export default function ContactPage() {
               Direct Contact
             </h3>
             <a
-              href="mailto:inquiry@brightwavesol.com"
+              href={EMAIL_HREF}
               className="hover:text-accent text-lg font-medium text-zinc-900 transition-colors sm:text-xl"
             >
               inquiry@brightwavesol.com
