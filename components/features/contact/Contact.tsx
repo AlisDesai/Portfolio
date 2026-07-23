@@ -1,18 +1,22 @@
 "use client";
 
-import { motion, useInView, type Variants } from "framer-motion";
-import { useRef } from "react";
+import { AnimatePresence, motion, useInView, type Variants } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 import { ContactInfoGrid } from "@/components/features/contact/ContactInfoGrid";
 import { SOCIAL_LINKS } from "@/components/features/contact/contact-data";
 import {
   AbstractLogoMark,
   ArrowUpRightIcon,
+  CheckIcon,
   SocialIcon,
+  SpinnerIcon,
 } from "@/components/features/contact/icons";
+import { TurnstileWidget } from "@/components/features/contact/TurnstileWidget";
 import { siteConfig } from "@/config/metadata";
 import { usePrefersReducedMotion } from "@/hooks/shared/usePrefersReducedMotion";
 import { ServicesAtmosphere } from "@/components/shared/ServicesAtmosphere";
 import { cn } from "@/lib/utils/cn";
+import { CollaborateFormSchema } from "@/lib/validators/collaborate";
 
 import { EASE_PREMIUM } from "@/components/animations/easing";
 
@@ -28,6 +32,9 @@ const COLUMNS_START_DELAY = 1.35;
 const COLUMN_STAGGER = 0.12;
 const SOCIALS_DELAY = 1.9;
 
+type CollaborateStatus = "idle" | "sending" | "sent" | "error";
+const SENT_DISPLAY_MS = 3200;
+
 interface ContactProps {
   /** Set to false to omit the "Let's Collaborate" CTA band and render only
    * the footer-info/social/copyright area — e.g. when the CTA already
@@ -39,6 +46,60 @@ export function Contact({ showCollaborateCta = true }: ContactProps) {
   const sectionRef = useRef<HTMLElement>(null);
   const isInView = useInView(sectionRef, { once: true, amount: 0.15 });
   const reduceMotion = usePrefersReducedMotion();
+
+  const [collaborateEmail, setCollaborateEmail] = useState("");
+  const [collaborateStatus, setCollaborateStatus] = useState<CollaborateStatus>("idle");
+  const [collaborateError, setCollaborateError] = useState<string | null>(null);
+  const honeypotRef = useRef<HTMLInputElement>(null);
+  const turnstileTokenRef = useRef("");
+  const formRenderedAtRef = useRef<number | null>(null);
+
+  // Set in an effect rather than during render -- Date.now() is impure.
+  useEffect(() => {
+    formRenderedAtRef.current = Date.now();
+  }, []);
+
+  const handleCollaborateSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (collaborateStatus === "sending" || collaborateStatus === "sent") return;
+
+    const validation = CollaborateFormSchema.safeParse({ email: collaborateEmail });
+    if (!validation.success) {
+      setCollaborateStatus("error");
+      setCollaborateError(validation.error.issues[0]?.message ?? "Enter a valid email address.");
+      return;
+    }
+
+    setCollaborateStatus("sending");
+    setCollaborateError(null);
+
+    try {
+      const formData = new FormData();
+      formData.append("email", validation.data.email);
+      formData.append("company_website", honeypotRef.current?.value ?? "");
+      formData.append("form_rendered_at", String(formRenderedAtRef.current));
+      formData.append("turnstileToken", turnstileTokenRef.current);
+
+      const response = await fetch("/api/collaborate", { method: "POST", body: formData });
+      const result = (await response.json().catch(() => null)) as {
+        success?: boolean;
+        error?: string;
+      } | null;
+
+      if (!response.ok || !result?.success) {
+        setCollaborateStatus("error");
+        setCollaborateError(result?.error ?? "Something went wrong. Please try again.");
+        return;
+      }
+
+      setCollaborateStatus("sent");
+      setCollaborateEmail("");
+      setTimeout(() => setCollaborateStatus("idle"), SENT_DISPLAY_MS);
+    } catch {
+      setCollaborateStatus("error");
+      setCollaborateError("Network error. Please check your connection and try again.");
+    }
+  };
 
   const headingContainer: Variants = {
     hidden: {},
@@ -110,26 +171,111 @@ export function Contact({ showCollaborateCta = true }: ContactProps) {
               initial={{ opacity: 0, y: reduceMotion ? 0 : 16 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.7, delay: INPUT_DELAY, ease: EASE_PREMIUM }}
+              onSubmit={handleCollaborateSubmit}
               className="focus-within:border-accent/60 mt-16 flex w-full max-w-2xl items-end gap-6 border-b border-white/20 pb-5 transition-colors duration-300 ease-out lg:mt-20"
             >
               <input
                 type="email"
                 placeholder="Email"
                 aria-label="Email address"
-                className="font-display w-full min-w-0 bg-transparent text-3xl text-white placeholder:text-white/25 placeholder:transition-opacity placeholder:duration-300 focus:outline-none sm:text-4xl"
+                value={collaborateEmail}
+                onChange={(event) => setCollaborateEmail(event.target.value)}
+                disabled={collaborateStatus === "sending" || collaborateStatus === "sent"}
+                className="font-display w-full min-w-0 bg-transparent text-3xl text-white placeholder:text-white/25 placeholder:transition-opacity placeholder:duration-300 focus:outline-none disabled:opacity-60 sm:text-4xl"
+              />
+
+              {/* Honeypot -- invisible to real visitors; see app/api/collaborate/route.ts. */}
+              <input
+                ref={honeypotRef}
+                type="text"
+                name="company_website"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="sr-only"
               />
 
               <motion.button
                 type="submit"
                 aria-label="Send message"
+                disabled={collaborateStatus === "sending" || collaborateStatus === "sent"}
                 initial={{ scale: 0 }}
                 animate={isInView ? { scale: 1 } : {}}
+                whileTap={reduceMotion ? undefined : { scale: 0.9 }}
                 transition={{ duration: 0.5, delay: BUTTON_DELAY, ease: EASE_PREMIUM }}
-                className="group flex size-14 shrink-0 items-center justify-center rounded-full bg-white transition-all duration-300 ease-out hover:scale-105 hover:shadow-[0_10px_40px_-10px_rgba(255,255,255,0.4)]"
+                className="group flex size-14 shrink-0 items-center justify-center rounded-full bg-white transition-all duration-300 ease-out hover:scale-105 hover:shadow-[0_10px_40px_-10px_rgba(255,255,255,0.4)] disabled:pointer-events-none disabled:opacity-80"
               >
-                <ArrowUpRightIcon className="size-5 text-black transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <AnimatePresence mode="wait" initial={false}>
+                  {collaborateStatus === "sending" ? (
+                    <motion.span
+                      key="sending"
+                      initial={{ opacity: 0, scale: 0.6 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.6 }}
+                      transition={{ duration: 0.2, ease: EASE_PREMIUM }}
+                      className="flex"
+                    >
+                      <SpinnerIcon className="size-5 animate-spin text-black" />
+                    </motion.span>
+                  ) : collaborateStatus === "sent" ? (
+                    <motion.span
+                      key="sent"
+                      initial={{ opacity: 0, scale: 0.6 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.6 }}
+                      transition={{ duration: 0.2, ease: EASE_PREMIUM }}
+                      className="flex"
+                    >
+                      <CheckIcon className="size-5 text-black" />
+                    </motion.span>
+                  ) : (
+                    <motion.span
+                      key="idle"
+                      initial={{ opacity: 0, scale: 0.6 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.6 }}
+                      transition={{ duration: 0.2, ease: EASE_PREMIUM }}
+                      className="flex"
+                    >
+                      <ArrowUpRightIcon className="size-5 text-black transition-transform duration-300 ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    </motion.span>
+                  )}
+                </AnimatePresence>
               </motion.button>
+              <TurnstileWidget onToken={(token) => (turnstileTokenRef.current = token)} />
             </motion.form>
+
+            {/* Inline status message — replaces the old native form submit
+                (which reloaded the page back to the top). Stays in place;
+                never navigates anywhere. */}
+            <div className="mt-4 min-h-6 max-w-2xl">
+              <AnimatePresence mode="wait">
+                {collaborateStatus === "sent" && (
+                  <motion.p
+                    key="sent-message"
+                    initial={{ opacity: 0, y: reduceMotion ? 0 : 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: reduceMotion ? 0 : -8 }}
+                    transition={{ duration: 0.3, ease: EASE_PREMIUM }}
+                    className="text-base font-medium text-white/70"
+                  >
+                    Thanks — we&rsquo;ll be in touch shortly.
+                  </motion.p>
+                )}
+                {collaborateStatus === "error" && collaborateError && (
+                  <motion.p
+                    key="error-message"
+                    initial={{ opacity: 0, y: reduceMotion ? 0 : 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: reduceMotion ? 0 : -8 }}
+                    transition={{ duration: 0.3, ease: EASE_PREMIUM }}
+                    className="text-base font-medium text-rose-300"
+                  >
+                    {collaborateError}
+                  </motion.p>
+                )}
+              </AnimatePresence>
+            </div>
           </div>
         </div>
       )}

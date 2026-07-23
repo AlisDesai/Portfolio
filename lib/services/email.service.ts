@@ -179,9 +179,6 @@ export function buildContactEmailHtml(context: ContactEmailContext): string {
               <td style="background-color:${COLOR.darkBg};padding:36px 40px;border-radius:19px 19px 0 0;">
                 <table role="presentation" cellpadding="0" cellspacing="0">
                   <tr>
-                    <td style="padding-right:9px;">
-                      <div style="width:8px;height:8px;border-radius:50%;background-color:${COLOR.accent};"></div>
-                    </td>
                     <td>
                       <span style="font-size:12px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.55);">${escapeHtml(siteConfig.name)}</span>
                     </td>
